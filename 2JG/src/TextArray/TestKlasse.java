@@ -10,7 +10,7 @@ public class TestKlasse {
 		System.out.println(ta2.textForm());
 		ta2.loeschen(2, 4);
 		System.out.println(ta2.textForm());
-		ta2.dazuhängen("zwei");
+		ta2.dazuhaengen("zwei");
 		System.out.println(ta2.textForm());
 		System.out.println(ta2.textForm()+" ident mit "+ta1.textForm()+" ? : "+ta2.equals(ta1));
 		System.out.println(ta2.textForm()+" ident mit "+ta2.textForm()+" ? : "+ta2.equals(ta2));
