@@ -7,14 +7,14 @@ public class Schueler extends Person {
 	 * 
 	 */
 	public Schueler() {
-		this("NN",1,"1xHIT");		
+		this("NN","NN",1,"1xHIT");		
 	}
 	/**
 	 * @param katalogNr
 	 * @param jahrgang
 	 */
-	public Schueler(String n, int katalogNr, String jahrgang) {
-		super(n);
+	public Schueler(String name, String vorname, int katalogNr, String jahrgang) {
+		super(name,vorname);
 		this.katalogNr = katalogNr;
 		this.jahrgang = jahrgang;
 	}
@@ -43,12 +43,13 @@ public class Schueler extends Person {
 		this.jahrgang = jahrgang;
 	}
 	/**
+	 * {@link Person#toString()}
 	 * @return String-Repräsentation
 	 */
 	@Override
 	public String toString() {
-		return "Jahrgang: "+
-		super.toString()+this.jahrgang+
-		" KatalogNummer: "+this.katalogNr;
+		return 
+		super.toString()+", Jahrgang: "+this.jahrgang+
+		", KatalogNummer: "+this.katalogNr;
 	}
 }

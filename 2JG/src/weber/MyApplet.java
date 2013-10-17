@@ -1,4 +1,4 @@
-package ampel;
+package weber;
 
 import java.applet.Applet;
 import java.awt.Color;

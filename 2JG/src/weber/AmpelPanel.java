@@ -1,4 +1,4 @@
-package ampel;
+package weber;
 
 import java.awt.BorderLayout;
 import java.awt.Panel;
