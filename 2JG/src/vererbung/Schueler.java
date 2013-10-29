@@ -60,7 +60,7 @@ public class Schueler extends Person {
 	 */
 	@Override
 	public String getKlassenName(){
-		return "Schueler";
+		return "Schueler ";
 	}
 		
 }

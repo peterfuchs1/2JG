@@ -105,6 +105,6 @@ public class Person implements Printable{
 	 */
 	@Override
 	public String getKlassenName() {
-		return "Person";
+		return "Person ";
 	}
 }
