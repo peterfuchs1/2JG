@@ -1,5 +1,9 @@
 package vererbung;
-
+/**
+ * Klasse Schueler 
+ * @author Walter Rafeiner-Magor
+ * @version 1.1
+ */
 public class Schueler extends Person {
 	private int katalogNr;
 	private String jahrgang;
@@ -48,8 +52,16 @@ public class Schueler extends Person {
 	 */
 	@Override
 	public String toString() {
-		return 
-		super.toString()+", Jahrgang: "+this.jahrgang+
+		return super.toString()+", Jahrgang: "+this.jahrgang+
 		", KatalogNummer: "+this.katalogNr;
 	}
+	/**
+	 * {@link Printable#getKlassenName()}
+	 */
+	@Override
+	public String getKlassenName(){
+		return "Schueler";
+	}
+		
 }
+ 	

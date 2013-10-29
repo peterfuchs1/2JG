@@ -1,23 +1,20 @@
 package vererbung;
 /**
  * Klasse Person 
- * @author uhs374h
- * @version 1.1
+ * @author Walter Rafeiner-Magor
+ * @version 1.2
  */
-	
-public class Person {
-	private static long ID;
+public class Person implements Printable{
+	protected static long ID;
 	private long id;
 	private String nachName;
-	private String vorName;
-
-	
+	private String vorName;	
 	/**
-	 * 
+	 * Standardkonstruktor
 	 */
-	public Person() {
-		this("");
-	}
+//	public Person(){
+//		this("");
+//	}
 	/**
 	 * @param nachName
 	 */
@@ -94,5 +91,20 @@ public class Person {
 	public static long getLastID() {
 		return Person.ID;
 	}
-	
+	/**
+	 * {@link Printable#print(boolean)}
+	 */
+	@Override
+	public void print(boolean newLine) {
+		System.out.print(this.getKlassenName()+this.toString());
+		if(newLine)
+			System.out.println();
+	}
+	/**
+	 * {@link Printable#getKlassenName()}
+	 */
+	@Override
+	public String getKlassenName() {
+		return "Person";
+	}
 }

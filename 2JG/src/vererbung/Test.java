@@ -1,5 +1,5 @@
 package vererbung;
-
+//import static vererbung.Printable.*;
 public class Test {
 
 	public static void main(String[] args) {
@@ -18,14 +18,11 @@ public class Test {
 		schueler[i++]= new Schueler("Mauerer","Anna",10,"5bHITI");
 		schueler[i++]= new Schueler("Schmidt","Johannes",12,"5bHITI");
 		// Ausgabe der Personen
-		System.out.println("Person "+p1.toString());
-		System.out.println("Person "+p2.toString());
+		p1.print(Printable.WAHR);
+		p2.print(true);
 		// Ausgabe aller Schueler
 		for(i=0;i< schueler.length;i++){
-			System.out.println("Schueler "+schueler[i].toString());
-		}
-		
-		
+			schueler[i].print(true);
+		}	
 	}
-
 }
