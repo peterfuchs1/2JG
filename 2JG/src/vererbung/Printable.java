@@ -3,11 +3,13 @@
  */
 package vererbung;
 
+import java.io.Serializable;
+
 /**
  * @author Walter Rafeiner-Magor
  *
  */
-public interface Printable {
+public interface Printable extends Serializable{
 	/**
 	 * Print-Methode für die Konsole
 	 * @param newLine soll eine neue Zeile danach ausgegeben werden?
