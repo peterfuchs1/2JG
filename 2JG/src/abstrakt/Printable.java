@@ -1,7 +1,7 @@
 /**
  * 
  */
-package vererbung;
+package abstrakt;
 
 import java.io.Serializable;
 

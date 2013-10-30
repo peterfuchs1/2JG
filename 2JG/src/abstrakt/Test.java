@@ -1,11 +1,11 @@
-package vererbung;
+package abstrakt;
 //import static vererbung.Printable.*;
 public class Test {
 
 	public static void main(String[] args) {
 		// Erstellen von Objekten der Klasse Person
-		Person p1=new Person("Mayer", "Franz");
-		Person p2=new Person("Weber", "Andrea");
+		Person p1=new Lehrer("Mayer", "Franz","MAYF","HEL");
+		Person p2=new Lehrer("Weber", "Andrea","WEBA","HIT");
 		// Array mit Schuelern
 		Schueler[] schueler=new Schueler[7];
 		int i=0;
