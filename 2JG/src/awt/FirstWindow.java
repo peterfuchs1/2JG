@@ -10,7 +10,7 @@ import java.awt.Window;
  * @author Walter Rafeiner-Magor
  */
 public class FirstWindow extends Window {
-	FirstWindow(){
+	public FirstWindow(){
 		super(new Frame("leeres Fenster"));
 		this.setSize(480, 320); // Größe in Pixel
 		this.setVisible(true);	// sichtbar machen!
