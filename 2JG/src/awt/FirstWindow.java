@@ -8,7 +8,6 @@ import java.awt.Window;
 
 /**
  * @author Walter Rafeiner-Magor
- *
  */
 public class FirstWindow extends Window {
 	FirstWindow(){
