@@ -21,7 +21,7 @@ public class ThirdFrame extends Frame implements WindowListener{
 		Panel links=new Panel();
 		Panel rechts=new Panel();
 		Panel unten=new Panel();
-		Panel mitte=new Panel();
+		Panel mitte=new MyFirstPanel("SEW ist mein Lieblingsfach!");
 		
 		// Jedes Panel bekommt eine eigene Farbe
 		oben.setBackground(Color.GREEN);
@@ -29,6 +29,7 @@ public class ThirdFrame extends Frame implements WindowListener{
 		unten.setBackground(Color.BLUE);
 		links.setBackground(Color.ORANGE);
 		rechts.setBackground(Color.RED);
+		
 		
 		// Die Panels werden nun ins Frame (Container) gesetzt
 		this.add(oben, BorderLayout.NORTH);
