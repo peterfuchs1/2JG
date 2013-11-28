@@ -29,8 +29,7 @@ public class ThirdFrame extends Frame implements WindowListener{
 		unten.setBackground(Color.BLUE);
 		links.setBackground(Color.ORANGE);
 		rechts.setBackground(Color.RED);
-		
-		
+				
 		// Die Panels werden nun ins Frame (Container) gesetzt
 		this.add(oben, BorderLayout.NORTH);
 		this.add(unten, BorderLayout.SOUTH);
