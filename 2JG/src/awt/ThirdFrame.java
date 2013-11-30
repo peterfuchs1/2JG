@@ -13,7 +13,7 @@ import java.awt.event.WindowListener;
 /**
  * @author Walter Rafeiner-Magor
  */
-public class ThirdFrame extends Frame implements WindowListener{
+public class ThirdFrame extends Frame{
 	public ThirdFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt
