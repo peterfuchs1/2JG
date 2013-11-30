@@ -19,7 +19,7 @@ public class ThirdFrame extends Frame{
 		Panel links=new Panel();
 		Panel rechts=new Panel();
 		Panel unten=new Panel();
-		Panel mitte=new MyFirstPanel("SEW ist mein Lieblingsfach!");
+		Panel mitte=new MyFirstPanel("Mein Lieblingsfach lautet: ");
 		
 		// Jedes Panel bekommt eine eigene Farbe
 		oben.setBackground(Color.GREEN);
