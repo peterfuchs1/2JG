@@ -37,7 +37,12 @@ public class ThirdFrame extends Frame implements WindowListener{
 		this.add(links, BorderLayout.WEST);
 		this.add(rechts, BorderLayout.EAST);
 		
-		this.addWindowListener(this);	// Unsere Klasse kümmert sich um Window-Ereignisse!
+		/*
+		 * Wir verwenden nun eine eigene Klasse
+		 * die sich um die Window-Ereignisse kümmert!
+		 */
+		MyWindowAdapter mwa= new MyWindowAdapter();
+		this.addWindowListener(mwa);	
 		this.setSize(480, 320); 		// Größe in Pixel
 		this.setVisible(true);			// sichtbar machen!
 	}
