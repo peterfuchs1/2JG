@@ -52,33 +52,4 @@ public class ThirdFrame extends Frame implements WindowListener{
 	public static void main(String[] args) {
 		new ThirdFrame("leeres Fenster");
 	}
-	@Override
-	public void windowClosed(WindowEvent we) {
-		System.err.println("Window closed");
-	}
-	@Override
-	public void windowActivated(WindowEvent we) {
-		System.err.println("Window activated");
-	}
-	@Override
-	public void windowClosing(WindowEvent we) {
-		System.err.println("Window closing");
-		System.exit(0);
-	}
-	@Override
-	public void windowDeactivated(WindowEvent we) {
-		System.err.println("Window deactivated");
-	}
-	@Override
-	public void windowDeiconified(WindowEvent we) {
-		System.err.println("Window deiconified");
-	}
-	@Override
-	public void windowIconified(WindowEvent we) {
-		System.err.println("Window iconified");
-	}
-	@Override
-	public void windowOpened(WindowEvent we) {
-		System.err.println("Window opened");
-	}
 }
