@@ -2,7 +2,6 @@
  * 
  */
 package awt;
-
 import java.awt.Frame;
 
 /**

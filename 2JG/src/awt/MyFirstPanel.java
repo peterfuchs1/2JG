@@ -2,7 +2,6 @@
  * 
  */
 package awt;
-
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.Panel;
