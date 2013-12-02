@@ -27,6 +27,8 @@ public class MyFirstPanel extends Panel {
 		 * Die Ausrichtung ist linksbündig
 		 */
 		FlowLayout fl=new FlowLayout(FlowLayout.LEFT);
+		fl.setVgap(25);		// vertikaler Abstand 25 Pixel
+		fl.setHgap(10);		// horizontaler Abstand 10 Pixel
 		this.setLayout(fl);	// neuen LayoutManager zuweisen
 		
 		labels=new Label[ANZAHL_ELEMENTE]; // Arrays für Labels erstellt
