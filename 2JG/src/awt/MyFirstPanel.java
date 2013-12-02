@@ -3,7 +3,7 @@
  */
 package awt;
 
-import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
@@ -13,17 +13,30 @@ import java.awt.TextField;
  *
  */
 public class MyFirstPanel extends Panel {
-	private Label l;		//Label zur Darstellung des Textes
-	private TextField tf;
+	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
+	private Label labels[];					// Labels zur Darstellung des Textes
+	private TextField fields[];				// Textfields zur Eingabe
 	/**
 	 * Konstruktor
 	 * @param t Text, der im Label dargestellt werden soll 
 	 */
 	public MyFirstPanel(String t) {
-		l=new Label(t);		// Ein neues Label mit Text wird erstellt
-		l.setForeground(Color.BLACK);	// Farbe für Schrift gesetzt
-		this.add(l);		// Das Label wird dem Panel hinzugefügt
-		tf=new TextField("SEW"); // Ein Textfield mit einem Standardtext wird erstellt.
-		this.add(tf);		// und dem Panel hinzugefügt
+
+		/*
+		 * Neues FlowLayout erstellt
+		 * Die Ausrichtung ist linksbündig
+		 */
+		FlowLayout fl=new FlowLayout(FlowLayout.LEFT);
+		this.setLayout(fl);	// neuen LayoutManager zuweisen
+		
+		labels=new Label[ANZAHL_ELEMENTE]; // Arrays für Labels erstellt
+		fields=new TextField[ANZAHL_ELEMENTE]; // Arrays für Textfields erstellt
+
+		for(int i=0;i<ANZAHL_ELEMENTE;i++){
+			labels[i]=new Label(t); // Ein neues Label mit Text wird erstellt
+			this.add(labels[i]); // Das Label wird dem Panel hinzugefügt
+			fields[i]=new TextField("SEW"); // Ein Textfield mit einem Standardtext wird erstellt.
+			this.add(fields[i]);		// und dem Panel hinzugefügt
+		}
 	}
 }
