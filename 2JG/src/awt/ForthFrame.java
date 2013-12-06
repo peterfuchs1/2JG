@@ -19,7 +19,7 @@ public class ForthFrame extends Frame{
 		Panel links=new Panel();
 		Panel rechts=new Panel();
 		Panel unten=new Panel();
-		Panel mitte=new MySecondPanel("Mein Lieblingsfach lautet:");
+		Panel mitte=new MyThirdPanel("Mein Lieblingsfach lautet:");
 		
 		// Jedes Panel bekommt eine eigene Farbe
 		oben.setBackground(Color.GREEN);
