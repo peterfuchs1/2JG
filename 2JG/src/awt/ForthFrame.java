@@ -11,15 +11,15 @@ import java.awt.Panel;
 /**
  * @author Walter Rafeiner-Magor
  */
-public class ThirdFrame extends Frame{
-	public ThirdFrame(String name){
+public class ForthFrame extends Frame{
+	public ForthFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt
 		Panel oben=new Panel();
 		Panel links=new Panel();
 		Panel rechts=new Panel();
 		Panel unten=new Panel();
-		Panel mitte=new MyFirstPanel("Mein Lieblingsfach lautet:");
+		Panel mitte=new MySecondPanel("Mein Lieblingsfach lautet:");
 		
 		// Jedes Panel bekommt eine eigene Farbe
 		oben.setBackground(Color.GREEN);
@@ -41,13 +41,13 @@ public class ThirdFrame extends Frame{
 		 */
 		MyWindowAdapter mwa= new MyWindowAdapter();
 		this.addWindowListener(mwa);	
-		this.setSize(480, 320); 		// Größe in Pixel
+		this.pack();					// Größe so kompakt wie möglich
 		this.setVisible(true);			// sichtbar machen!
 	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new ThirdFrame("leeres Fenster");
+		new ForthFrame("leeres Fenster");
 	}
 }
