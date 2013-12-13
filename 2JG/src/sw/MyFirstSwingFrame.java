@@ -1,39 +1,43 @@
 package sw;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-
-public class MyFirstSwingFrame extends JFrame {
-
-
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		MyFirstSwingFrame frame = new MyFirstSwingFrame();
-	}
-
-	/**
-	 * Create the frame.
-	 */
+/**
+ * Gui mittels Swing-Komponenten
+ * @author Walter Rafeiner-Magor
+ * @version 1.0
+ */
+public class MyFirstSwingFrame extends JFrame{
 	public MyFirstSwingFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		MyFirstJPanel contentPane = new MyFirstJPanel();
-		this.add(contentPane);
-		this.setVisible(true);
+		// Einen JPanel erzeugen
+		MyFirstJPanel jp= new MyFirstJPanel();
+		// und im CENTER des JFrames verankern
+		this.add(jp,BorderLayout.CENTER);
+		// Im Norden wird die Erklärung erstellt
+		JPanel north=new JPanel();
+		JLabel desc=new JLabel("Bitte für A und B reele Werte eingeben");
+		// label zum JPanel hinzufügen
+		north.add(desc);
+		// JPanel im Norden des JFrames verankern
+		this.add(north,BorderLayout.NORTH);
+		// Im Süden wird die zweite Erklärung verankert
+		JPanel south=new JPanel();
+		JLabel desc2=new JLabel("Mit ENTER wird die Summe ermittelt!");
+		south.add(desc2);
+		this.add(south,BorderLayout.SOUTH);
+		
+		this.setSize(320, 120);			// Größe 320x160 Pixel
+		this.setResizable(false);		// Größe nicht veränderbar
+		this.setLocationRelativeTo(null);	// Darstellung mittig am Bildschirm
+		// Standardmethode beim Schließen des Fensters
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);		// JFrame ist nun sichtbar
 	}
+	public static void main(String[] args) {
+		new MyFirstSwingFrame();
+	}
+
 }
