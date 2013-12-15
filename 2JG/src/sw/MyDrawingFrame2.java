@@ -9,16 +9,16 @@ import javax.swing.*;
  * @author Walter Rafeiner-Magor
  * @version 1.0
  */
-public class MyDrawingFrame extends JFrame
+public class MyDrawingFrame2 extends JFrame
 {
     /**
      * Der Konstruktor erzeugt ein JPanel
      * legt eine fixe Größe an.
      */
-    public MyDrawingFrame()
+    public MyDrawingFrame2()
     {
     	super("Zeichenbrett");		// Titel gesetzt
-        MyDrawingPanel p = new MyDrawingPanel();	// neues Panel erstellt
+        MyDrawingPanel2 p = new MyDrawingPanel2();	// neues Panel erstellt
         this.add(p);				// Im Center verankert
         this.setSize(800,600);		// Größe festgelegt
         this.setResizable(false);	// und fixiert
@@ -30,6 +30,6 @@ public class MyDrawingFrame extends JFrame
      * @param args
      */
     public static void main(String[] args) {
-       new MyDrawingFrame();
+       new MyDrawingFrame2();
     }
 } 

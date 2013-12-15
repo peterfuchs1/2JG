@@ -63,6 +63,7 @@ public class MyDrawingPanel extends JPanel
     	     }
         }	
         );// ACHTUNG ); nicht vergessen!!
+		this.setBackground(new Color(240, 230, 140)); 
     }
      /**
       * Sichert die letzten Koordinaten

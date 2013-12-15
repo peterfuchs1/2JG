@@ -17,7 +17,7 @@ public class MySecondSwingFrame extends JFrame{
 		MySecondJPanel jp= new MySecondJPanel("Bitte für A und B reele Werte eingeben");
 		// und im CENTER des JFrames verankern
 		this.add(jp,BorderLayout.CENTER);
-		this.setSize(320, 160);			// Größe 320x160 Pixel
+		this.pack();
 		this.setResizable(false);		// Größe nicht veränderbar
 		this.setLocationRelativeTo(null);	// Darstellung mittig am Bildschirm
 		// Standardmethode beim Schließen des Fensters
