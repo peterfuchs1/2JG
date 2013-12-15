@@ -1,18 +1,20 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
 
+import javax.swing.BoxLayout;
+
 /**
  * @author Walter Rafeiner-Magor
  *
  */
-public class MyFirstPanel extends Panel {
+public class MySecondPanel extends Panel {
 	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
 	private Label labels[];					// Labels zur Darstellung des Textes
 	private TextField fields[];				// Textfields zur Eingabe
@@ -20,16 +22,17 @@ public class MyFirstPanel extends Panel {
 	 * Konstruktor
 	 * @param t Text, der im Label dargestellt werden soll 
 	 */
-	public MyFirstPanel(String t) {
+	public MySecondPanel(String t) {
 
 		/*
-		 * Neues FlowLayout erstellt
-		 * Die Ausrichtung ist linksbündig
+		 * Neues BoxLayout erstellt
+		 * Die Elemente werden untereinander
+		 * abgelegt.
+		 * 
 		 */
-		FlowLayout fl=new FlowLayout(FlowLayout.LEFT);
-		fl.setVgap(25);		// vertikaler Abstand 25 Pixel
-		fl.setHgap(10);		// horizontaler Abstand 10 Pixel
-		this.setLayout(fl);	// neuen LayoutManager zuweisen
+		BoxLayout bl=new BoxLayout(this, BoxLayout.Y_AXIS);
+
+		this.setLayout(bl);	// neuen LayoutManager zuweisen
 		
 		labels=new Label[ANZAHL_ELEMENTE]; // Arrays für Labels erstellt
 		fields=new TextField[ANZAHL_ELEMENTE]; // Arrays für Textfields erstellt

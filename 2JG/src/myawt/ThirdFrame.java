@@ -1,7 +1,7 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

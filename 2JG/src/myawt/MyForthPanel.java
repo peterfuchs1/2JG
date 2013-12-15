@@ -1,9 +1,11 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
@@ -14,7 +16,7 @@ import javax.swing.BoxLayout;
  * @author Walter Rafeiner-Magor
  *
  */
-public class MySecondPanel extends Panel {
+public class MyForthPanel extends Panel {
 	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
 	private Label labels[];					// Labels zur Darstellung des Textes
 	private TextField fields[];				// Textfields zur Eingabe
@@ -22,25 +24,23 @@ public class MySecondPanel extends Panel {
 	 * Konstruktor
 	 * @param t Text, der im Label dargestellt werden soll 
 	 */
-	public MySecondPanel(String t) {
+	public MyForthPanel(String t) {
 
 		/*
-		 * Neues BoxLayout erstellt
-		 * Die Elemente werden untereinander
-		 * abgelegt.
-		 * 
+		 * Neues GridLayout erstellt
+		 * 8 Zeilen, 2 Spalten
+		 * 5 Pixel Abstand horizontal
+		 * 5 Pixel Abstand vertikal
 		 */
-		BoxLayout bl=new BoxLayout(this, BoxLayout.Y_AXIS);
-
+		GridLayout bl=new GridLayout(8,2,5,5);
 		this.setLayout(bl);	// neuen LayoutManager zuweisen
-		
 		labels=new Label[ANZAHL_ELEMENTE]; // Arrays für Labels erstellt
 		fields=new TextField[ANZAHL_ELEMENTE]; // Arrays für Textfields erstellt
 
 		for(int i=0;i<ANZAHL_ELEMENTE;i++){
 			labels[i]=new Label(t); // Ein neues Label mit Text wird erstellt
 			this.add(labels[i]); // Das Label wird dem Panel hinzugefügt
-			fields[i]=new TextField("SEW"); // Ein Textfield mit einem Standardtext wird erstellt.
+			fields[i]=new TextField("SEW"); // Textfield mit Standardtext erstellt
 			this.add(fields[i]);		// und dem Panel hinzugefügt
 		}
 	}

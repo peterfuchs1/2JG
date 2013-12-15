@@ -1,7 +1,7 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,19 +11,19 @@ import java.awt.Panel;
 /**
  * @author Walter Rafeiner-Magor
  */
-public class ForthFrame extends Frame{
-	public ForthFrame(String name){
+public class SixthFrame extends Frame{
+	public SixthFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt
 		Panel oben=new Panel();
 		Panel links=new Panel();
 		Panel rechts=new Panel();
 		Panel unten=new Panel();
-		Panel mitte=new MyThirdPanel("Mein Lieblingsfach lautet:");
+		Panel mitte=new MyFifthPanel("Mein Lieblingsfach lautet:");
 		
 		// Jedes Panel bekommt eine eigene Farbe
 		oben.setBackground(Color.GREEN);
-		mitte.setBackground(Color.YELLOW);
+//		mitte.setBackground(Color.YELLOW);
 		unten.setBackground(Color.BLUE);
 		links.setBackground(Color.ORANGE);
 		rechts.setBackground(Color.RED);
@@ -41,13 +41,13 @@ public class ForthFrame extends Frame{
 		 */
 		MyWindowAdapter mwa= new MyWindowAdapter();
 		this.addWindowListener(mwa);	
-		this.pack();					// Größe so kompakt wie möglich
+		this.setSize(240, 240);					// Größe so kompakt wie möglich
 		this.setVisible(true);			// sichtbar machen!
 	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new ForthFrame("leeres Fenster");
+		new SixthFrame("leeres Fenster");
 	}
 }

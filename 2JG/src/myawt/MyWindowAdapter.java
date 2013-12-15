@@ -1,10 +1,12 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author Walter Rafeiner-Magor
@@ -22,17 +24,17 @@ public class MyWindowAdapter implements WindowListener {
 	 * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
 	 */
 	@Override
-	public void windowClosed(WindowEvent arg0) {}
-
+	public void windowClosed(WindowEvent arg0) {System.exit(0);}
+		
 	/* (non-Javadoc)
 	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
 	 */
 	@Override
-	public void windowClosing(WindowEvent arg0) {
-		System.exit(0);
-
+	public void windowClosing(WindowEvent we) {
+		if(JOptionPane.showConfirmDialog(null, "Soll das Fenster wirklich geschlossen werden?")==JOptionPane.YES_OPTION){
+			we.getWindow().dispose();
+		}		
 	}
-
 	/* (non-Javadoc)
 	 * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
 	 */
@@ -56,5 +58,4 @@ public class MyWindowAdapter implements WindowListener {
 	 */
 	@Override
 	public void windowOpened(WindowEvent arg0) {}
-
 }

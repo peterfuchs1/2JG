@@ -1,16 +1,17 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.Frame;
+import java.awt.Window;
 
 /**
  * @author Walter Rafeiner-Magor
  */
-public class FirstFrame extends Frame {
-	public FirstFrame(String name){
-		super(name);
+public class FirstWindow extends Window {
+	public FirstWindow(){
+		super(new Frame("leeres Fenster"));
 		this.setSize(480, 320); // Größe in Pixel
 		this.setVisible(true);	// sichtbar machen!
 	}
@@ -18,6 +19,6 @@ public class FirstFrame extends Frame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new FirstFrame("leeres Fenster");
+		new FirstWindow();
 	}
 }

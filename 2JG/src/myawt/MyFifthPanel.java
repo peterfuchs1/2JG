@@ -1,7 +1,7 @@
 /**
  * 
  */
-package awt;
+package myawt;
 
 import java.awt.Button;
 import java.awt.Color;
