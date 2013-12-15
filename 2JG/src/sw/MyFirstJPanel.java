@@ -53,6 +53,5 @@ public class MyFirstJPanel extends JPanel implements ActionListener{
 		double a=Double.parseDouble(jtfa.getText());
 		double b=Double.parseDouble(jtfb.getText());
 		jle.setText(""+(a+b));	// Ergebnis als String setzen
-	}
-	
+	}	
 }
