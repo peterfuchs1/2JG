@@ -24,6 +24,7 @@ public class MyDrawingTextPanel extends JPanel
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.setColor(Color.GREEN);
 		g.fillRoundRect(140, 220, 520, 140, 20, 20);
 		g.setColor(Color.WHITE);

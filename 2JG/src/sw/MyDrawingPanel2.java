@@ -41,6 +41,7 @@ public class MyDrawingPanel2 extends JPanel {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		if (gestartet){
 			for (int i = 0; i < index; i++)
 				lines[i].draw(g);
