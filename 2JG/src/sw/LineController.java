@@ -14,49 +14,50 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
- * Controller für Zeichenbrett 
- * Actionlistener: JMenuItems im Frame 
- * MouseAdapter: View
+ * Controller für Zeichenbrett Actionlistener: JMenuItems im Frame MouseAdapter:
+ * View
  * 
  * @author Walter Rafeiner-Magor
  * @version 1.2
  */
 public class LineController extends MouseAdapter implements ActionListener {
-	private MyDrawingPanel3 view;		// MyJPanel
-	private MyDrawingFrame3 frame;		// MyFrame
-	private int lastX;					// letzte X-Koordinaten
-	private int lastY;					// letzte Y-Koordinaten
-	private boolean freehand;			// Freihandzeichnen aktiv?
+	private MyDrawingPanel3 view; // MyJPanel
+	private MyDrawingFrame3 frame; // MyFrame
+	private int lastX; // letzte X-Koordinaten
+	private int lastY; // letzte Y-Koordinaten
+	private boolean freehand; // Freihandzeichnen aktiv?
 
 	public LineController() {
-		freehand = true;							// Freihandzeichnen aktiviert
-		view = new MyDrawingPanel3(this);			// Mit MyJPanel verknüpft
-		frame = new MyDrawingFrame3(view, this);	// Mit MyFrame verknüpft
-		frame.getItemFreehand().setSelected(true);	// JRadioButtonMenuItem gesetzt
+		freehand = true; // Freihandzeichnen aktiviert
+		view = new MyDrawingPanel3(this); // Mit MyJPanel verknüpft
+		frame = new MyDrawingFrame3(view, this); // Mit MyFrame verknüpft
+		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
+													// gesetzt
 	}
 
-	/* 
+	/*
 	 * @see
 	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
-		if (o instanceof JMenuItem) {			 	// Falls Objekt der Klasse JMenuItem
-			JMenuItem item = (JMenuItem) o;		 	// Cast to JMenuItem
-			if (item == frame.getItemFreehand()) 	// Freihandzeichnen
-				freehand = true;					// aktivieren
-			if (item == frame.getItemLine())		// Linien zeichnen
+		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
+			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
+			if (item == frame.getItemFreehand()) // Freihandzeichnen
+				freehand = true; // aktivieren
+			if (item == frame.getItemLine()) // Linien zeichnen
 				freehand = false;
-			if (item == frame.getItemForeground())	// JColorChooser für die Stiftfarbe
-				view.setForeground(JColorChooser.showDialog(
-						view, "Stiftfarbe",view.getForeground())
-						);							// auswählen und setzen
-			if (item == frame.getItemBackground())	// JColorChooser für die Hintergrundfarbe
-				view.setBackground(JColorChooser.showDialog(
-						view,"Hintergrund", view.getBackground())
-						);							// auswählen und setzen
-			if (item == frame.getItemInfo()) {		// Info der Applikation anzeigen
+			if (item == frame.getItemForeground()) // JColorChooser für die
+													// Stiftfarbe
+				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
+						view.getForeground())); // auswählen und setzen
+			if (item == frame.getItemBackground()) // JColorChooser für die
+													// Hintergrundfarbe
+				view.setBackground(JColorChooser.showDialog(view,
+						"Hintergrund", view.getBackground())); // auswählen und
+																// setzen
+			if (item == frame.getItemInfo()) { // Info der Applikation anzeigen
 				JOptionPane.showMessageDialog(frame,
 						"Zeichenbrett v1.2\n(c) Walter Rafeiner-Magor", "Info",
 						JOptionPane.OK_OPTION);
@@ -86,17 +87,25 @@ public class LineController extends MouseAdapter implements ActionListener {
 	 * User die Maus mit gedruecktem Button zieht.
 	 */
 	public void mouseDragged(MouseEvent e) {
+
+		int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
+		int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
+		if (!view.isGestartet()) {
+			view.setGestartet(true);
+			merkeKoordinaten(x, y);
+		}
 		if (freehand) {
-			int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
-			int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
-			if (!view.isGestartet()) {
-				view.setGestartet(true);
-				merkeKoordinaten(x, y);
-			}
 			// Linie und Farbe speichern und zeichnen
 			view.addLine(new Line(lastX, lastY, x, y, view.getForeground()));
 			merkeKoordinaten(x, y);
+		} else {
+			// letzte Linie vergessen
+			// neue Linie erstellen
+			view.deleteLine();
+			view.addLine(new Line(lastX, lastY, x, y, view.getForeground()));
+			view.repaint();			// neu zeichnen
 		}
+
 	}
 
 	/**

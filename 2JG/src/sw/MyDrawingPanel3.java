@@ -54,6 +54,10 @@ public class MyDrawingPanel3 extends JPanel {
 			index++;						// Index erhöhen
 		}
 	}
+	public void deleteLine(){
+		if(index>0)
+			index--;
+	}
 	/**
 	 * @return the gestartet
 	 */
@@ -65,5 +69,11 @@ public class MyDrawingPanel3 extends JPanel {
 	 */
 	public void setGestartet(boolean gestartet) {
 		this.gestartet = gestartet;
+	}
+
+	public void drawLine(Line l) {
+		Graphics g=getGraphics();		
+		g.setColor(getForeground());	// Stiftfarbe setzen
+		l.draw(g);						// Linie zeichnen
 	}
 }
