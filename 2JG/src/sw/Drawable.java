@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * Linie definiert durch Anfangs-
+ * Drawable definiert durch Anfangs-
  * und Endkoordinaten
  * @author Walter Rafeiner-Magor
  * @version 1.0
@@ -43,9 +43,8 @@ public abstract class Drawable {
 		this.full=full;
 	}
 	/**
-	 * Zeichnet eine Line auf dem Graphics-Kontext
+	 * Zeichnet eine Figur auf dem Graphics-Kontext
 	 * @param g
 	 */
 	public abstract void draw(Graphics g);
-
 }

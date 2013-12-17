@@ -9,24 +9,24 @@ import javax.swing.JPanel;
  * Ein JPanel, mit inneren anonymen Adapterklassen.
  * 
  * @author Walter Rafeiner-Magor
- * @version 1.1
+ * @version 1.3
  */
 public class MyDrawingPanel3 extends JPanel {
-	public final static int MAX_LINES = 10000;
+	public final static int MAX_DRAWABLES = 10000;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;
 	private Drawable[] drawables;				// Array of Line 
-	private int index;					// aktueller Index des Arrays
+	private int index;							// aktueller Index des Arrays
 	/**
 	 * Konstruktor mit Controller-Klasse
 	 * @param lc Controller
 	 */
 	public MyDrawingPanel3(LineController lc) {
 
-		index = 0; 						// Wir starten bei 0
-		drawables = new Drawable[MAX_LINES]; 	// Array angelegt
-		gestartet = false; 				// noch kein Mausereignis stattgefunden
-		this.addMouseListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse
+		index = 0; 								// Wir starten bei 0
+		drawables = new Drawable[MAX_DRAWABLES];// Array angelegt
+		gestartet = false; 						// noch kein Mausereignis stattgefunden
+		this.addMouseListener(lc);		// Externe Controller-Klasse kümmert sich um Mausereignisse
 		this.addMouseMotionListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse 
 	}
 
@@ -38,7 +38,7 @@ public class MyDrawingPanel3 extends JPanel {
 		super.paintComponent(g); 		// SEHR WICHTIG!
 		if (gestartet){
 			for (int i = 0; i < index; i++)
-				drawables[i].draw(g);		// Zeichnet alle Linien nach
+				drawables[i].draw(g);		// Zeichnet alle Figuren nach
 		}
 	}
 	/**
@@ -46,17 +46,27 @@ public class MyDrawingPanel3 extends JPanel {
 	 * @param l
 	 */
 	public void addDrawable(Drawable d){
-		if (index < MAX_LINES){  			// Solange noch Platz im Array
-			drawables[index] = d;				// Line wird gespeichert
-			Graphics g=getGraphics();		
+		if (index < MAX_DRAWABLES){  		// Solange noch Platz im Array
+			drawables[index] = d;			// Figur wird gespeichert
+			Graphics g=getGraphics();		// Graphic-Kontext holen
 			g.setColor(getForeground());	// Stiftfarbe setzen
-			d.draw(g);						// Linie zeichnen
+			d.draw(g);						// Figur zeichnen
 			index++;						// Index erhöhen
 		}
 	}
-	public void deleteLine(){
+	/**
+	 * Letzen Eintrag ausblenden
+	 */
+	public void deleteDrawable(){
 		if(index>0)
 			index--;
+	}
+	/**
+	 * Einen Eintrag wiederherstellen
+	 */
+	public void restoreDrawable(){
+		if(index<MAX_DRAWABLES-1 && drawables[index]!=null)
+			index++;
 	}
 	/**
 	 * @return the gestartet
@@ -69,11 +79,5 @@ public class MyDrawingPanel3 extends JPanel {
 	 */
 	public void setGestartet(boolean gestartet) {
 		this.gestartet = gestartet;
-	}
-
-	public void draw(Drawable d) {
-		Graphics g=getGraphics();		
-		g.setColor(getForeground());	// Stiftfarbe setzen
-		d.draw(g);						// Linie zeichnen
 	}
 }

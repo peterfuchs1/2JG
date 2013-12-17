@@ -26,6 +26,7 @@ public class LineController extends MouseAdapter implements ActionListener {
 	private int lastX; // letzte X-Koordinaten
 	private int lastY; // letzte Y-Koordinaten
 	private Modus modus; // Welcher Modus ist aktiv?
+	private MouseEvent lastMouseEvent=null;
 
 	public LineController() {
 		modus = Modus.FREEHAND; // Freihandzeichnen aktiviert
@@ -44,31 +45,55 @@ public class LineController extends MouseAdapter implements ActionListener {
 		Object o = ae.getSource();
 		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
 			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
-			if (item == frame.getItemFreehand()) // Freihandzeichnen
+			if (item == frame.getItemDelete()) // Aktion Löschen
+				{
+				view.deleteDrawable();
+				view.repaint();
+				}
+			else if (item == frame.getItemRestore()) // Aktion Löschen
+				{
+				view.restoreDrawable();
+				view.repaint();
+				}
+			else if (item == frame.getItemFreehand()) // Freihandzeichnen
 				modus = Modus.FREEHAND; // aktivieren
-			if (item == frame.getItemLine()) // Linien zeichnen
+			else if (item == frame.getItemLine()) // Linien zeichnen
 				modus = Modus.LINES;
-			if (item == frame.getItemRectangle()) // Linien zeichnen
+			else if (item == frame.getItemRectangle()) // Linien zeichnen
 				modus = Modus.RECTANGLE;
-			if (item == frame.getItemOval()) // Linien zeichnen
+			else if (item == frame.getItemOval()) // Linien zeichnen
 				modus = Modus.OVAL;
-			if (item == frame.getItemRectangleFull()) // Linien zeichnen
+			else if (item == frame.getItemRectangleFull()) // Linien zeichnen
 				modus = Modus.RECTANGLE_FULL;
-			if (item == frame.getItemOvalFull()) // Linien zeichnen
+			else if (item == frame.getItemRoundedRectangleFull()) // Linien zeichnen
+				modus = Modus.ROUNDED_RECTANGLE_FULL;
+			else if (item == frame.getItemRoundedRectangle()) // Linien zeichnen
+				modus = Modus.ROUNDED_RECTANGLE;
+			else if (item == frame.getItemOvalFull()) // Linien zeichnen
 				modus = Modus.OVAL_FULL;
 
-			if (item == frame.getItemForeground()) // JColorChooser für die
+			else if (item == frame.getItemForeground()) // JColorChooser für die
 													// Stiftfarbe
 				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
 						view.getForeground())); // auswählen und setzen
-			if (item == frame.getItemBackground()) // JColorChooser für die
+			else if (item == frame.getItemBackground()) // JColorChooser für die
 													// Hintergrundfarbe
 				view.setBackground(JColorChooser.showDialog(view,
 						"Hintergrund", view.getBackground())); // auswählen und
 																// setzen
-			if (item == frame.getItemInfo()) { // Info der Applikation anzeigen
+			else if (item == frame.getItemInfo()) { // Info der Applikation anzeigen
 				JOptionPane.showMessageDialog(frame,
-						"Zeichenbrett v1.3\n(c) Walter Rafeiner-Magor", "Info",
+						"Zeichenbrett v1.4\n(c) Walter Rafeiner-Magor", "Info",
+						JOptionPane.OK_OPTION);
+			}
+			else if (item == frame.getItemLoad()) { // Info der Applikation anzeigen
+				JOptionPane.showMessageDialog(frame,
+						"Not implemented yet!", "Info",
+						JOptionPane.OK_OPTION);
+			}
+			else if (item == frame.getItemSave()) { // Info der Applikation anzeigen
+				JOptionPane.showMessageDialog(frame,
+						"Not implemented yet!", "Info",
 						JOptionPane.OK_OPTION);
 			}
 		}
@@ -103,41 +128,41 @@ public class LineController extends MouseAdapter implements ActionListener {
 			view.setGestartet(true);
 			merkeKoordinaten(x, y);
 		}
-		switch (modus) {
+		if(modus!=Modus.FREEHAND && lastMouseEvent!=null && lastMouseEvent.getID()==MouseEvent.MOUSE_DRAGGED)
+			// letzte Linie vergessen
+			view.deleteDrawable();
+		switch (modus) { // Figuren zeichnen
 		case FREEHAND:
-			// Linie und Farbe speichern und zeichnen
 			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
-			merkeKoordinaten(x, y);
 			break;
 		case LINES:
-			// letzte Linie vergessen
-			// neue Linie erstellen
-			view.deleteLine();
 			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
-			view.repaint(); // neu zeichnen
 			break;
 		case RECTANGLE_FULL:
 		case RECTANGLE:
 			boolean fullr = (modus == Modus.RECTANGLE_FULL);
-			// letzte Linie vergessen
-			// neue Linie erstellen
-			view.deleteLine();
 			view.addDrawable(new Rectangle(lastX, lastY, x, y, view
 					.getForeground(), fullr));
-			view.repaint(); // neu zeichnen
 			break;
+		case ROUNDED_RECTANGLE_FULL:
+		case ROUNDED_RECTANGLE:
+			boolean fullrr = (modus == Modus.ROUNDED_RECTANGLE_FULL);
+			view.addDrawable(new RoundedRectangle(lastX, lastY, x, y, view
+					.getForeground(), fullrr));
+			break;
+
 		case OVAL:
 		case OVAL_FULL:
 			boolean fullo = (modus == Modus.OVAL_FULL);
-			// letzte Linie vergessen
-			// neue Linie erstellen
-			view.deleteLine();
 			view.addDrawable(new Oval(lastX, lastY, x, y, view.getForeground(),
 					fullo));
-			view.repaint(); // neu zeichnen
 			break;
 		}
-
+		if(modus!=Modus.FREEHAND)
+			view.repaint(); // neu zeichnen
+		else
+			merkeKoordinaten(x, y);
+		lastMouseEvent=e;
 	}
 
 	/**
@@ -152,6 +177,8 @@ public class LineController extends MouseAdapter implements ActionListener {
 				view.setGestartet(true);
 				merkeKoordinaten(x, y);
 			}
+			// Dragged Version vergessen!
+			view.deleteDrawable();
 			// neue Linie und Farbe speichern:
 			switch (modus) {
 			case LINES:
@@ -164,6 +191,12 @@ public class LineController extends MouseAdapter implements ActionListener {
 				view.addDrawable(new Rectangle(lastX, lastY, x, y, view
 						.getForeground(),fullr));
 				break;
+			case ROUNDED_RECTANGLE:
+			case ROUNDED_RECTANGLE_FULL:
+				boolean fullrr = (modus == Modus.ROUNDED_RECTANGLE_FULL);
+				view.addDrawable(new RoundedRectangle(lastX, lastY, x, y, view
+						.getForeground(),fullrr));
+				break;
 			case OVAL:
 			case OVAL_FULL:
 				boolean fullo = (modus == Modus.OVAL_FULL);
@@ -172,6 +205,7 @@ public class LineController extends MouseAdapter implements ActionListener {
 				break;
 			}
 			merkeKoordinaten(x, y);
+			lastMouseEvent=e;
 		}
 	}
 
