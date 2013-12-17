@@ -5,6 +5,7 @@ package sw;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 /**
  * Drawable definiert durch Anfangs-
@@ -12,7 +13,12 @@ import java.awt.Graphics;
  * @author Walter Rafeiner-Magor
  * @version 1.0
  */
-public abstract class Drawable {
+public abstract class Drawable implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7954192751415066519L;
 	protected int startX,startY,endX,endY;
 	protected Color c;
 	protected boolean full=false;

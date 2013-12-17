@@ -11,6 +11,7 @@ import javax.swing.*;
  */
 public class MyDrawingFrame3 extends JFrame
 {	
+	private JMenuItem itemNew;					// Neue Datei erzeugen
 	private JMenuItem itemLoad;					// Aus Datei laden
 	private JMenuItem itemSave;					// In Datei speichern
 	private JMenuItem itemDelete;				// letzter Schritt rückgängig
@@ -43,6 +44,10 @@ public class MyDrawingFrame3 extends JFrame
     	//////////////////////////////////
     	// erstes Menü: Datei
     	JMenu menuFile=new JMenu("Datei");
+    	//// Menüeintrag: New
+       	itemNew=new JMenuItem("Neu");
+       	itemNew.addActionListener(lc);		// Listener anmelden
+       	menuFile.add(itemNew);				// zum Menü hinzufügen
        	//// Menüeintrag: Laden
     	itemLoad=new JMenuItem("Laden...");
     	itemLoad.addActionListener(lc);		// Listener anmelden
@@ -238,6 +243,12 @@ public class MyDrawingFrame3 extends JFrame
 	 */
 	public JMenuItem getItemSave() {
 		return itemSave;
+	}
+	/**
+	 * @return the itemNew
+	 */
+	public JMenuItem getItemNew() {
+		return itemNew;
 	}
 	
 } 

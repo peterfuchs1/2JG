@@ -80,4 +80,48 @@ public class MyDrawingPanel3 extends JPanel {
 	public void setGestartet(boolean gestartet) {
 		this.gestartet = gestartet;
 	}
+	/**
+	 * Die Liste ist leer,
+	 * falls das erste Element null ist
+	 * @return
+	 */
+	public boolean isEmtpy(){
+		return(drawables[0]==null);
+	}
+	/**
+	 * Liste leeren
+	 */
+	public void setEmtpy(){
+		index=0;
+		drawables[0]=null;
+	}
+
+	/**
+	 * @return the index
+	 */
+	public int getIndex() {
+		return index;
+	}
+
+	/**
+	 * @param index the index to set
+	 */
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	/**
+	 * @return the drawables
+	 */
+	public Drawable[] getDrawables() {
+		return drawables;
+	}
+
+	/**
+	 * @param drawables the drawables to set
+	 */
+	public void setDrawables(Drawable[] drawables) {
+		this.drawables = drawables;
+	}
+	
 }
