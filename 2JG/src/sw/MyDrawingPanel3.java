@@ -15,7 +15,7 @@ public class MyDrawingPanel3 extends JPanel {
 	public final static int MAX_LINES = 10000;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;
-	private Line[] lines;				// Array of Line 
+	private Drawable[] drawables;				// Array of Line 
 	private int index;					// aktueller Index des Arrays
 	/**
 	 * Konstruktor mit Controller-Klasse
@@ -24,7 +24,7 @@ public class MyDrawingPanel3 extends JPanel {
 	public MyDrawingPanel3(LineController lc) {
 
 		index = 0; 						// Wir starten bei 0
-		lines = new Line[MAX_LINES]; 	// Array angelegt
+		drawables = new Drawable[MAX_LINES]; 	// Array angelegt
 		gestartet = false; 				// noch kein Mausereignis stattgefunden
 		this.addMouseListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse
 		this.addMouseMotionListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse 
@@ -38,19 +38,19 @@ public class MyDrawingPanel3 extends JPanel {
 		super.paintComponent(g); 		// SEHR WICHTIG!
 		if (gestartet){
 			for (int i = 0; i < index; i++)
-				lines[i].draw(g);		// Zeichnet alle Linien nach
+				drawables[i].draw(g);		// Zeichnet alle Linien nach
 		}
 	}
 	/**
 	 * Linie speichern und zeichnen
 	 * @param l
 	 */
-	public void addLine(Line l){
+	public void addDrawable(Drawable d){
 		if (index < MAX_LINES){  			// Solange noch Platz im Array
-			lines[index] = l;				// Line wird gespeichert
+			drawables[index] = d;				// Line wird gespeichert
 			Graphics g=getGraphics();		
 			g.setColor(getForeground());	// Stiftfarbe setzen
-			l.draw(g);						// Linie zeichnen
+			d.draw(g);						// Linie zeichnen
 			index++;						// Index erhöhen
 		}
 	}
@@ -71,9 +71,9 @@ public class MyDrawingPanel3 extends JPanel {
 		this.gestartet = gestartet;
 	}
 
-	public void drawLine(Line l) {
+	public void draw(Drawable d) {
 		Graphics g=getGraphics();		
 		g.setColor(getForeground());	// Stiftfarbe setzen
-		l.draw(g);						// Linie zeichnen
+		d.draw(g);						// Linie zeichnen
 	}
 }

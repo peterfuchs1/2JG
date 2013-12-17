@@ -1,0 +1,5 @@
+package sw;
+
+public enum Modus {
+	FREEHAND,LINES,RECTANGLE,RECTANGLE_FULL,OVAL,OVAL_FULL;
+}

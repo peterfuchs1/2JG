@@ -13,9 +13,15 @@ public class MyDrawingFrame3 extends JFrame
 {	
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
 	private JRadioButtonMenuItem itemLine;		// Linien zeichnen
+	private JRadioButtonMenuItem itemRectangle;	// Linien zeichnen
+	private JRadioButtonMenuItem itemOval;		// Linien zeichnen
+	private JRadioButtonMenuItem itemRectangleFull;	// Linien zeichnen
+	private JRadioButtonMenuItem itemOvalFull;		// Linien zeichnen
+	
 	private JMenuItem itemForeground;			// Stiftfarbe
 	private JMenuItem itemBackground;			// Hintergrundfarbe
 	private JMenuItem itemInfo;					// About
+
 	
     /**
      * Konstruktor
@@ -41,6 +47,29 @@ public class MyDrawingFrame3 extends JFrame
     	itemLine.addActionListener(lc);			// Listener anmelden
     	group.add(itemLine);					// zur Gruppe hinzufügen
     	menuModus.add(itemLine);				// zum Menü hinzufügen
+    	//// RadioButton-Menüeintrag für Rechtecke zeichnen    	
+       	itemRectangle=new JRadioButtonMenuItem("Rechtecke zeichnen");
+       	itemRectangle.addActionListener(lc);			// Listener anmelden
+       	group.add(itemRectangle);					// zur Gruppe hinzufügen
+       	menuModus.add(itemRectangle);				// zum Menü hinzufügen
+       	//// RadioButton-Menüeintrag für Ellipsen zeichnen    	
+       	itemOval=new JRadioButtonMenuItem("Ellipsen zeichnen");
+       	itemOval.addActionListener(lc);			// Listener anmelden
+       	group.add(itemOval);					// zur Gruppe hinzufügen
+       	menuModus.add(itemOval);				// zum Menü hinzufügen
+       	/// Separator hinzufügen
+    	JSeparator js1=new JSeparator();
+    	menuModus.add(js1);
+    	//// RadioButton-Menüeintrag für Rechtecke ausmalen    	
+       	itemRectangleFull=new JRadioButtonMenuItem("Rechtecke ausmalen");
+       	itemRectangleFull.addActionListener(lc);			// Listener anmelden
+       	group.add(itemRectangleFull);					// zur Gruppe hinzufügen
+       	menuModus.add(itemRectangleFull);				// zum Menü hinzufügen
+       	//// RadioButton-Menüeintrag für Ellipsen ausmalen    	
+       	itemOvalFull=new JRadioButtonMenuItem("Ellipsen ausmalen");
+       	itemOvalFull.addActionListener(lc);			// Listener anmelden
+       	group.add(itemOvalFull);					// zur Gruppe hinzufügen
+       	menuModus.add(itemOvalFull);				// zum Menü hinzufügen
     	menuBar.add(menuModus);					// zur MenuBar hinzufügen
     	//////////////////////////////////
     	// zweites Menü: Farbe    	
@@ -100,6 +129,19 @@ public class MyDrawingFrame3 extends JFrame
 	public JMenuItem getItemBackground() {
 		return itemBackground;
 	}
+	
+	/**
+	 * @return the itemRectangle
+	 */
+	public JRadioButtonMenuItem getItemRectangle() {
+		return itemRectangle;
+	}
+	/**
+	 * @return the itemOval
+	 */
+	public JRadioButtonMenuItem getItemOval() {
+		return itemOval;
+	}
 	/**
 	 * 
 	 * @param args
@@ -108,4 +150,17 @@ public class MyDrawingFrame3 extends JFrame
 		// gestartet wird der Controller
 		new LineController();
 	}
+	/**
+	 * @return the itemRectangleFull
+	 */
+	public JRadioButtonMenuItem getItemRectangleFull() {
+		return itemRectangleFull;
+	}
+	/**
+	 * @return the itemOvalFull
+	 */
+	public JRadioButtonMenuItem getItemOvalFull() {
+		return itemOvalFull;
+	}
+	
 } 

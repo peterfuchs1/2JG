@@ -69,7 +69,7 @@ public class MyDrawingPanel2 extends JPanel {
 			Graphics g = getGraphics();
 			// Punkt speichern und zeichnen
 			if (index < MAX_LINES){
-				lines[index] = new Line(x, y, x, y);
+				lines[index] = new Line(x, y, x, y,g.getColor());
 				lines[index].draw(g);
 				index++;
 			}
@@ -90,7 +90,7 @@ public class MyDrawingPanel2 extends JPanel {
 			Graphics g = getGraphics();
 			// Linie speichern und zeichnen
 			if (index < MAX_LINES){
-				lines[index] = new Line(lastX, lastY, x, y);
+				lines[index] = new Line(lastX, lastY, x, y,g.getColor());
 				lines[index].draw(g);
 				index++;
 			}	
