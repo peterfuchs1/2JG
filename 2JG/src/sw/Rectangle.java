@@ -18,9 +18,11 @@ public class Rectangle extends Drawable {
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);			// Farbe setzen
+		int width=(endX-startX>0)?(endX-startX):0; // Breite nicht negativ
+		int heigth=(endY-startY>0)?(endY-startY):0;// Hoehe hicht negativ
 		if(full)
-			g.fillRect(startX, startY, endX-startX, endY-startY);
+			g.fillRect(startX, startY, width, heigth);
 		else
-			g.drawRect(startX, startY, endX-startX, endY-startY);
+			g.drawRect(startX, startY, width, heigth);
 	}
 }

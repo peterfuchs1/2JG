@@ -17,9 +17,11 @@ public class Oval extends Drawable {
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);			// Farbe setzen
+		int width=(endX-startX>0)?(endX-startX):0; // Breite nicht negativ
+		int heigth=(endY-startY>0)?(endY-startY):0;// Hoehe hicht negativ
 		if(full)
-			g.fillOval(startX, startY, endX-startX, endY-startY);
+			g.fillOval(startX, startY, width, heigth);
 		else
-			g.drawOval(startX, startY, endX-startX, endY-startY);
+			g.drawOval(startX, startY, width, heigth);
 	}
 }
