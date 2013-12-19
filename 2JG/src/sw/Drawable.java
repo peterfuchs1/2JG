@@ -53,4 +53,53 @@ public abstract class Drawable implements Serializable {
 	 * @param g
 	 */
 	public abstract void draw(Graphics g);
+	/**
+	 * @return the startX
+	 */
+	public int getStartX() {
+		return startX;
+	}
+	/**
+	 * @param startX the startX to set
+	 */
+	public void setStartX(int startX) {
+		this.startX = startX;
+	}
+	/**
+	 * @return the startY
+	 */
+	public int getStartY() {
+		return startY;
+	}
+	/**
+	 * @param startY the startY to set
+	 */
+	public void setStartY(int startY) {
+		this.startY = startY;
+	}
+	/**
+	 * @return the endX
+	 */
+	public int getEndX() {
+		return endX;
+	}
+	/**
+	 * @param endX the endX to set
+	 */
+	public void setEndX(int endX) {
+		this.endX = endX;
+	}
+	/**
+	 * @return the endY
+	 */
+	public int getEndY() {
+		return endY;
+	}
+	/**
+	 * @param endY the endY to set
+	 */
+	public void setEndY(int endY) {
+		this.endY = endY;
+	}
+	
 }

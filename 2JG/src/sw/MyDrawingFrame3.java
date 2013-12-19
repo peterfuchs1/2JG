@@ -29,8 +29,8 @@ public class MyDrawingFrame3 extends JFrame
 	
 	private JMenuItem itemForeground;			// Stiftfarbe
 	private JMenuItem itemBackground;			// Hintergrundfarbe
-	private JMenuItem itemInfo;					// About
-
+	private JMenuItem itemAbout;					// About
+	private JMenuItem itemHelp;					// Hilfe
 	
     /**
      * Konstruktor
@@ -61,11 +61,11 @@ public class MyDrawingFrame3 extends JFrame
     	// erstes Menü: Bearbeiten
     	JMenu menuEdit=new JMenu("Bearbeiten");
     	//// Menüeintrag: Löschen
-    	itemDelete=new JMenuItem("Aktion löschen");
+    	itemDelete=new JMenuItem("Element löschen");
     	itemDelete.addActionListener(lc);		// Listener anmelden
     	menuEdit.add(itemDelete);				// zum Menü hinzufügen
     	//// Menüeintrag: wiederherstellen
-    	itemRestore=new JMenuItem("Aktion wiederherstellen");
+    	itemRestore=new JMenuItem("Element wiederherstellen");
     	itemRestore.addActionListener(lc);		// Listener anmelden
     	menuEdit.add(itemRestore);				// zum Menü hinzufügen
     	menuBar.add(menuEdit);					// zur MenuBar hinzufügen
@@ -131,12 +131,17 @@ public class MyDrawingFrame3 extends JFrame
     	menuBar.add(menuColor);					// zur MenuBar hinzufügen
     	//////////////////////////////////
     	// drittes Menü: About    	    	
-    	JMenu menuInfo=new JMenu("About");    	
-    	//// Menüeintrag: Info    	
-    	itemInfo=new JMenuItem("Info");
-    	itemInfo.addActionListener(lc);			// Listener anmelden
-    	menuInfo.add(itemInfo);					// zum Menü hinzufügen
+    	JMenu menuInfo=new JMenu("Info");    	
+    	//// Menüeintrag: Help    	
+    	itemHelp=new JMenuItem("Help");
+    	itemHelp.addActionListener(lc);			// Listener anmelden
+    	menuInfo.add(itemHelp);					// zum Menü hinzufügen
     	menuBar.add(Box.createHorizontalGlue());// Menü rechtsbündig einfügen
+    	menuBar.add(menuInfo);					// zur MenuBar hinzufügen
+    	//// Menüeintrag: Info    	
+    	itemAbout=new JMenuItem("About");
+    	itemAbout.addActionListener(lc);			// Listener anmelden
+    	menuInfo.add(itemAbout);					// zum Menü hinzufügen
     	menuBar.add(menuInfo);					// zur MenuBar hinzufügen
     	this.setJMenuBar(menuBar);				// MenuBar im JFrame setzen
     	
@@ -148,8 +153,8 @@ public class MyDrawingFrame3 extends JFrame
 	/**
 	 * @return the itemInfo
 	 */
-	public JMenuItem getItemInfo() {
-		return itemInfo;
+	public JMenuItem getItemAbout() {
+		return itemAbout;
 	}
 	/**
 	 * @return the itemFreehand
@@ -250,5 +255,11 @@ public class MyDrawingFrame3 extends JFrame
 	public JMenuItem getItemNew() {
 		return itemNew;
 	}
-	
+	/**
+	 * @return the itemHelp
+	 */
+	public JMenuItem getItemHelp() {
+		return itemHelp;
+	}
+
 } 

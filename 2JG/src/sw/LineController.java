@@ -6,6 +6,8 @@ package sw;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -21,13 +23,15 @@ import javax.swing.JOptionPane;
  * @author Walter Rafeiner-Magor
  * @version 1.2
  */
-public class LineController extends MouseAdapter implements ActionListener {
+public class LineController extends MouseAdapter implements ActionListener,
+		KeyListener {
 	private MyDrawingPanel3 view; // MyJPanel
 	private MyDrawingFrame3 frame; // MyFrame
 	private int lastX; // letzte X-Koordinaten
 	private int lastY; // letzte Y-Koordinaten
 	private Modus modus; // Welcher Modus ist aktiv?
 	private MouseEvent lastMouseEvent = null;
+	private boolean alt, shift;
 
 	public LineController() {
 		modus = Modus.FREEHAND; // Freihandzeichnen aktiviert
@@ -35,6 +39,8 @@ public class LineController extends MouseAdapter implements ActionListener {
 		frame = new MyDrawingFrame3(view, this); // Mit MyFrame verknüpft
 		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
 													// gesetzt
+		alt = shift = false;
+
 	}
 
 	/*
@@ -46,20 +52,20 @@ public class LineController extends MouseAdapter implements ActionListener {
 		Object o = ae.getSource();
 		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
 			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
-			if (item == frame.getItemDelete()){ // Aktion Löschen
-			
+			if (item == frame.getItemDelete()) { // Aktion Löschen
+
 				view.deleteDrawable();
 				view.repaint();
-			} else if (item == frame.getItemRestore()){ // Aktion Löschen
-			
+			} else if (item == frame.getItemRestore()) { // Aktion Löschen
+
 				view.restoreDrawable();
 				view.repaint();
 			} else if (item == frame.getItemNew()) { // Neu
 
 				if (!view.isEmtpy()) {
-					if (JOptionPane.showConfirmDialog(frame, 
-							"Die aktuelle Zeichnung wird verworfen!", "Warnung",
-							JOptionPane.YES_NO_OPTION,
+					if (JOptionPane.showConfirmDialog(frame,
+							"Die aktuelle Zeichnung wird verworfen!",
+							"Warnung", JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 						view.setEmtpy();
 						view.repaint();
@@ -99,10 +105,22 @@ public class LineController extends MouseAdapter implements ActionListener {
 						"Hintergrund", view.getBackground())); // auswählen
 																// und
 																// setzen
-			else if (item == frame.getItemInfo()) { // Info der Applikation
+			else if (item == frame.getItemAbout()) { // Info der Applikation
 													// anzeigen
 				JOptionPane.showMessageDialog(frame,
 						"Zeichenbrett v1.4\n(c) Walter Rafeiner-Magor", "Info",
+						JOptionPane.OK_OPTION);
+			} else if (item == frame.getItemHelp()) { // Hilfe der Applikation
+				// anzeigen
+				JOptionPane.showMessageDialog(frame,
+						"Menü Datei: Mit Neu kann ein neues Zeichenbrett erstellt werden\n\n"+
+						"Menü Bearbeiten: Einzelne Elemente löschen oder wiederherstellen\n\n"+
+						"Zeichen: Verschieden Zeichenmethoden\n\n"+
+						"Erweiterte Möglichkeiten Tastatur:\n"+
+						"Elemente können mit Pfeiltaste  um 5 Pixel verschoben werden.\n"+
+						"Elemente können mit Pfeiltasten und ALT un 1 Pixel verschoben werden.\n"+
+						"Elemente können mit Pfeiltasten und SHIFT vergrößert und verkleinert werden.\n", 
+								"Hilfe",
 						JOptionPane.OK_OPTION);
 			} else if (item == frame.getItemLoad()) { // Info der
 														// Applikation
@@ -239,45 +257,46 @@ public class LineController extends MouseAdapter implements ActionListener {
 		lastX = x;
 		lastY = y;
 	}
-	private void save (String filename, Drawable[]d) {
-		int length=view.getIndex();
+
+	private void save(String filename, Drawable[] d) {
+		int length = view.getIndex();
 		ObjectOutputStream outputStream = null;
 		try {
-			outputStream = new ObjectOutputStream(new FileOutputStream(filename));
+			outputStream = new ObjectOutputStream(
+					new FileOutputStream(filename));
 			for (int i = 0; i < length; i++) {
 				outputStream.writeObject(d[i]);
 			}
-			outputStream.flush();  
-		 
+			outputStream.flush();
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		finally {
-			if (outputStream!=null)
-				try{
-				 outputStream.close();
+		} finally {
+			if (outputStream != null)
+				try {
+					outputStream.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} finally {
 				}
-				finally{}
-			}
+		}
 	}
-	
-	private void load (String filename, Drawable[]d) {
-		int index=0;
+
+	private void load(String filename, Drawable[] d) {
+		int index = 0;
 		ObjectInputStream inputStream = null;
 		Object o;
 		try {
 			inputStream = new ObjectInputStream(new FileInputStream(filename));
-			while ((o=inputStream.readObject())!=null) {
-				d[index++]=(Drawable)o;
-			}  
-		 
+			while ((o = inputStream.readObject()) != null) {
+				d[index++] = (Drawable) o;
+			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -287,23 +306,107 @@ public class LineController extends MouseAdapter implements ActionListener {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		finally {
-			if (inputStream!=null){
-				try{
-				 inputStream.close();
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} finally {
 				}
-				finally{}
-			}
-			else{
+			} else {
 				view.setIndex(index);
-				if(index<MyDrawingPanel3.MAX_DRAWABLES)
-					view.getDrawables()[index]=null;
+				if (index < MyDrawingPanel3.MAX_DRAWABLES)
+					view.getDrawables()[index] = null;
 			}
-			}
+		}
 	}
-			
+
+	/**
+	 * SHIFT für Vergrößerung ALT für Pixel-Schritte
+	 */
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		if (ke.getKeyCode() == KeyEvent.VK_SHIFT)
+			shift = true;
+		else if (ke.getKeyCode() == KeyEvent.VK_ALT)
+			alt = true;
+	}
+
+	/**
+	 * Letztes Element wird in die Richtungen verschoben, vergrößert (SHIFT+)
+	 * oder verkleinert (SHIFT+)
+	 */
+	@Override
+	public void keyReleased(KeyEvent ke) {
+
+		if (view.isGestartet()) {
+			switch (ke.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
+				// Letztes Element geholt
+				Drawable d = view.getDrawables()[view.getIndex() - 1];
+				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
+					int diff = d.getStartX();
+					int start = diff;
+					// Bei ALT+ 1 ansonsten 5 Pixel
+					start = (alt) ? start - 1 : start - 5;
+					start = (start < 0) ? 0 : start;
+					diff = start - diff;
+					// Bei SHIFT wird der Startpunkt belassen
+					if (!shift)
+						d.setStartX(start);
+					d.setEndX(d.getEndX() + diff);
+				}
+				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
+					int diff = d.getStartX();
+					int start = diff;
+					// Bei ALT+ 1 ansonsten 5 Pixel
+					start = (alt) ? start + 1 : start + 5;
+					start = (start < 0) ? 0 : start;
+					diff = start - diff;
+					// Bei SHIFT wird der Startpunkt belassen
+					if (!shift)
+						d.setStartX(start);
+					d.setEndX(d.getEndX() + diff);
+				}
+				if (ke.getKeyCode() == KeyEvent.VK_UP) {
+					int diff = d.getStartY();
+					int start = diff;
+					// Bei ALT+ 1 ansonsten 5 Pixel
+					start = (alt) ? start - 1 : start - 5;
+					start = (start < 0) ? 0 : start;
+					diff = start - diff;
+					// Bei SHIFT wird der Startpunkt belassen
+					if (!shift)
+						d.setStartY(start);
+					d.setEndY(d.getEndY() + diff);
+				}
+				if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+					int diff = d.getStartY();
+					int start = diff;
+					// Bei ALT+ 1 ansonsten 5 Pixel
+					start = (alt) ? start + 1 : start + 5;
+					start = (start < 0) ? 0 : start;
+					diff = start - diff;
+					// Bei SHIFT wird der Startpunkt belassen
+					if (!shift)
+						d.setStartY(start);
+					d.setEndY(d.getEndY() + diff);
+
+				}
+				view.repaint(); // Anzeige aktualisieren
+			}
+			shift = false; // SHIFT und
+			alt = false; // ALT zurücksetzen
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+	}
+
 }

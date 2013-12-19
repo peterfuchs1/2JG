@@ -28,6 +28,8 @@ public class MyDrawingPanel3 extends JPanel {
 		gestartet = false; 						// noch kein Mausereignis stattgefunden
 		this.addMouseListener(lc);		// Externe Controller-Klasse kümmert sich um Mausereignisse
 		this.addMouseMotionListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse 
+		this.setFocusable(true);
+		this.addKeyListener(lc);
 	}
 
 	/*
