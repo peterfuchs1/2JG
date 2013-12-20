@@ -263,28 +263,34 @@ public class MyController extends MouseAdapter implements ActionListener,
 		lastX = x;
 		lastY = y;
 	}
-
-	private void save(File filename, Drawable[] d) {
+	/**
+	 * Speichere den Inhalt des Drawable-Array in ein File
+	 * @param file
+	 * @param d
+	 */
+	private void save(File file, Drawable[] d) {
 		int length = view.getIndex();
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(
-					new FileOutputStream(filename));
+					new FileOutputStream(file));
 			Drawable[] dneu=Arrays.copyOfRange(d, 0, length);
-//			for (int i = 0; i < length; i++) {
-				oos.writeObject(view.getBackground());
-				oos.writeObject(dneu);
-//			}
+			// Speichert Hintergrundfarbe 
+			oos.writeObject(view.getBackground());
+			// Speichert das Drawable-Array
+			oos.writeObject(dneu);
+			// Buffer leeren und schließen
 			oos.flush();
 			oos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		catch (IOException e) {
+			JOptionPane.showMessageDialog(frame, "Das Speichern von " +file.getName()+" ist fehlgeschlagen!");
 		} 
 	}
+	/**
+	 * Auswahl eines Files
+	 * @return File oder null
+	 */
 	private File fileChooser(){
 		File ret=null;
 		//Create a file chooser
@@ -295,12 +301,16 @@ public class MyController extends MouseAdapter implements ActionListener,
 	    return ret;        
 
 	}
-	private void load(File filename, Drawable[] d) {
+	/**
+	 * Lade den Inhalt des Files in das Drawable-Array
+	 * @param file File
+	 * @param d Array
+	 */
+	private void load(File file, Drawable[] d) {
 		int index = 0;
 		ObjectInputStream ois = null;
-		Object o;
 		try {
-			ois = new ObjectInputStream(new FileInputStream(filename));
+			ois = new ObjectInputStream(new FileInputStream(file));
 			Drawable[] dneu;
 			Color bg=(Color)ois.readObject();
 			dneu=(Drawable []) ois.readObject();
@@ -314,14 +324,9 @@ public class MyController extends MouseAdapter implements ActionListener,
 			view.setBackground(bg);
 			frame.enableEditMenu();
 			view.repaint();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(frame, "Das Lesen von " +file.getName()+" ist fehlgeschlagen!");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 	
 	}

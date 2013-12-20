@@ -26,6 +26,7 @@ public class MyPanel extends JPanel {
 		index = 0; 								// Wir starten bei 0
 		drawables = new Drawable[MAX_DRAWABLES];// Array angelegt
 		gestartet = false; 						// noch kein Mausereignis stattgefunden
+		this.setBackground(Color.LIGHT_GRAY);
 		this.addMouseListener(lc);		// Externe Controller-Klasse kümmert sich um Mausereignisse
 		this.addMouseMotionListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse 
 		this.setFocusable(true);		// Fokus gesetzt, damit KeyEvents ausgelöste werden können!
