@@ -5,6 +5,10 @@ import java.awt.Graphics;
 
 public class Oval extends Drawable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8851288438008701853L;
 	public Oval(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}

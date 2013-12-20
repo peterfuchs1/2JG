@@ -5,6 +5,10 @@ import java.awt.Graphics;
 
 public class RoundedRectangle extends Drawable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6748740901241131063L;
 	public RoundedRectangle(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}

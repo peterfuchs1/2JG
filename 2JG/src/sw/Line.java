@@ -14,6 +14,10 @@ import java.awt.Graphics;
  */
 public class Line extends Drawable{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 13046123995638211L;
+	/**
 	 * @param startX
 	 * @param startY
 	 * @param endX

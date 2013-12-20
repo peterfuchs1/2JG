@@ -5,6 +5,10 @@ import java.awt.Graphics;
 
 public class Rectangle extends Drawable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5865576014296148372L;
 	public Rectangle(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}
