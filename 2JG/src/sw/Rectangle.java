@@ -30,8 +30,8 @@ public class Rectangle extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		int width=endX-startX;
-		int heigth=endY-startY;
-		return new Rectangle(0, 0, width, heigth, c,full);
+		Rectangle d=new Rectangle(startX, startY, endX, endY, c,full);
+		d.setHomePosition();
+		return d;
 	}
 }

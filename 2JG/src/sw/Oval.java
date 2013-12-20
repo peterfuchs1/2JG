@@ -29,8 +29,8 @@ public class Oval extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		int width=endX-startX;
-		int heigth=endY-startY;
-		return new Oval(0, 0, width, heigth, c,full);
+		Oval d=new Oval(startX, startY, endX, endY, c,full);
+		d.setHomePosition();
+		return d;
 	}
 }

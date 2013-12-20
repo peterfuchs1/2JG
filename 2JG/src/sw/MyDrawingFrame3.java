@@ -17,7 +17,8 @@ public class MyDrawingFrame3 extends JFrame
 	private JMenuItem itemDelete;				// letzter Schritt rückgängig
 	private JMenuItem itemRestore;				// letzter Schritt wiederhergestellt
 	private JMenuItem itemDuplicate;			// letztes Element duplizieren
-	
+	private JMenuItem itemHome;					// Element in Homeposition
+	private JMenuItem itemColor;				// Elementfarbe ändern
 	
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
 	private JRadioButtonMenuItem itemLine;		// Linien zeichnen
@@ -46,7 +47,7 @@ public class MyDrawingFrame3 extends JFrame
     	// erstes Menü: Datei
     	JMenu menuFile=new JMenu("Datei");
     	//// Menüeintrag: New
-       	itemNew=new JMenuItem("Neu");
+       	itemNew=new JMenuItem("Neu",'N');
        	itemNew.addActionListener(lc);		// Listener anmelden
        	menuFile.add(itemNew);				// zum Menü hinzufügen
        	//// Menüeintrag: Laden
@@ -63,17 +64,33 @@ public class MyDrawingFrame3 extends JFrame
     	JMenu menuEdit=new JMenu("Bearbeiten");
     	//// Menüeintrag: Löschen
     	itemDelete=new JMenuItem("Element löschen");
+    	itemDelete.setAccelerator(KeyStroke.getKeyStroke('Z',
+                 Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
     	itemDelete.addActionListener(lc);		// Listener anmelden
     	menuEdit.add(itemDelete);				// zum Menü hinzufügen
     	//// Menüeintrag: wiederherstellen
     	itemRestore=new JMenuItem("Element wiederherstellen");
+   	 	itemRestore.setAccelerator(KeyStroke.getKeyStroke('Y',
+             Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
     	itemRestore.addActionListener(lc);		// Listener anmelden
     	menuEdit.add(itemRestore);				// zum Menü hinzufügen
     	//// Menüeintrag: duplizieren
     	itemDuplicate=new JMenuItem("Element duplizieren");
+    	itemDuplicate.setAccelerator(KeyStroke.getKeyStroke('D',
+                Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
     	itemDuplicate.addActionListener(lc);	// Listener anmelden
     	menuEdit.add(itemDuplicate);			// zum Menü hinzufügen
-       	menuBar.add(menuEdit);					// zur MenuBar hinzufügen
+       	/// Separator hinzufügen
+    	menuEdit.addSeparator();
+    	//// Menüeintrag: HomePosition
+    	itemHome=new JMenuItem("Element in Home Position",'H');
+    	itemHome.addActionListener(lc);	// Listener anmelden
+    	menuEdit.add(itemHome);			// zum Menü hinzufügen       	
+    	//// Menüeintrag: Elementfarbe ändern 
+       	itemColor=new JMenuItem("Elementfarbe ändern",'F');
+       	itemColor.addActionListener(lc);	// Listener anmelden
+       	menuEdit.add(itemColor);			// zum Menü hinzufügen       	
+       	menuBar.add(menuEdit);			// zur MenuBar hinzufügen
     	// zweites Menü: Modus
     	JMenu menuModus=new JMenu("Zeichnen");
     	//// Gruppe erstellt
@@ -104,8 +121,7 @@ public class MyDrawingFrame3 extends JFrame
        	group.add(itemOval);					// zur Gruppe hinzufügen
        	menuModus.add(itemOval);				// zum Menü hinzufügen
        	/// Separator hinzufügen
-    	JSeparator js1=new JSeparator();
-    	menuModus.add(js1);
+    	menuModus.addSeparator();
     	//// RadioButton-Menüeintrag für Rechtecke ausmalen    	
        	itemRoundedRectangleFull=new JRadioButtonMenuItem("Rechtecke abger. ausmalen");
        	itemRoundedRectangleFull.addActionListener(lc);// Listener anmelden
@@ -155,6 +171,7 @@ public class MyDrawingFrame3 extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);		// Fenster nun sichtbar
    }
+    ///////GETTER  und SETTER //////////////
 	/**
 	 * @return the itemInfo
 	 */
@@ -271,6 +288,18 @@ public class MyDrawingFrame3 extends JFrame
 	 */
 	public JMenuItem getItemDuplicate() {
 		return itemDuplicate;
+	}
+	/**
+	 * @return the itemHome
+	 */
+	public JMenuItem getItemHome() {
+		return itemHome;
+	}
+	/**
+	 * @return the itemColor
+	 */
+	public JMenuItem getItemColor() {
+		return itemColor;
 	}
 
 } 
