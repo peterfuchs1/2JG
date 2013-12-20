@@ -24,4 +24,13 @@ public class Oval extends Drawable {
 		else
 			g.drawOval(startX, startY, width, heigth);
 	}
+	/**
+	 * @see sw.Drawable#clone()
+	 */
+	@Override
+	public Drawable clone() {
+		int width=endX-startX;
+		int heigth=endY-startY;
+		return new Oval(0, 0, width, heigth, c,full);
+	}
 }

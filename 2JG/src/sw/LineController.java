@@ -39,8 +39,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		frame = new MyDrawingFrame3(view, this); // Mit MyFrame verknüpft
 		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
 													// gesetzt
-		alt = shift = false;
-
+		alt = shift = false;	// SHIFT- und ALT-Taste
 	}
 
 	/*
@@ -52,16 +51,21 @@ public class LineController extends MouseAdapter implements ActionListener,
 		Object o = ae.getSource();
 		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
 			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
-			if (item == frame.getItemDelete()) { // Aktion Löschen
-
+			if (item == frame.getItemDelete()) { 
+				// Element Löschen
 				view.deleteDrawable();
 				view.repaint();
-			} else if (item == frame.getItemRestore()) { // Aktion Löschen
-
+			} else if (item == frame.getItemRestore()) { 
+				// Element wiederherstellen
 				view.restoreDrawable();
 				view.repaint();
-			} else if (item == frame.getItemNew()) { // Neu
-
+			} else if (item == frame.getItemDuplicate()&& view.isGestartet()) { 
+				// Element duplizieren
+				view.addDrawable(view.getDrawables()[view.getIndex()-1].clone());
+				view.repaint();
+				
+			} else if (item == frame.getItemNew()) { 
+				// Neues Zeichenbrett
 				if (!view.isEmtpy()) {
 					if (JOptionPane.showConfirmDialog(frame,
 							"Die aktuelle Zeichnung wird verworfen!",
@@ -73,40 +77,39 @@ public class LineController extends MouseAdapter implements ActionListener,
 				}
 			} else if (item == frame.getItemFreehand()) // Freihandzeichnen
 				modus = Modus.FREEHAND; // aktivieren
-			else if (item == frame.getItemLine()) // Linien zeichnen
+			else if (item == frame.getItemLine()) 
+				// Linien zeichnen
 				modus = Modus.LINES;
-			else if (item == frame.getItemRectangle()) // Linien zeichnen
+			else if (item == frame.getItemRectangle()) 
+				// Rechteck zeichnen
 				modus = Modus.RECTANGLE;
-			else if (item == frame.getItemOval()) // Linien zeichnen
+			else if (item == frame.getItemOval()) 
+				// Ellipse zeichnen
 				modus = Modus.OVAL;
-			else if (item == frame.getItemRectangleFull()) // Linien
-															// zeichnen
+			else if (item == frame.getItemRectangleFull()) 
+				// Rechteck ausmalen
 				modus = Modus.RECTANGLE_FULL;
-			else if (item == frame.getItemRoundedRectangleFull()) // Linien
-																	// zeichnen
+			else if (item == frame.getItemRoundedRectangleFull()) 
+				// abgerundetes Rechteck ausmalen
 				modus = Modus.ROUNDED_RECTANGLE_FULL;
-			else if (item == frame.getItemRoundedRectangle()) // Linien
-																// zeichnen
+			else if (item == frame.getItemRoundedRectangle()) 
+				// abgerundetes Rechteck zeichnen
 				modus = Modus.ROUNDED_RECTANGLE;
-			else if (item == frame.getItemOvalFull()) // Linien zeichnen
+			else if (item == frame.getItemOvalFull()) 
+				// Ellipse ausmalenen
 				modus = Modus.OVAL_FULL;
-
-			else if (item == frame.getItemForeground()) // JColorChooser für
-														// die
-				// Stiftfarbe
+			else if (item == frame.getItemForeground()) 
+				// JColorChooser für die Stiftfarbe
 				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
-						view.getForeground())); // auswählen
-												// und
-												// setzen
-			else if (item == frame.getItemBackground()) // JColorChooser für
-														// die
-				// Hintergrundfarbe
+						view.getForeground())); 
+				// auswählen und setzen
+			else if (item == frame.getItemBackground()) 
+				// JColorChooser für die Hintergrundfarbe
 				view.setBackground(JColorChooser.showDialog(view,
-						"Hintergrund", view.getBackground())); // auswählen
-																// und
-																// setzen
-			else if (item == frame.getItemAbout()) { // Info der Applikation
-													// anzeigen
+						"Hintergrund", view.getBackground())); 
+				// auswählen und setzen
+			else if (item == frame.getItemAbout()) { 
+				// Info der Applikation anzeigen
 				JOptionPane.showMessageDialog(frame,
 						"Zeichenbrett v1.4\n(c) Walter Rafeiner-Magor", "Info",
 						JOptionPane.OK_OPTION);
@@ -354,8 +357,8 @@ public class LineController extends MouseAdapter implements ActionListener,
 					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start - 1 : start - 5;
-					start = (start < 0) ? 0 : start;
 					diff = start - diff;
+					start = (start < 0) ? 0 : start;
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
 						d.setStartX(start);
@@ -366,7 +369,6 @@ public class LineController extends MouseAdapter implements ActionListener,
 					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start + 1 : start + 5;
-					start = (start < 0) ? 0 : start;
 					diff = start - diff;
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
@@ -378,8 +380,8 @@ public class LineController extends MouseAdapter implements ActionListener,
 					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start - 1 : start - 5;
-					start = (start < 0) ? 0 : start;
 					diff = start - diff;
+					start = (start < 0) ? 0 : start;
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
 						d.setStartY(start);
@@ -390,7 +392,6 @@ public class LineController extends MouseAdapter implements ActionListener,
 					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start + 1 : start + 5;
-					start = (start < 0) ? 0 : start;
 					diff = start - diff;
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)

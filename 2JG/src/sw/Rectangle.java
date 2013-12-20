@@ -25,4 +25,13 @@ public class Rectangle extends Drawable {
 		else
 			g.drawRect(startX, startY, width, heigth);
 	}
+	/**
+	 * @see sw.Drawable#clone()
+	 */
+	@Override
+	public Drawable clone() {
+		int width=endX-startX;
+		int heigth=endY-startY;
+		return new Rectangle(0, 0, width, heigth, c,full);
+	}
 }

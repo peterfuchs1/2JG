@@ -28,8 +28,8 @@ public class MyDrawingPanel3 extends JPanel {
 		gestartet = false; 						// noch kein Mausereignis stattgefunden
 		this.addMouseListener(lc);		// Externe Controller-Klasse kümmert sich um Mausereignisse
 		this.addMouseMotionListener(lc);// Externe Controller-Klasse kümmert sich um Mausereignisse 
-		this.setFocusable(true);
-		this.addKeyListener(lc);
+		this.setFocusable(true);		// Fokus gesetzt, damit KeyEvents ausgelöste werden können!
+		this.addKeyListener(lc);		// Externe Controller-Klasse kümmert sich um KeyEvents
 	}
 
 	/*
@@ -37,7 +37,7 @@ public class MyDrawingPanel3 extends JPanel {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g); 		// SEHR WICHTIG!
+		super.paintComponent(g); 			// SEHR WICHTIG!
 		if (gestartet){
 			for (int i = 0; i < index; i++)
 				drawables[i].draw(g);		// Zeichnet alle Figuren nach

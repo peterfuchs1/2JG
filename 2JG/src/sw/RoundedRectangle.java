@@ -26,4 +26,13 @@ public class RoundedRectangle extends Drawable {
 		else
 			g.drawRoundRect(startX, startY, width,height,(int)(0.1*width),(int)(0.1*height) );
 	}
+	/**
+	 * @see sw.Drawable#clone()
+	 */
+	@Override
+	public Drawable clone() {
+		int width=endX-startX;
+		int heigth=endY-startY;
+		return new RoundedRectangle(0, 0, width, heigth, c,full);
+	}
 }

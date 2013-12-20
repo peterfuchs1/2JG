@@ -16,6 +16,7 @@ public class MyDrawingFrame3 extends JFrame
 	private JMenuItem itemSave;					// In Datei speichern
 	private JMenuItem itemDelete;				// letzter Schritt rückgängig
 	private JMenuItem itemRestore;				// letzter Schritt wiederhergestellt
+	private JMenuItem itemDuplicate;			// letztes Element duplizieren
 	
 	
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
@@ -68,7 +69,11 @@ public class MyDrawingFrame3 extends JFrame
     	itemRestore=new JMenuItem("Element wiederherstellen");
     	itemRestore.addActionListener(lc);		// Listener anmelden
     	menuEdit.add(itemRestore);				// zum Menü hinzufügen
-    	menuBar.add(menuEdit);					// zur MenuBar hinzufügen
+    	//// Menüeintrag: duplizieren
+    	itemDuplicate=new JMenuItem("Element duplizieren");
+    	itemDuplicate.addActionListener(lc);	// Listener anmelden
+    	menuEdit.add(itemDuplicate);			// zum Menü hinzufügen
+       	menuBar.add(menuEdit);					// zur MenuBar hinzufügen
     	// zweites Menü: Modus
     	JMenu menuModus=new JMenu("Zeichnen");
     	//// Gruppe erstellt
@@ -260,6 +265,12 @@ public class MyDrawingFrame3 extends JFrame
 	 */
 	public JMenuItem getItemHelp() {
 		return itemHelp;
+	}
+	/**
+	 * @return the itemDuplicate
+	 */
+	public JMenuItem getItemDuplicate() {
+		return itemDuplicate;
 	}
 
 } 

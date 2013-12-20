@@ -54,6 +54,10 @@ public abstract class Drawable implements Serializable {
 	 */
 	public abstract void draw(Graphics g);
 	/**
+	 * Erzeugt eine Kopie 
+	 */
+	public abstract Drawable clone();
+	/**
 	 * @return the startX
 	 */
 	public int getStartX() {

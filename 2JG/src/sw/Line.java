@@ -30,4 +30,13 @@ public class Line extends Drawable{
 		g.setColor(c);		// Farbe setzen
 		g.drawLine(startX, startY, endX, endY);
 	}
+	/**
+	 * @see sw.Drawable#clone()
+	 */
+	@Override
+	public Drawable clone() {
+		int width=endX-startX;
+		int heigth=endY-startY;
+		return new Line(0, 0, width, heigth, c);
+	}
 }
