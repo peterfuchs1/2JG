@@ -96,6 +96,7 @@ public class MyDrawingPanel3 extends JPanel {
 	public void setEmtpy(){
 		index=0;
 		drawables[0]=null;
+		gestartet=false;
 	}
 
 	/**

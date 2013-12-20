@@ -48,6 +48,8 @@ public class MyDrawingFrame3 extends JFrame
     	JMenu menuFile=new JMenu("Datei");
     	//// Menüeintrag: New
        	itemNew=new JMenuItem("Neu",'N');
+       	itemNew.setAccelerator(KeyStroke.getKeyStroke('N',
+                Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
        	itemNew.addActionListener(lc);		// Listener anmelden
        	menuFile.add(itemNew);				// zum Menü hinzufügen
        	//// Menüeintrag: Laden
@@ -169,7 +171,22 @@ public class MyDrawingFrame3 extends JFrame
         this.add(view);				// MyJPanel Im Center verankert
         this.setSize(800,600);		// Startgröße festgelegt
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.disableEditMenu();
         this.setVisible(true);		// Fenster nun sichtbar
+   }
+   public void disableEditMenu(){
+	   itemDelete.setEnabled(false);
+	   itemRestore.setEnabled(false);
+	   itemDuplicate.setEnabled(false);
+	   itemHome.setEnabled(false);
+	   itemColor.setEnabled(false);
+   }
+   public void enableEditMenu(){
+	   itemDelete.setEnabled(true);
+	   itemRestore.setEnabled(true);
+	   itemDuplicate.setEnabled(true);
+	   itemHome.setEnabled(true);
+	   itemColor.setEnabled(true);
    }
     ///////GETTER  und SETTER //////////////
 	/**

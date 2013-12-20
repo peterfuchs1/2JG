@@ -118,15 +118,12 @@ public class LineController extends MouseAdapter implements ActionListener,
 			else if (item == frame.getItemHelp())  
 				// Hilfe der Applikation anzeigen
 				 this.showHelp();
-			else if (item == frame.getItemLoad()) { 
+			else if (item == frame.getItemLoad()) 
 				// File laden
-				JOptionPane.showMessageDialog(frame, "Not implemented yet!",
-						"Info", JOptionPane.OK_OPTION);} 
-			else if (item == frame.getItemSave()) { 
+				this.notImplementedYet();
+			else if (item == frame.getItemSave())  
 				// File speichern
-				JOptionPane.showMessageDialog(frame, "Not implemented yet!",
-						"Info", JOptionPane.OK_OPTION);}
-				
+				this.notImplementedYet();
 		}
 	}
 
@@ -138,7 +135,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
 		int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
 		if (!view.isGestartet()) {
-			view.setGestartet(true);
+			this.gestartet();
 			merkeKoordinaten(x, y);
 		}
 		// Punkt und Farbe speichern und zeichnen
@@ -156,7 +153,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
 		int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
 		if (!view.isGestartet()) {
-			view.setGestartet(true);
+			this.gestartet();
 			merkeKoordinaten(x, y);
 		}
 		if (modus != Modus.FREEHAND && lastMouseEvent != null
@@ -206,7 +203,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 			int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
 			int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
 			if (!view.isGestartet()) {
-				view.setGestartet(true);
+				this.gestartet();
 				merkeKoordinaten(x, y);
 			}
 			// Dragged Version vergessen!
@@ -433,6 +430,8 @@ public class LineController extends MouseAdapter implements ActionListener,
 					"Warnung", JOptionPane.YES_NO_OPTION,
 					JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 				view.setEmtpy();
+				view.setFocusable(true);
+				frame.disableEditMenu();
 				view.repaint();
 			}
 		}
@@ -459,5 +458,13 @@ public class LineController extends MouseAdapter implements ActionListener,
 	private void restoreItem(){
 		view.restoreDrawable();
 		view.repaint();
+	}
+	private void notImplementedYet(){
+		JOptionPane.showMessageDialog(frame, "Not implemented yet!",
+				"Info", JOptionPane.OK_OPTION);
+	}
+	private void gestartet(){
+		view.setGestartet(true);
+		frame.enableEditMenu();
 	}
 }
