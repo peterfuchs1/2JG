@@ -35,8 +35,9 @@ public class Line extends Drawable{
 	 */
 	@Override
 	public Drawable clone() {
-		int width=endX-startX;
-		int heigth=endY-startY;
-		return new Line(0, 0, width, heigth, c);
+		Line d=new Line(startX, startY, endX, endY, c);
+		d.setHomePosition();
+		return d;
 	}
+
 }

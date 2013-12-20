@@ -17,7 +17,8 @@ public class MyDrawingFrame3 extends JFrame
 	private JMenuItem itemDelete;				// letzter Schritt rückgängig
 	private JMenuItem itemRestore;				// letzter Schritt wiederhergestellt
 	private JMenuItem itemDuplicate;			// letztes Element duplizieren
-	
+	private JMenuItem itemHome;					// Element in Homeposition
+	private JMenuItem itemColor;				// Elementfarbe ändern
 	
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
 	private JRadioButtonMenuItem itemLine;		// Linien zeichnen
@@ -73,7 +74,18 @@ public class MyDrawingFrame3 extends JFrame
     	itemDuplicate=new JMenuItem("Element duplizieren");
     	itemDuplicate.addActionListener(lc);	// Listener anmelden
     	menuEdit.add(itemDuplicate);			// zum Menü hinzufügen
-       	menuBar.add(menuEdit);					// zur MenuBar hinzufügen
+       	/// Separator hinzufügen
+    	JSeparator jsb=new JSeparator();
+    	menuEdit.add(jsb);			// zum Menü hinzufügen
+    	//// Menüeintrag: HomePosition
+    	itemHome=new JMenuItem("Element in Home Position");
+    	itemHome.addActionListener(lc);	// Listener anmelden
+    	menuEdit.add(itemHome);			// zum Menü hinzufügen       	
+    	//// Menüeintrag: Elementfarbe ändern 
+       	itemColor=new JMenuItem("Elementfarbe ändern");
+       	itemColor.addActionListener(lc);	// Listener anmelden
+       	menuEdit.add(itemColor);			// zum Menü hinzufügen       	
+       	menuBar.add(menuEdit);			// zur MenuBar hinzufügen
     	// zweites Menü: Modus
     	JMenu menuModus=new JMenu("Zeichnen");
     	//// Gruppe erstellt
@@ -155,6 +167,7 @@ public class MyDrawingFrame3 extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);		// Fenster nun sichtbar
    }
+    ///////GETTER  und SETTER //////////////
 	/**
 	 * @return the itemInfo
 	 */
@@ -271,6 +284,18 @@ public class MyDrawingFrame3 extends JFrame
 	 */
 	public JMenuItem getItemDuplicate() {
 		return itemDuplicate;
+	}
+	/**
+	 * @return the itemHome
+	 */
+	public JMenuItem getItemHome() {
+		return itemHome;
+	}
+	/**
+	 * @return the itemColor
+	 */
+	public JMenuItem getItemColor() {
+		return itemColor;
 	}
 
 } 

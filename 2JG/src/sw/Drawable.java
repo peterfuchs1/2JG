@@ -58,6 +58,14 @@ public abstract class Drawable implements Serializable {
 	 */
 	public abstract Drawable clone();
 	/**
+	 * Element wird auf Position (0/0) gesetzt
+	 */
+	public void setHomePosition(){
+		endX-=startX;
+		endY-=startY;
+		startX=startY=0;
+	}
+	/**
 	 * @return the startX
 	 */
 	public int getStartX() {
@@ -104,6 +112,18 @@ public abstract class Drawable implements Serializable {
 	 */
 	public void setEndY(int endY) {
 		this.endY = endY;
+	}
+	/**
+	 * @return the c
+	 */
+	public Color getColor() {
+		return c;
+	}
+	/**
+	 * @param c the c to set
+	 */
+	public void setColor(Color c) {
+		this.c = c;
 	}
 	
 }
