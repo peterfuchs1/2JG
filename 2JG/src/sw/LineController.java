@@ -3,7 +3,7 @@
  */
 package sw;
 
-import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -31,7 +31,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 	private int lastY; // letzte Y-Koordinaten
 	private Modus modus; // Welcher Modus ist aktiv?
 	private MouseEvent lastMouseEvent = null;
-	private boolean alt, shift;
+	private boolean alt, shift;// SHIFT- und ALT-Taste
 
 	public LineController() {
 		modus = Modus.FREEHAND; // Freihandzeichnen aktiviert
@@ -39,7 +39,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		frame = new MyDrawingFrame3(view, this); // Mit MyFrame verknüpft
 		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
 													// gesetzt
-		alt = shift = false;	// SHIFT- und ALT-Taste
+		alt = shift = false;	// SHIFT- und ALT-Taste initialisiert
 	}
 
 	/*
@@ -51,31 +51,35 @@ public class LineController extends MouseAdapter implements ActionListener,
 		Object o = ae.getSource();
 		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
 			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
-			if (item == frame.getItemDelete()) { 
-				// Element Löschen
-				view.deleteDrawable();
-				view.repaint();
-			} else if (item == frame.getItemRestore()) { 
-				// Element wiederherstellen
-				view.restoreDrawable();
-				view.repaint();
-			} else if (item == frame.getItemDuplicate()&& view.isGestartet()) { 
-				// Element duplizieren
-				view.addDrawable(view.getDrawables()[view.getIndex()-1].clone());
-				view.repaint();
-				
-			} else if (item == frame.getItemNew()) { 
+			if(view.isGestartet()){// bereits gestartet !!
+				if (item == frame.getItemDuplicate()) { 
+					// Element duplizieren
+					view.addDrawable(view.getDrawables()[view.getIndex()-1].clone());
+					view.repaint();} 
+				else if (item == frame.getItemHome())  
+					// Element in Homeposition
+					this.homePosition();
+				else if (item == frame.getItemColor()){ 
+					// JColorChooser für die Elementfarbe
+					Drawable d=view.getDrawables()[view.getIndex()-1];
+					Color c=d.getColor();
+							d.setColor(JColorChooser.showDialog(view,
+							"Elementfarbe", c));
+							view.repaint();}
+				else if (item == frame.getItemDelete()) { 
+						// Element Löschen
+						view.deleteDrawable();
+						view.repaint();	} 
+				else if (item == frame.getItemRestore()) { 
+						// Element wiederherstellen
+						view.restoreDrawable();
+						view.repaint();}
+			} 
+			else{//noch nicht gestartet!!} 
+			if (item == frame.getItemNew())  
 				// Neues Zeichenbrett
-				if (!view.isEmtpy()) {
-					if (JOptionPane.showConfirmDialog(frame,
-							"Die aktuelle Zeichnung wird verworfen!",
-							"Warnung", JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-						view.setEmtpy();
-						view.repaint();
-					}
-				}
-			} else if (item == frame.getItemFreehand()) // Freihandzeichnen
+				this.newNotePad();
+			else if (item == frame.getItemFreehand()) // Freihandzeichnen
 				modus = Modus.FREEHAND; // aktivieren
 			else if (item == frame.getItemLine()) 
 				// Linien zeichnen
@@ -111,31 +115,20 @@ public class LineController extends MouseAdapter implements ActionListener,
 			else if (item == frame.getItemAbout()) { 
 				// Info der Applikation anzeigen
 				JOptionPane.showMessageDialog(frame,
-						"Zeichenbrett v1.4\n(c) Walter Rafeiner-Magor", "Info",
-						JOptionPane.OK_OPTION);
-			} else if (item == frame.getItemHelp()) { // Hilfe der Applikation
-				// anzeigen
-				JOptionPane.showMessageDialog(frame,
-						"Menü Datei: Mit Neu kann ein neues Zeichenbrett erstellt werden\n\n"+
-						"Menü Bearbeiten: Einzelne Elemente löschen oder wiederherstellen\n\n"+
-						"Zeichen: Verschieden Zeichenmethoden\n\n"+
-						"Erweiterte Möglichkeiten Tastatur:\n"+
-						"Elemente können mit Pfeiltaste  um 5 Pixel verschoben werden.\n"+
-						"Elemente können mit Pfeiltasten und ALT un 1 Pixel verschoben werden.\n"+
-						"Elemente können mit Pfeiltasten und SHIFT vergrößert und verkleinert werden.\n", 
-								"Hilfe",
-						JOptionPane.OK_OPTION);
-			} else if (item == frame.getItemLoad()) { // Info der
-														// Applikation
-														// anzeigen
+						"Zeichenbrett v1.7\n(c) Walter Rafeiner-Magor", "Info",
+						JOptionPane.OK_OPTION);} 
+			else if (item == frame.getItemHelp())  
+				// Hilfe der Applikation anzeigen
+				 this.showHelp();
+			else if (item == frame.getItemLoad()) { 
+				// File laden
 				JOptionPane.showMessageDialog(frame, "Not implemented yet!",
-						"Info", JOptionPane.OK_OPTION);
-			} else if (item == frame.getItemSave()) { // Info der
-														// Applikation
-														// anzeigen
+						"Info", JOptionPane.OK_OPTION);} 
+			else if (item == frame.getItemSave()) { 
+				// File speichern
 				JOptionPane.showMessageDialog(frame, "Not implemented yet!",
-						"Info", JOptionPane.OK_OPTION);
-			}
+						"Info", JOptionPane.OK_OPTION);}
+			}	
 		}
 	}
 
@@ -346,6 +339,8 @@ public class LineController extends MouseAdapter implements ActionListener,
 
 		if (view.isGestartet()) {
 			switch (ke.getKeyCode()) {
+			case KeyEvent.VK_HOME:
+				this.homePosition();break;
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_UP:
@@ -355,10 +350,13 @@ public class LineController extends MouseAdapter implements ActionListener,
 				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
 					int diff = d.getStartX();
 					int start = diff;
+					System.out.println(start);
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start - 1 : start - 5;
-					diff = start - diff;
-					start = (start < 0) ? 0 : start;
+					if(start!=0){
+						start = (alt) ? start - 1 : start - 5;
+						diff = start - diff;
+						start = (start < 0) ? 0 : start;
+					}
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
 						d.setStartX(start);
@@ -378,10 +376,13 @@ public class LineController extends MouseAdapter implements ActionListener,
 				if (ke.getKeyCode() == KeyEvent.VK_UP) {
 					int diff = d.getStartY();
 					int start = diff;
+					System.out.println(start);
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start - 1 : start - 5;
-					diff = start - diff;
-					start = (start < 0) ? 0 : start;
+					if(start!=0){
+						start = (alt) ? start - 1 : start - 5;
+						diff = start - diff;
+						start = (start < 0) ? 0 : start;
+					}
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
 						d.setStartY(start);
@@ -400,14 +401,57 @@ public class LineController extends MouseAdapter implements ActionListener,
 
 				}
 				view.repaint(); // Anzeige aktualisieren
+				break;
+			case KeyEvent.VK_SHIFT:
+				shift = false; // SHIFT und
+				break;
+			case KeyEvent.VK_ALT:
+				alt = false; // ALT zurücksetzen
+				break;
+
 			}
-			shift = false; // SHIFT und
-			alt = false; // ALT zurücksetzen
+			
+			
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 	}
-
+	/**
+	 * Element in Homeposition setzen
+	 */
+	private void homePosition(){
+		view.getDrawables()[view.getIndex()-1].setHomePosition();
+		view.repaint();
+	}
+	/**
+	 * Neues Zeichenbrett erstellen
+	 */
+	private void newNotePad(){
+		if (!view.isEmtpy()) {
+			if (JOptionPane.showConfirmDialog(frame,
+					"Die aktuelle Zeichnung wird verworfen!",
+					"Warnung", JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+				view.setEmtpy();
+				view.repaint();
+			}
+		}
+	}
+	/**
+	 * Zeigt die Hilfe als Dialog an
+	 */
+	private void showHelp(){
+		JOptionPane.showMessageDialog(frame,
+				"Menü Datei: Mit Neu kann ein neues Zeichenbrett erstellt werden\n\n"+
+				"Menü Bearbeiten: Einzelne Elemente löschen oder wiederherstellen\n\n"+
+				"Zeichen: Verschieden Zeichenmethoden\n\n"+
+				"Erweiterte Möglichkeiten Tastatur:\n"+
+				"Elemente können mit Pfeiltaste  um 5 Pixel verschoben werden.\n"+
+				"Elemente können mit Pfeiltasten und ALT un 1 Pixel verschoben werden.\n"+
+				"Elemente können mit Pfeiltasten und SHIFT vergrößert und verkleinert werden.\n", 
+						"Hilfe",
+				JOptionPane.OK_OPTION);
+	}
 }
