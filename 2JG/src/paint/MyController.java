@@ -11,8 +11,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -21,7 +24,7 @@ import javax.swing.JOptionPane;
  * View
  * 
  * @author Walter Rafeiner-Magor
- * @version 1.2
+ * @version 2.0
  */
 public class MyController extends MouseAdapter implements ActionListener,
 		KeyListener {
@@ -110,21 +113,33 @@ public class MyController extends MouseAdapter implements ActionListener,
 				view.setBackground(JColorChooser.showDialog(view,
 						"Hintergrund", view.getBackground())); 
 				// auswählen und setzen
-			else if (item == frame.getItemAbout()) { 
+			else if (item == frame.getItemAbout()) 
 				// Info der Applikation anzeigen
-				JOptionPane.showMessageDialog(frame,
-						"Zeichenbrett v1.8\n(c) Walter Rafeiner-Magor", "Info",
-						JOptionPane.OK_OPTION);} 
+				this.about();
 			else if (item == frame.getItemHelp())  
 				// Hilfe der Applikation anzeigen
 				 this.showHelp();
-			else if (item == frame.getItemLoad()) 
+			else if (item == frame.getItemLoad()){ 
 				// File laden
-				this.notImplementedYet();
-			else if (item == frame.getItemSave())  
+				File file=this.fileChooser();
+				if(file!=null)
+					this.load(file, view.getDrawables());
+			}
+			else if (item == frame.getItemSave()){  
 				// File speichern
-				this.notImplementedYet();
+				File file=this.fileChooser();
+				if(file!=null)
+					this.save(file, view.getDrawables());
+			}
 		}
+	}
+	/**
+	 * About
+	 */
+	private void about() {
+		JOptionPane.showMessageDialog(frame,
+				"Zeichenbrett v2.0\n(c) Walter Rafeiner-Magor", "Info",
+				JOptionPane.OK_OPTION);
 	}
 
 	/**
@@ -249,45 +264,56 @@ public class MyController extends MouseAdapter implements ActionListener,
 		lastY = y;
 	}
 
-	private void save(String filename, Drawable[] d) {
+	private void save(File filename, Drawable[] d) {
 		int length = view.getIndex();
-		ObjectOutputStream outputStream = null;
+		ObjectOutputStream oos = null;
 		try {
-			outputStream = new ObjectOutputStream(
+			oos = new ObjectOutputStream(
 					new FileOutputStream(filename));
-			for (int i = 0; i < length; i++) {
-				outputStream.writeObject(d[i]);
-			}
-			outputStream.flush();
-
+			Drawable[] dneu=Arrays.copyOfRange(d, 0, length);
+//			for (int i = 0; i < length; i++) {
+				oos.writeObject(view.getBackground());
+				oos.writeObject(dneu);
+//			}
+			oos.flush();
+			oos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (outputStream != null)
-				try {
-					outputStream.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-				}
-		}
+		} 
 	}
+	private File fileChooser(){
+		File ret=null;
+		//Create a file chooser
+		final JFileChooser fc = new JFileChooser();
+		 int returnVal = fc.showOpenDialog(view);
+		  if (returnVal == JFileChooser.APPROVE_OPTION) 
+	            ret= fc.getSelectedFile();
+	    return ret;        
 
-	private void load(String filename, Drawable[] d) {
+	}
+	private void load(File filename, Drawable[] d) {
 		int index = 0;
-		ObjectInputStream inputStream = null;
+		ObjectInputStream ois = null;
 		Object o;
 		try {
-			inputStream = new ObjectInputStream(new FileInputStream(filename));
-			while ((o = inputStream.readObject()) != null) {
-				d[index++] = (Drawable) o;
-			}
-
+			ois = new ObjectInputStream(new FileInputStream(filename));
+			Drawable[] dneu;
+			Color bg=(Color)ois.readObject();
+			dneu=(Drawable []) ois.readObject();
+			index=dneu.length;
+			for(int i=0;i<index;i++)
+				d[i]=dneu[i];
+			view.setIndex(index);
+			if (index < MyPanel.MAX_DRAWABLES)
+				view.getDrawables()[index] = null;
+			view.setGestartet(true);
+			view.setBackground(bg);
+			frame.enableEditMenu();
+			view.repaint();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -297,21 +323,7 @@ public class MyController extends MouseAdapter implements ActionListener,
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-				}
-			} else {
-				view.setIndex(index);
-				if (index < MyPanel.MAX_DRAWABLES)
-					view.getDrawables()[index] = null;
-			}
-		}
+		} 	
 	}
 
 	/**
@@ -432,6 +444,7 @@ public class MyController extends MouseAdapter implements ActionListener,
 				view.setEmtpy();
 				view.setFocusable(true);
 				frame.disableEditMenu();
+				view.setBackground(Color.LIGHT_GRAY);
 				view.repaint();
 			}
 		}
