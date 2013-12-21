@@ -7,7 +7,7 @@ import javax.swing.*;
  * ein JPanel in einem JFrame zur Verfügung.
  *
  * @author Walter Rafeiner-Magor
- * @version 1.0
+ * @version 2.1
  */
 public class MyFrame extends JFrame
 {	
@@ -55,10 +55,14 @@ public class MyFrame extends JFrame
        	menuFile.add(itemNew);				// zum Menü hinzufügen
        	//// Menüeintrag: Laden
     	itemLoad=new JMenuItem("Laden...");
+    	itemLoad.setAccelerator(KeyStroke.getKeyStroke('L',
+                Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
     	itemLoad.addActionListener(lc);		// Listener anmelden
     	menuFile.add(itemLoad);				// zum Menü hinzufügen
        	//// Menüeintrag: Speichern
     	itemSave=new JMenuItem("Speichern...");
+    	itemSave.setAccelerator(KeyStroke.getKeyStroke('S',
+                Toolkit.getDefaultToolkit(  ).getMenuShortcutKeyMask(  ), false));
     	itemSave.addActionListener(lc);		// Listener anmelden
     	menuFile.add(itemSave);				// zum Menü hinzufügen
     	menuBar.add(menuFile);

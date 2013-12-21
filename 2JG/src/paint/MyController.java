@@ -29,7 +29,7 @@ import javax.swing.WindowConstants;
  * View
  * 
  * @author Walter Rafeiner-Magor
- * @version 2.0
+ * @version 2.1
  */
 public class MyController extends WindowAdapter implements ActionListener,
 		KeyListener,MouseMotionListener, MouseListener {
@@ -141,7 +141,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 */
 	private void about() {
 		JOptionPane.showMessageDialog(frame,
-				"Zeichenbrett v2.0\n(c) Walter Rafeiner-Magor", "Info",
+				"Zeichenbrett v2.1\n(c) Walter Rafeiner-Magor", "Info",
 				JOptionPane.OK_OPTION);
 	}
 
@@ -437,7 +437,11 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 * @param d
 	 */
 	private void save() {
-		File file = this.fileChooser();
+		File file = null;
+		// Create a file chooser
+		final JFileChooser fc = new JFileChooser();
+		if(fc.showSaveDialog(view)== JFileChooser.APPROVE_OPTION)
+				file = fc.getSelectedFile();
 		if (file == null){
 			JOptionPane.showMessageDialog(frame, 
 					"Die aktuelle Zeichnung"
@@ -475,22 +479,6 @@ public class MyController extends WindowAdapter implements ActionListener,
 	}
 
 	/**
-	 * Auswahl eines Files
-	 * 
-	 * @return File oder null
-	 */
-	private File fileChooser() {
-		File ret = null;
-		// Create a file chooser
-		final JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(view);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
-			ret = fc.getSelectedFile();
-		return ret;
-
-	}
-
-	/**
 	 * Lade den Inhalt des Files in das Drawable-Array
 	 * 
 	 * @param file
@@ -499,7 +487,12 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 *            Array
 	 */
 	private void load() {
-		File file = this.fileChooser();
+		File file = null;
+		// Create a file chooser
+		final JFileChooser fc = new JFileChooser();
+		if(fc.showOpenDialog(view)== JFileChooser.APPROVE_OPTION)
+				file = fc.getSelectedFile();
+		
 		if (file == null) return;
 		Drawable[] d= view.getDrawables();
 		int index = 0;
