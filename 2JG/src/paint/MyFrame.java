@@ -28,6 +28,7 @@ public class MyFrame extends JFrame
 	private JRadioButtonMenuItem itemRectangleFull;	// Rechteck ausmalen
 	private JRadioButtonMenuItem itemOvalFull;		// Ellipse ausmalen
 	private JRadioButtonMenuItem itemRoundedRectangleFull;	// abgerundetes Rechteck ausmalen
+	private JRadioButtonMenuItem itemText;		// Schreibt in Ausschnitt
 	
 	private JMenuItem itemForeground;			// Stiftfarbe
 	private JMenuItem itemBackground;			// Hintergrundfarbe
@@ -139,6 +140,13 @@ public class MyFrame extends JFrame
        	itemOvalFull.addActionListener(lc);			// Listener anmelden
        	group.add(itemOvalFull);					// zur Gruppe hinzufügen
        	menuModus.add(itemOvalFull);				// zum Menü hinzufügen
+//      menuModus.addSeparator();
+       	//// RadioButton-Menüeintrag für Ellipsen ausmalen    	
+       	itemText=new JRadioButtonMenuItem("Text schreiben");
+       	itemText.addActionListener(lc);			// Listener anmelden
+       	group.add(itemText);					// zur Gruppe hinzufügen
+       	menuModus.add(itemText);				// zum Menü hinzufügen
+       	itemText.setVisible(false);
     	menuBar.add(menuModus);					// zur MenuBar hinzufügen
     	//////////////////////////////////
     	// drittes: Farbe    	
@@ -170,7 +178,9 @@ public class MyFrame extends JFrame
     	
         this.add(view);				// MyJPanel Im Center verankert
         this.setSize(800,600);		// Startgröße festgelegt
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null); 		// Zentrieren
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addWindowListener(lc);
         this.disableEditMenu();
         this.setVisible(true);		// Fenster nun sichtbar
    }
@@ -309,6 +319,12 @@ public class MyFrame extends JFrame
 	 */
 	public JMenuItem getItemColor() {
 		return itemColor;
+	}
+	/**
+	 * @return the itemText
+	 */
+	public JRadioButtonMenuItem getItemText() {
+		return itemText;
 	}
 
 } 

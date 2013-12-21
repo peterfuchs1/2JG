@@ -10,6 +10,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -18,6 +22,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 /**
  * Controller für Zeichenbrett Actionlistener: JMenuItems im Frame MouseAdapter:
@@ -26,8 +31,8 @@ import javax.swing.JOptionPane;
  * @author Walter Rafeiner-Magor
  * @version 2.0
  */
-public class MyController extends MouseAdapter implements ActionListener,
-		KeyListener {
+public class MyController extends WindowAdapter implements ActionListener,
+		KeyListener,MouseMotionListener, MouseListener {
 	private MyPanel view; // MyJPanel
 	private MyFrame frame; // MyFrame
 	private int lastX; // letzte X-Koordinaten
@@ -42,7 +47,7 @@ public class MyController extends MouseAdapter implements ActionListener,
 		frame = new MyFrame(view, this); // Mit MyFrame verknüpft
 		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
 													// gesetzt
-		alt = shift = false;	// SHIFT- und ALT-Taste initialisiert
+		alt = shift = false; // SHIFT- und ALT-Taste initialisiert
 	}
 
 	/*
@@ -54,85 +59,83 @@ public class MyController extends MouseAdapter implements ActionListener,
 		Object o = ae.getSource();
 		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
 			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
-			if(view.isGestartet()){// bereits gestartet !!
-				if (item == frame.getItemDuplicate()) { 
+			if (view.isGestartet()) {// bereits gestartet !!
+				if (item == frame.getItemDuplicate()) {
 					// Element duplizieren
-					view.addDrawable(view.getDrawables()[view.getIndex()-1].clone());
-					view.repaint();} 
-				else if (item == frame.getItemHome())  
+					view.addDrawable(view.getDrawables()[view.getIndex() - 1]
+							.clone());
+					view.repaint();
+				} else if (item == frame.getItemHome())
 					// Element in Homeposition
 					this.homePosition();
-				else if (item == frame.getItemColor()){ 
+				else if (item == frame.getItemColor()) {
 					// JColorChooser für die Elementfarbe
-					Drawable d=view.getDrawables()[view.getIndex()-1];
-					Color c=d.getColor();
-							d.setColor(JColorChooser.showDialog(view,
-							"Elementfarbe", c));
-							view.repaint();}
-				else if (item == frame.getItemDelete())  
-						// Element Löschen
-						this.deleteItem(); 
-				else if (item == frame.getItemRestore())  
-						// Element wiederherstellen
-						this.restoreItem();
+					Drawable d = view.getDrawables()[view.getIndex() - 1];
+					Color c = d.getColor();
+					d.setColor(JColorChooser
+							.showDialog(view, "Elementfarbe", c));
+					view.repaint();
+				} else if (item == frame.getItemDelete())
+					// Element Löschen
+					this.deleteItem();
+				else if (item == frame.getItemRestore())
+					// Element wiederherstellen
+					this.restoreItem();
+			} else {/* noch nicht gestartet */
 			}
-			else{/*noch nicht gestartet*/} 
-			if (item == frame.getItemNew())  
+			if (item == frame.getItemNew())
 				// Neues Zeichenbrett
 				this.newNotePad();
 			else if (item == frame.getItemFreehand()) // Freihandzeichnen
 				modus = Modus.FREEHAND; // aktivieren
-			else if (item == frame.getItemLine()) 
+			else if (item == frame.getItemText()) // Text
+				modus = Modus.TEXT; // aktivieren
+			else if (item == frame.getItemLine())
 				// Linien zeichnen
 				modus = Modus.LINES;
-			else if (item == frame.getItemRectangle()) 
+			else if (item == frame.getItemRectangle())
 				// Rechteck zeichnen
 				modus = Modus.RECTANGLE;
-			else if (item == frame.getItemOval()) 
+			else if (item == frame.getItemOval())
 				// Ellipse zeichnen
 				modus = Modus.OVAL;
-			else if (item == frame.getItemRectangleFull()) 
+			else if (item == frame.getItemRectangleFull())
 				// Rechteck ausmalen
 				modus = Modus.RECTANGLE_FULL;
-			else if (item == frame.getItemRoundedRectangleFull()) 
+			else if (item == frame.getItemRoundedRectangleFull())
 				// abgerundetes Rechteck ausmalen
 				modus = Modus.ROUNDED_RECTANGLE_FULL;
-			else if (item == frame.getItemRoundedRectangle()) 
+			else if (item == frame.getItemRoundedRectangle())
 				// abgerundetes Rechteck zeichnen
 				modus = Modus.ROUNDED_RECTANGLE;
-			else if (item == frame.getItemOvalFull()) 
+			else if (item == frame.getItemOvalFull())
 				// Ellipse ausmalenen
 				modus = Modus.OVAL_FULL;
-			else if (item == frame.getItemForeground()) 
+			else if (item == frame.getItemForeground())
 				// JColorChooser für die Stiftfarbe
 				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
-						view.getForeground())); 
-				// auswählen und setzen
-			else if (item == frame.getItemBackground()) 
+						view.getForeground()));
+			// auswählen und setzen
+			else if (item == frame.getItemBackground())
 				// JColorChooser für die Hintergrundfarbe
 				view.setBackground(JColorChooser.showDialog(view,
-						"Hintergrund", view.getBackground())); 
-				// auswählen und setzen
-			else if (item == frame.getItemAbout()) 
+						"Hintergrund", view.getBackground()));
+			// auswählen und setzen
+			else if (item == frame.getItemAbout())
 				// Info der Applikation anzeigen
 				this.about();
-			else if (item == frame.getItemHelp())  
+			else if (item == frame.getItemHelp())
 				// Hilfe der Applikation anzeigen
-				 this.showHelp();
-			else if (item == frame.getItemLoad()){ 
+				this.showHelp();
+			else if (item == frame.getItemLoad()) 
 				// File laden
-				File file=this.fileChooser();
-				if(file!=null)
-					this.load(file, view.getDrawables());
-			}
-			else if (item == frame.getItemSave()){  
+				this.load();
+			else if (item == frame.getItemSave()) 
 				// File speichern
-				File file=this.fileChooser();
-				if(file!=null)
-					this.save(file, view.getDrawables());
-			}
+				this.save();
 		}
 	}
+
 	/**
 	 * About
 	 */
@@ -154,8 +157,8 @@ public class MyController extends MouseAdapter implements ActionListener,
 			merkeKoordinaten(x, y);
 		}
 		// Punkt und Farbe speichern und zeichnen
-		if (modus == Modus.FREEHAND)
-			view.addDrawable(new Line(x, y, x, y, view.getForeground()));
+		// if (modus == Modus.FREEHAND)
+		// view.addDrawable(new Line(x, y, x, y, view.getForeground()));
 		merkeKoordinaten(x, y);
 	}
 
@@ -176,6 +179,9 @@ public class MyController extends MouseAdapter implements ActionListener,
 			// letzte Linie vergessen
 			view.deleteDrawable();
 		switch (modus) { // Figuren zeichnen
+		case TEXT:
+			this.notImplementedYet();
+			break;
 		case FREEHAND:
 			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
 			break;
@@ -263,75 +269,8 @@ public class MyController extends MouseAdapter implements ActionListener,
 		lastX = x;
 		lastY = y;
 	}
-	/**
-	 * Speichere den Inhalt des Drawable-Array in ein File
-	 * @param file
-	 * @param d
-	 */
-	private void save(File file, Drawable[] d) {
-		int length = view.getIndex();
-		ObjectOutputStream oos = null;
-		try {
-			oos = new ObjectOutputStream(
-					new FileOutputStream(file));
-			Drawable[] dneu=Arrays.copyOfRange(d, 0, length);
-			// Speichert Hintergrundfarbe 
-			oos.writeObject(view.getBackground());
-			// Speichert das Drawable-Array
-			oos.writeObject(dneu);
-			// Buffer leeren und schließen
-			oos.flush();
-			oos.close();
-		}
-		catch (IOException e) {
-			JOptionPane.showMessageDialog(frame, "Das Speichern von " +file.getName()+" ist fehlgeschlagen!");
-		} 
-	}
-	/**
-	 * Auswahl eines Files
-	 * @return File oder null
-	 */
-	private File fileChooser(){
-		File ret=null;
-		//Create a file chooser
-		final JFileChooser fc = new JFileChooser();
-		 int returnVal = fc.showOpenDialog(view);
-		  if (returnVal == JFileChooser.APPROVE_OPTION) 
-	            ret= fc.getSelectedFile();
-	    return ret;        
 
-	}
-	/**
-	 * Lade den Inhalt des Files in das Drawable-Array
-	 * @param file File
-	 * @param d Array
-	 */
-	private void load(File file, Drawable[] d) {
-		int index = 0;
-		ObjectInputStream ois = null;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(file));
-			Drawable[] dneu;
-			Color bg=(Color)ois.readObject();
-			dneu=(Drawable []) ois.readObject();
-			index=dneu.length;
-			for(int i=0;i<index;i++)
-				d[i]=dneu[i];
-			view.setIndex(index);
-			if (index < MyPanel.MAX_DRAWABLES)
-				view.getDrawables()[index] = null;
-			view.setGestartet(true);
-			view.setBackground(bg);
-			frame.enableEditMenu();
-			view.repaint();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(frame, "Das Lesen von " +file.getName()+" ist fehlgeschlagen!");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} 	
-	}
-
-	/**
+		/**
 	 * SHIFT für Vergrößerung ALT für Pixel-Schritte
 	 */
 	@Override
@@ -352,7 +291,8 @@ public class MyController extends MouseAdapter implements ActionListener,
 		if (view.isGestartet()) {
 			switch (ke.getKeyCode()) {
 			case KeyEvent.VK_HOME:
-				this.homePosition();break;
+				this.homePosition();
+				break;
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_UP:
@@ -365,15 +305,14 @@ public class MyController extends MouseAdapter implements ActionListener,
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start - 1 : start - 5;
 					diff = start - diff;
-					if(shift)
+					if (shift)
 						start = (alt) ? start + 1 : start + 5;
 					start = (start < 0) ? 0 : start;
-					
+
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
 						d.setStartX(start);
-					
-						
+
 					d.setEndX(d.getEndX() + diff);
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
@@ -393,11 +332,11 @@ public class MyController extends MouseAdapter implements ActionListener,
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start - 1 : start - 5;
 					diff = start - diff;
-					if(shift)
+					if (shift)
 						start = (alt) ? start + 1 : start + 5;
 					// Bei SHIFT wird der Startpunkt belassen
 					start = (start < 0) ? 0 : start;
-					if(!shift)
+					if (!shift)
 						d.setStartY(start);
 					d.setEndY(d.getEndY() + diff);
 				}
@@ -423,29 +362,29 @@ public class MyController extends MouseAdapter implements ActionListener,
 				break;
 			}
 
-			
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 	}
+
 	/**
 	 * Element in Homeposition setzen
 	 */
-	private void homePosition(){
-		view.getDrawables()[view.getIndex()-1].setHomePosition();
+	private void homePosition() {
+		view.getDrawables()[view.getIndex() - 1].setHomePosition();
 		view.repaint();
 	}
+
 	/**
 	 * Neues Zeichenbrett erstellen
 	 */
-	private void newNotePad(){
+	private void newNotePad() {
 		if (!view.isEmtpy()) {
 			if (JOptionPane.showConfirmDialog(frame,
-					"Die aktuelle Zeichnung wird verworfen!",
-					"Warnung", JOptionPane.YES_NO_OPTION,
-					JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+					"Die aktuelle Zeichnung wird verworfen!", "Warnung",
+					JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 				view.setEmtpy();
 				view.setFocusable(true);
 				frame.disableEditMenu();
@@ -454,35 +393,181 @@ public class MyController extends MouseAdapter implements ActionListener,
 			}
 		}
 	}
+
 	/**
 	 * Zeigt die Hilfe als Dialog an
 	 */
-	private void showHelp(){
-		JOptionPane.showMessageDialog(frame,
-				"Menü Datei: Mit Neu kann ein neues Zeichenbrett erstellt werden\n\n"+
-				"Menü Bearbeiten: Einzelne Elemente löschen oder wiederherstellen\n\n"+
-				"Zeichen: Verschieden Zeichenmethoden\n\n"+
-				"Erweiterte Möglichkeiten Tastatur:\n"+
-				"Elemente können mit Pfeiltaste  um 5 Pixel verschoben werden.\n"+
-				"Elemente können mit Pfeiltasten und ALT un 1 Pixel verschoben werden.\n"+
-				"Elemente können mit Pfeiltasten und SHIFT vergrößert und verkleinert werden.\n", 
-						"Hilfe",
-				JOptionPane.OK_OPTION);
+	private void showHelp() {
+		JOptionPane
+				.showMessageDialog(
+						frame,
+						"Menü Datei: Mit Neu kann ein neues Zeichenbrett erstellt werden\n\n"
+								+ "Menü Bearbeiten: Einzelne Elemente löschen oder wiederherstellen\n\n"
+								+ "Zeichen: Verschieden Zeichenmethoden\n\n"
+								+ "Erweiterte Möglichkeiten Tastatur:\n"
+								+ "Elemente können mit Pfeiltaste  um 5 Pixel verschoben werden.\n"
+								+ "Elemente können mit Pfeiltasten und ALT un 1 Pixel verschoben werden.\n"
+								+ "Elemente können mit Pfeiltasten und SHIFT vergrößert und verkleinert werden.\n",
+						"Hilfe", JOptionPane.OK_OPTION);
 	}
-	private void deleteItem(){
+
+	private void deleteItem() {
 		view.deleteDrawable();
 		view.repaint();
 	}
-	private void restoreItem(){
+
+	private void restoreItem() {
 		view.restoreDrawable();
 		view.repaint();
 	}
-	private void notImplementedYet(){
-		JOptionPane.showMessageDialog(frame, "Not implemented yet!",
-				"Info", JOptionPane.OK_OPTION);
+
+	private void notImplementedYet() {
+		JOptionPane.showMessageDialog(frame, "Not implemented yet!", "Info",
+				JOptionPane.OK_OPTION);
 	}
-	private void gestartet(){
+
+	private void gestartet() {
 		view.setGestartet(true);
 		frame.enableEditMenu();
 	}
+	/**
+	 * Speichere den Inhalt des Drawable-Array in ein File
+	 * 
+	 * @param file
+	 * @param d
+	 */
+	private void save() {
+		File file = this.fileChooser();
+		if (file == null){
+			JOptionPane.showMessageDialog(frame, 
+					"Die aktuelle Zeichnung"
+					+ " wurde nicht gespeichert!");
+			return;
+		}
+		Drawable[] d= view.getDrawables();
+		int length = view.getIndex();
+		int ok = JOptionPane.YES_OPTION;
+		if (file.exists())
+			ok = JOptionPane.showConfirmDialog(frame,
+					"Soll das File " + file.getName()
+							+ " überschrieben werden?", "Speichern",
+					JOptionPane.YES_NO_OPTION);
+		if (ok == JOptionPane.YES_OPTION) {
+			ObjectOutputStream oos = null;
+			try {
+				oos = new ObjectOutputStream(new FileOutputStream(file));
+				Drawable[] dneu = Arrays.copyOfRange(d, 0, length);
+				// Speichert Hintergrundfarbe
+				oos.writeObject(view.getBackground());
+				// Speichert das Drawable-Array
+				oos.writeObject(dneu);
+				// Buffer leeren und schließen
+				oos.flush();
+				oos.close();
+				JOptionPane.showMessageDialog(frame,
+						"Das File" + file.getName()
+								+ "\nwurde erfolgreich gespeichert!");
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(frame, "Das Speichern von "
+						+ file.getName() + " ist fehlgeschlagen!");
+			}
+		}
+	}
+
+	/**
+	 * Auswahl eines Files
+	 * 
+	 * @return File oder null
+	 */
+	private File fileChooser() {
+		File ret = null;
+		// Create a file chooser
+		final JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(view);
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+			ret = fc.getSelectedFile();
+		return ret;
+
+	}
+
+	/**
+	 * Lade den Inhalt des Files in das Drawable-Array
+	 * 
+	 * @param file
+	 *            File
+	 * @param d
+	 *            Array
+	 */
+	private void load() {
+		File file = this.fileChooser();
+		if (file == null) return;
+		Drawable[] d= view.getDrawables();
+		int index = 0;
+		int ok = JOptionPane.YES_OPTION;
+		if (!view.isEmtpy())
+			ok = JOptionPane.showConfirmDialog(
+					frame,
+					"Soll die aktuelle Zeichnung mit dem File "
+							+ file.getName() + " überschrieben werden?",
+					"Laden", JOptionPane.YES_NO_OPTION);
+		if (ok == JOptionPane.YES_OPTION) {
+			ObjectInputStream ois = null;
+			try {
+				ois = new ObjectInputStream(new FileInputStream(file));
+				Drawable[] dneu;
+				Color bg = (Color) ois.readObject();
+				dneu = (Drawable[]) ois.readObject();
+				index = dneu.length;
+				for (int i = 0; i < index; i++)
+					d[i] = dneu[i];
+				view.setIndex(index);
+				if (index < MyPanel.MAX_DRAWABLES)
+					view.getDrawables()[index] = null;
+				view.setGestartet(true);
+				view.setBackground(bg);
+				frame.enableEditMenu();
+				view.repaint();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(frame,
+						"Das Lesen von " + file.getName()
+								+ " ist fehlgeschlagen!");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {System.exit(0);}
+		
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+	 */
+	@Override
+	public void windowClosing(WindowEvent we) {
+		int ok=JOptionPane.CANCEL_OPTION;
+		ok=JOptionPane.showConfirmDialog(null, "Soll die aktuelle Zeichnung gespeichert werden?");
+		switch(ok){
+		case JOptionPane.YES_OPTION:
+			this.save();
+		case JOptionPane.NO_OPTION:
+			we.getWindow().dispose(); // Fenster geschlossen
+			break;
+		default: // do nothing
+		    frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {}
+
+
 }
