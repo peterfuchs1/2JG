@@ -18,6 +18,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.AbstractButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
@@ -29,7 +30,7 @@ import javax.swing.WindowConstants;
  * View
  * 
  * @author Walter Rafeiner-Magor
- * @version 2.1
+ * @version 2.2
  */
 public class MyController extends WindowAdapter implements ActionListener,
 		KeyListener,MouseMotionListener, MouseListener {
@@ -57,8 +58,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object o = ae.getSource();
-		if (o instanceof JMenuItem) { // Falls Objekt der Klasse JMenuItem
-			JMenuItem item = (JMenuItem) o; // Cast to JMenuItem
+		if (o instanceof AbstractButton) { // Falls Objekt der Klasse JMenuItem
+			AbstractButton item = (AbstractButton) o; // Cast to JMenuItem
 			if (view.isGestartet()) {// bereits gestartet !!
 				if (item == frame.getItemDuplicate()) {
 					// Element duplizieren
@@ -72,8 +73,11 @@ public class MyController extends WindowAdapter implements ActionListener,
 					// JColorChooser für die Elementfarbe
 					Drawable d = view.getDrawables()[view.getIndex() - 1];
 					Color c = d.getColor();
-					d.setColor(JColorChooser
-							.showDialog(view, "Elementfarbe", c));
+					Color fg=
+					JColorChooser
+							.showDialog(view, "Elementfarbe", c);
+					d.setColor(fg);
+					this.setButtonColor(frame.getItemFore(), fg);
 					view.repaint();
 				} else if (item == frame.getItemDelete())
 					// Element Löschen
@@ -111,15 +115,25 @@ public class MyController extends WindowAdapter implements ActionListener,
 			else if (item == frame.getItemOvalFull())
 				// Ellipse ausmalenen
 				modus = Modus.OVAL_FULL;
-			else if (item == frame.getItemForeground())
+			else if (item == frame.getItemForeground() || item ==frame.getItemFore()){
 				// JColorChooser für die Stiftfarbe
-				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
-						view.getForeground()));
+//				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
+//						view.getForeground()));
+				Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
+						view.getForeground());
+				view.setForeground(bg);
+				this.setButtonColor(item, bg);
+			}
 			// auswählen und setzen
-			else if (item == frame.getItemBackground())
+			else if (item == frame.getItemBackground() || item ==frame.getItemBack()){
 				// JColorChooser für die Hintergrundfarbe
-				view.setBackground(JColorChooser.showDialog(view,
-						"Hintergrund", view.getBackground()));
+//				view.setBackground(JColorChooser.showDialog(view,
+//						"Hintergrund", view.getBackground()));
+			Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
+					view.getForeground());
+			view.setBackground(bg);
+			this.setButtonColor(item, bg);
+			}
 			// auswählen und setzen
 			else if (item == frame.getItemAbout())
 				// Info der Applikation anzeigen
@@ -141,7 +155,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 */
 	private void about() {
 		JOptionPane.showMessageDialog(frame,
-				"Zeichenbrett v2.1\n(c) Walter Rafeiner-Magor", "Info",
+				"Zeichenbrett v2.2\n(c) Walter Rafeiner-Magor", "Info",
 				JOptionPane.OK_OPTION);
 	}
 
@@ -389,6 +403,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 				view.setFocusable(true);
 				frame.disableEditMenu();
 				view.setBackground(Color.LIGHT_GRAY);
+				this.updateButtonColor();
 				view.repaint();
 			}
 		}
@@ -517,8 +532,11 @@ public class MyController extends WindowAdapter implements ActionListener,
 				if (index < MyPanel.MAX_DRAWABLES)
 					view.getDrawables()[index] = null;
 				view.setGestartet(true);
+				Color fg=d[index-1].getColor();
+				view.setForeground(fg);
 				view.setBackground(bg);
 				frame.enableEditMenu();
+				updateButtonColor();
 				view.repaint();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(frame,
@@ -530,6 +548,15 @@ public class MyController extends WindowAdapter implements ActionListener,
 		}
 	}
 
+	private void setButtonColor(AbstractButton b, Color bg){
+		Color fg=new Color(~bg.getRGB());
+		b.setForeground(fg);
+		b.setBackground(bg);
+	}
+	private void updateButtonColor(){
+		this.setButtonColor(frame.getItemFore(),view.getForeground());
+		this.setButtonColor(frame.getItemBack(),view.getBackground());
+	}
 	@Override
 	public void windowClosed(WindowEvent arg0) {System.exit(0);}
 		

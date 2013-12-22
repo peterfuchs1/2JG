@@ -7,7 +7,7 @@ import javax.swing.*;
  * ein JPanel in einem JFrame zur Verfügung.
  *
  * @author Walter Rafeiner-Magor
- * @version 2.1
+ * @version 2.2
  */
 public class MyFrame extends JFrame
 {	
@@ -20,6 +20,8 @@ public class MyFrame extends JFrame
 	private JMenuItem itemHome;					// Element in Homeposition
 	private JMenuItem itemColor;				// Elementfarbe ändern
 	
+	private JButton itemFore;
+	private JButton itemBack;
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
 	private JRadioButtonMenuItem itemLine;		// Linien zeichnen
 	private JRadioButtonMenuItem itemRectangle;	// Rechteck zeichnen
@@ -155,7 +157,7 @@ public class MyFrame extends JFrame
     	//////////////////////////////////
     	// drittes: Farbe    	
     	JMenu menuColor=new JMenu("Farbe");
-    	//// Menüeintrag: Stiftfarbe
+/*    	//// Menüeintrag: Stiftfarbe
     	itemForeground=new JMenuItem("Farbe Stift");
     	itemForeground.addActionListener(lc);	// Listener anmelden
     	menuColor.add(itemForeground);			// zum Menü hinzufügen
@@ -163,7 +165,29 @@ public class MyFrame extends JFrame
     	itemBackground=new JMenuItem("Farbe Hintergrund");
     	itemBackground.addActionListener(lc);	// Listener anmelden
     	menuColor.add(itemBackground);			// zum Menü hinzufügen
-    	menuBar.add(menuColor);					// zur MenuBar hinzufügen
+ */
+    	/// Vordergrund
+    	menuColor.setLayout(new BoxLayout(menuColor, BoxLayout.Y_AXIS));
+    	itemFore=new JButton("Stift");
+    	itemFore.setBackground(Color.BLACK);
+    	// Farbe invertieren
+    	Color c=new Color (~Color.BLACK.getRGB());
+    	itemFore.setForeground(c);
+    	itemFore.addActionListener(lc); // Listener anmelden
+    	menuColor.add(itemFore);
+    	/// Hntergrund
+    	itemBack=new JButton("Hintergrund");
+    	itemBack.setBackground(view.getBackground());
+    	// Farbe invertieren
+    	Color co=new Color (~view.getBackground().getRGB());
+    	itemBack.setForeground(co);
+    	Dimension d = itemBack.getMaximumSize();   // Breite von Stift
+    	itemFore.setMaximumSize(new Dimension(d)); // anpassen
+    	itemBack.addActionListener(lc);  	// Listener anmelden
+    	menuColor.add(itemBack);			// zum Menü hinzufügen
+    	
+    	menuBar.add(menuColor);				// zur MenuBar hinzufügen
+
     	//////////////////////////////////
     	// drittes Menü: About    	    	
     	JMenu menuInfo=new JMenu("Info");    	
@@ -329,6 +353,19 @@ public class MyFrame extends JFrame
 	 */
 	public JRadioButtonMenuItem getItemText() {
 		return itemText;
+	}
+	
+	/**
+	 * @return the itemFore
+	 */
+	public JButton getItemFore() {
+		return itemFore;
+	}
+	/**
+	 * @return the itemBack
+	 */
+	public JButton getItemBack() {
+		return itemBack;
 	}
 
 } 
