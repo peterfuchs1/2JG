@@ -49,6 +49,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 		frame.getItemFreehand().setSelected(true); // JRadioButtonMenuItem
 													// gesetzt
 		alt = shift = false; // SHIFT- und ALT-Taste initialisiert
+    	this.initColor();				// Black on White und 
+		this.updateButtonColor();		// Buttonfarben aktualisieren
 	}
 
 	/*
@@ -77,7 +79,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 					JColorChooser
 							.showDialog(view, "Elementfarbe", c);
 					d.setColor(fg);
-					this.setButtonColor(frame.getItemFore(), fg);
+					this.setButtonColor(frame.getItemForeground(), fg);
 					view.repaint();
 				} else if (item == frame.getItemDelete())
 					// Element Löschen
@@ -115,20 +117,16 @@ public class MyController extends WindowAdapter implements ActionListener,
 			else if (item == frame.getItemOvalFull())
 				// Ellipse ausmalenen
 				modus = Modus.OVAL_FULL;
-			else if (item == frame.getItemForeground() || item ==frame.getItemFore()){
+			else if ( item ==frame.getItemForeground()){
 				// JColorChooser für die Stiftfarbe
-//				view.setForeground(JColorChooser.showDialog(view, "Stiftfarbe",
-//						view.getForeground()));
 				Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
 						view.getForeground());
 				view.setForeground(bg);
 				this.setButtonColor(item, bg);
 			}
 			// auswählen und setzen
-			else if (item == frame.getItemBackground() || item ==frame.getItemBack()){
+			else if (item ==frame.getItemBackground()){
 				// JColorChooser für die Hintergrundfarbe
-//				view.setBackground(JColorChooser.showDialog(view,
-//						"Hintergrund", view.getBackground()));
 			Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
 					view.getForeground());
 			view.setBackground(bg);
@@ -402,7 +400,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 				view.setEmtpy();
 				view.setFocusable(true);
 				frame.disableEditMenu();
-				view.setBackground(Color.LIGHT_GRAY);
+				this.initColor();
 				this.updateButtonColor();
 				view.repaint();
 			}
@@ -547,15 +545,21 @@ public class MyController extends WindowAdapter implements ActionListener,
 			}
 		}
 	}
-
-	private void setButtonColor(AbstractButton b, Color bg){
-		Color fg=new Color(~bg.getRGB());
+	public void initColor(){
+		view.setForeground(Color.BLACK);
+		view.setBackground(Color.WHITE);
+	}
+	public void setButtonColor(AbstractButton b, Color bg){
+		//  convert the RGB values into YIQ values. 
+		// As we are only interested in the brightness value (represented by Y)
+		 double y = (299 * bg.getRed() + 587 * bg.getGreen() + 114 * bg.getBlue()) / 1000;
+		  Color fg= (y >= 128) ? Color.BLACK : Color.WHITE;
 		b.setForeground(fg);
 		b.setBackground(bg);
 	}
-	private void updateButtonColor(){
-		this.setButtonColor(frame.getItemFore(),view.getForeground());
-		this.setButtonColor(frame.getItemBack(),view.getBackground());
+	public void updateButtonColor(){
+		this.setButtonColor(frame.getItemForeground(),view.getForeground());
+		this.setButtonColor(frame.getItemBackground(),view.getBackground());
 	}
 	@Override
 	public void windowClosed(WindowEvent arg0) {System.exit(0);}

@@ -20,8 +20,8 @@ public class MyFrame extends JFrame
 	private JMenuItem itemHome;					// Element in Homeposition
 	private JMenuItem itemColor;				// Elementfarbe ändern
 	
-	private JButton itemFore;
-	private JButton itemBack;
+	private JButton itemForeground;				// Item Stiftfarbe
+	private JButton itemBackground;				// Item Hintergrund
 	private JRadioButtonMenuItem itemFreehand; 	// Freihandzeichnen
 	private JRadioButtonMenuItem itemLine;		// Linien zeichnen
 	private JRadioButtonMenuItem itemRectangle;	// Rechteck zeichnen
@@ -32,8 +32,7 @@ public class MyFrame extends JFrame
 	private JRadioButtonMenuItem itemRoundedRectangleFull;	// abgerundetes Rechteck ausmalen
 	private JRadioButtonMenuItem itemText;		// Schreibt in Ausschnitt
 	
-	private JMenuItem itemForeground;			// Stiftfarbe
-	private JMenuItem itemBackground;			// Hintergrundfarbe
+
 	private JMenuItem itemAbout;					// About
 	private JMenuItem itemHelp;					// Hilfe
 	
@@ -155,37 +154,18 @@ public class MyFrame extends JFrame
        	itemText.setVisible(false);
     	menuBar.add(menuModus);					// zur MenuBar hinzufügen
     	//////////////////////////////////
-    	// drittes: Farbe    	
+    	// drittes: Farbe
     	JMenu menuColor=new JMenu("Farbe");
-/*    	//// Menüeintrag: Stiftfarbe
-    	itemForeground=new JMenuItem("Farbe Stift");
-    	itemForeground.addActionListener(lc);	// Listener anmelden
-    	menuColor.add(itemForeground);			// zum Menü hinzufügen
-    	//// Menüeintrag: Hintergrundfarbe
-    	itemBackground=new JMenuItem("Farbe Hintergrund");
-    	itemBackground.addActionListener(lc);	// Listener anmelden
-    	menuColor.add(itemBackground);			// zum Menü hinzufügen
- */
     	/// Vordergrund
-    	menuColor.setLayout(new BoxLayout(menuColor, BoxLayout.Y_AXIS));
-    	itemFore=new JButton("Stift");
-    	itemFore.setBackground(Color.BLACK);
-    	// Farbe invertieren
-    	Color c=new Color (~Color.BLACK.getRGB());
-    	itemFore.setForeground(c);
-    	itemFore.addActionListener(lc); // Listener anmelden
-    	menuColor.add(itemFore);
+    	itemForeground=new JButton("Stift");
+    	itemForeground.addActionListener(lc); // Listener anmelden
+    	menuColor.add(itemForeground);
     	/// Hntergrund
-    	itemBack=new JButton("Hintergrund");
-    	itemBack.setBackground(view.getBackground());
-    	// Farbe invertieren
-    	Color co=new Color (~view.getBackground().getRGB());
-    	itemBack.setForeground(co);
-    	Dimension d = itemBack.getMaximumSize();   // Breite von Stift
-    	itemFore.setMaximumSize(new Dimension(d)); // anpassen
-    	itemBack.addActionListener(lc);  	// Listener anmelden
-    	menuColor.add(itemBack);			// zum Menü hinzufügen
-    	
+    	itemBackground=new JButton("Hintergrund");
+    	Dimension d = itemBackground.getMaximumSize();   // Breite von Stift
+    	itemForeground.setMaximumSize(new Dimension(d)); // anpassen
+    	itemBackground.addActionListener(lc);  	// Listener anmelden
+    	menuColor.add(itemBackground);			// zum Menü hinzufügen
     	menuBar.add(menuColor);				// zur MenuBar hinzufügen
 
     	//////////////////////////////////
@@ -207,8 +187,7 @@ public class MyFrame extends JFrame
         this.add(view);				// MyJPanel Im Center verankert
         this.setSize(800,600);		// Startgröße festgelegt
         this.setLocationRelativeTo(null); 		// Zentrieren
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.addWindowListener(lc);
+        this.addWindowListener(lc); // MyController kümmert sich um Window-Ereignisse
         this.disableEditMenu();
         this.setVisible(true);		// Fenster nun sichtbar
    }
@@ -245,18 +224,7 @@ public class MyFrame extends JFrame
 	public JMenuItem getItemLine() {
 		return itemLine;
 	}
-	/**
-	 * @return the itemForeground
-	 */
-	public JMenuItem getItemForeground() {
-		return itemForeground;
-	}
-	/**
-	 * @return the itemBackground
-	 */
-	public JMenuItem getItemBackground() {
-		return itemBackground;
-	}
+
 	
 	/**
 	 * @return the itemRectangle
@@ -358,14 +326,14 @@ public class MyFrame extends JFrame
 	/**
 	 * @return the itemFore
 	 */
-	public JButton getItemFore() {
-		return itemFore;
+	public JButton getItemForeground() {
+		return itemForeground;
 	}
 	/**
 	 * @return the itemBack
 	 */
-	public JButton getItemBack() {
-		return itemBack;
+	public JButton getItemBackground() {
+		return itemBackground;
 	}
 
 } 
