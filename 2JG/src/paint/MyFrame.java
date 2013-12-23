@@ -7,7 +7,7 @@ import javax.swing.*;
  * ein JPanel in einem JFrame zur Verfügung.
  *
  * @author Walter Rafeiner-Magor
- * @version 2.2
+ * @version 2.3
  */
 public class MyFrame extends JFrame
 {	

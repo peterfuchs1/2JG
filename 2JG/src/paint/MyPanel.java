@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * Ein JPanel, mit inneren anonymen Adapterklassen.
  * 
  * @author Walter Rafeiner-Magor
- * @version 2.1
+ * @version 2.3
  */
 public class MyPanel extends JPanel {
 	public final static int MAX_DRAWABLES = 10000;

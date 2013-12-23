@@ -4,6 +4,7 @@
 package paint;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -30,7 +31,7 @@ import javax.swing.WindowConstants;
  * View
  * 
  * @author Walter Rafeiner-Magor
- * @version 2.2
+ * @version 2.3
  */
 public class MyController extends WindowAdapter implements ActionListener,
 		KeyListener,MouseMotionListener, MouseListener {
@@ -75,10 +76,9 @@ public class MyController extends WindowAdapter implements ActionListener,
 					// JColorChooser für die Elementfarbe
 					Drawable d = view.getDrawables()[view.getIndex() - 1];
 					Color c = d.getColor();
-					Color fg=
-					JColorChooser
-							.showDialog(view, "Elementfarbe", c);
+					Color fg=this.getColorChooser(view, "Elementfarbe", c);
 					d.setColor(fg);
+					view.setForeground(fg);
 					this.setButtonColor(frame.getItemForeground(), fg);
 					view.repaint();
 				} else if (item == frame.getItemDelete())
@@ -119,16 +119,15 @@ public class MyController extends WindowAdapter implements ActionListener,
 				modus = Modus.OVAL_FULL;
 			else if ( item ==frame.getItemForeground()){
 				// JColorChooser für die Stiftfarbe
-				Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
-						view.getForeground());
+				
+				Color bg=this.getColorChooser(view, "Stiftfarbe", view.getForeground());
 				view.setForeground(bg);
 				this.setButtonColor(item, bg);
 			}
 			// auswählen und setzen
 			else if (item ==frame.getItemBackground()){
 				// JColorChooser für die Hintergrundfarbe
-			Color bg= JColorChooser.showDialog(view, "Stiftfarbe",
-					view.getForeground());
+			Color bg=this.getColorChooser(view, "Hintergrundfarbe", view.getBackground()); 
 			view.setBackground(bg);
 			this.setButtonColor(item, bg);
 			}
@@ -153,7 +152,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 */
 	private void about() {
 		JOptionPane.showMessageDialog(frame,
-				"Zeichenbrett v2.2\n(c) Walter Rafeiner-Magor", "Info",
+				"Zeichenbrett v2.3\n(c) Walter Rafeiner-Magor", "Info",
 				JOptionPane.OK_OPTION);
 	}
 
@@ -545,18 +544,46 @@ public class MyController extends WindowAdapter implements ActionListener,
 			}
 		}
 	}
+	/**
+	 * Color-Auswahl mittels JColorChooser
+	 * @param c
+	 * @param title
+	 * @param old
+	 * @return new Color oder bei Cancel: old Color
+	 */
+	private Color getColorChooser(Component c,String title, Color old){
+		Color ret=JColorChooser.showDialog(c, title,old);
+		return(ret!=null)?ret:old;
+	}
+	/**
+	 * Farbbutton initialisieren
+	 * Schriftfarbe: Black
+	 * Hintergrundfarbe: White
+	 */
 	public void initColor(){
 		view.setForeground(Color.BLACK);
 		view.setBackground(Color.WHITE);
 	}
+	/**
+	 * Ein spezieller Button
+	 * mit gegebener Farbe (background)
+	 * und Kontrastfarbe (foreground)
+	 * setzen
+	 * @param b
+	 * @param bg
+	 */
 	public void setButtonColor(AbstractButton b, Color bg){
-		//  convert the RGB values into YIQ values. 
+		//  convert the RGB values into YUV values. 
 		// As we are only interested in the brightness value (represented by Y)
 		 double y = (299 * bg.getRed() + 587 * bg.getGreen() + 114 * bg.getBlue()) / 1000;
 		  Color fg= (y >= 128) ? Color.BLACK : Color.WHITE;
 		b.setForeground(fg);
 		b.setBackground(bg);
 	}
+	/**
+	 * Farbbutton anhand der derzeitigen Farben
+	 * setzen
+	 */
 	public void updateButtonColor(){
 		this.setButtonColor(frame.getItemForeground(),view.getForeground());
 		this.setButtonColor(frame.getItemBackground(),view.getBackground());
