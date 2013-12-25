@@ -119,7 +119,6 @@ public class MyController extends WindowAdapter implements ActionListener,
 				modus = Modus.OVAL_FULL;
 			else if ( item ==frame.getItemForeground()){
 				// JColorChooser für die Stiftfarbe
-				
 				Color bg=this.getColorChooser(view, "Stiftfarbe", view.getForeground());
 				view.setForeground(bg);
 				this.setButtonColor(item, bg);
@@ -168,8 +167,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 			merkeKoordinaten(x, y);
 		}
 		// Punkt und Farbe speichern und zeichnen
-		// if (modus == Modus.FREEHAND)
-		// view.addDrawable(new Line(x, y, x, y, view.getForeground()));
+		if (modus == Modus.FREEHAND)
+			view.addDrawable(new Line(x, y, x, y, view.getForeground()));
 		merkeKoordinaten(x, y);
 	}
 
@@ -193,9 +192,10 @@ public class MyController extends WindowAdapter implements ActionListener,
 		case TEXT:
 			this.notImplementedYet();
 			break;
-		case FREEHAND:
-			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
-			break;
+		case FREEHAND:{
+			view.getDrawables()[view.getIndex()-1].addPoint(x, y);
+			//; addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
+			break;}
 		case LINES:
 			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
 			break;
@@ -219,10 +219,10 @@ public class MyController extends WindowAdapter implements ActionListener,
 					fullo));
 			break;
 		}
-		if (modus != Modus.FREEHAND)
+//		if (modus != Modus.FREEHAND)
 			view.repaint(); // neu zeichnen
-		else
-			merkeKoordinaten(x, y);
+//		else
+//			merkeKoordinaten(x, y);
 		lastMouseEvent = e;
 	}
 

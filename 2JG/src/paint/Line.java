@@ -32,7 +32,8 @@ public class Line extends Drawable{
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);		// Farbe setzen
-		g.drawLine(startX, startY, endX, endY);
+//		g.drawLine(startX, startY, endX, endY);
+		g.drawPolyline(p.xpoints, p.ypoints, p.npoints);
 	}
 	/**
 	 * @see sw.Drawable#clone()

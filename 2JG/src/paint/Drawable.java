@@ -5,6 +5,7 @@ package paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 import java.io.Serializable;
 
 /**
@@ -20,9 +21,12 @@ public abstract class Drawable implements Serializable {
 	 */
 	private static final long serialVersionUID = -7954192751415066519L;
 	protected int startX,startY,endX,endY;
+	protected Polygon p;
 	protected Color c;
 	protected boolean full=false;
-
+	public Drawable(Polygon p,Color c) {
+		this(p.xpoints[0], p.ypoints[0], p.xpoints[p.npoints-1], p.ypoints[p.npoints-1],c, false);
+	}
 	/**
 	 * Konstruktor ohne Füllung
 	 * @param startX
@@ -46,6 +50,9 @@ public abstract class Drawable implements Serializable {
 		this.endX = endX;
 		this.endY = endY;
 		this.c=c;
+		p=new Polygon();
+		p.addPoint(startX, startY);
+		p.addPoint(endX, endY);
 		this.full=full;
 	}
 	/**
@@ -58,60 +65,72 @@ public abstract class Drawable implements Serializable {
 	 */
 	public abstract Drawable clone();
 	/**
+	 * Einen neuen Punkt hinzufügen
+	 * @param x
+	 * @param y
+	 */
+	public void addPoint(int x, int y){
+		p.addPoint(x, y);
+	}
+	public void removeLastPoint(){
+		p.npoints--;
+	}
+	/**
 	 * Element wird auf Position (0/0) gesetzt
 	 */
 	public void setHomePosition(){
-		endX-=startX;
-		endY-=startY;
-		startX=startY=0;
+		p.translate(-p.xpoints[0], -p.ypoints[0]);
+//		endX-=startX;
+//		endY-=startY;
+//		startX=startY=0;
 	}
 	/**
 	 * @return the startX
 	 */
 	public int getStartX() {
-		return startX;
+		return p.xpoints[0];
 	}
 	/**
 	 * @param startX the startX to set
 	 */
 	public void setStartX(int startX) {
-		this.startX = startX;
+		p.xpoints[0] = startX;
 	}
 	/**
 	 * @return the startY
 	 */
 	public int getStartY() {
-		return startY;
+		return p.ypoints[0];
 	}
 	/**
 	 * @param startY the startY to set
 	 */
 	public void setStartY(int startY) {
-		this.startY = startY;
+		p.ypoints[0]= startY;
 	}
 	/**
 	 * @return the endX
 	 */
 	public int getEndX() {
-		return endX;
+		return p.xpoints[1];
 	}
 	/**
 	 * @param endX the endX to set
 	 */
 	public void setEndX(int endX) {
-		this.endX = endX;
+		p.xpoints[1] = endX;
 	}
 	/**
 	 * @return the endY
 	 */
 	public int getEndY() {
-		return endY;
+		return p.ypoints[1];
 	}
 	/**
 	 * @param endY the endY to set
 	 */
 	public void setEndY(int endY) {
-		this.endY = endY;
+		p.ypoints[1]= endY;
 	}
 	/**
 	 * @return the c
