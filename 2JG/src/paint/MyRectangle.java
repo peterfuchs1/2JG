@@ -3,16 +3,16 @@ package paint;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Rectangle extends Drawable {
+public class MyRectangle extends Drawable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5865576014296148373L;
-	public Rectangle(int startX, int startY, int endX, int endY, Color c) {
+	public MyRectangle(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}
-	public Rectangle(int startX, int startY, int endX, int endY, Color c, boolean full) {
+	public MyRectangle(int startX, int startY, int endX, int endY, Color c, boolean full) {
 		super(startX, startY, endX, endY, c,full);
 	}
 
@@ -36,7 +36,7 @@ public class Rectangle extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		Rectangle d=new Rectangle(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c,full);
+		MyRectangle d=new MyRectangle(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c,full);
 		d.setHomePosition();
 		return d;
 	}

@@ -71,7 +71,8 @@ public abstract class Drawable implements Serializable {
 	 * Element wird auf Position (0/0) gesetzt
 	 */
 	public void setHomePosition(){
-		p.translate(-p.xpoints[0], -p.ypoints[0]);
+		java.awt.Rectangle r=p.getBounds();
+		p.translate(-r.x, -r.y);
 	}
 
 	/**

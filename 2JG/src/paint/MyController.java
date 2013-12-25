@@ -228,7 +228,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 		case RECTANGLE_FULL:
 		case RECTANGLE:
 			boolean fullr = (modus == Modus.RECTANGLE_FULL);
-			view.addDrawable(new Rectangle(lastX, lastY, x, y, view
+			view.addDrawable(new MyRectangle(lastX, lastY, x, y, view
 					.getForeground(), fullr));
 			break;
 		case ROUNDED_RECTANGLE_FULL:
@@ -263,7 +263,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 				merkeKoordinaten(x, y);
 			}
 			// Dragged Version vergessen!
-			view.deleteDrawable();
+			if(lastMouseEvent.getID()!=MouseEvent.MOUSE_RELEASED)
+				view.deleteDrawable();
 			// neue Linie und Farbe speichern:
 			switch (modus) {
 			case LINES:
@@ -273,7 +274,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 			case RECTANGLE:
 			case RECTANGLE_FULL:
 				boolean fullr = (modus == Modus.RECTANGLE_FULL);
-				view.addDrawable(new Rectangle(lastX, lastY, x, y, view
+				view.addDrawable(new MyRectangle(lastX, lastY, x, y, view
 						.getForeground(), fullr));
 				break;
 			case ROUNDED_RECTANGLE:
@@ -290,8 +291,9 @@ public class MyController extends WindowAdapter implements ActionListener,
 				break;
 			}
 			merkeKoordinaten(x, y);
-			lastMouseEvent = e;
 		}
+			lastMouseEvent = e;
+		
 	}
 
 	/**
@@ -334,53 +336,51 @@ public class MyController extends WindowAdapter implements ActionListener,
 			case KeyEvent.VK_DOWN:
 				// Letztes Element geholt
 				Drawable d = view.getDrawables()[view.getIndex() - 1];
+				java.awt.Rectangle r=d.p.getBounds();
 				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
-					// Bei ALT+ 1 ansonsten 5 Pixel
-					int diff = (alt)?-SLOW:-FAST;
 					// d.getStartX();
 					int start = d.p.xpoints[0];
+					// Bei ALT+ 1 ansonsten 5 Pixel
+					int diff = (alt)?-SLOW:-FAST;
+					if(r.x+diff<0)
+							diff=-r.x;
 					// um diff verschieben
 					d.p.translate(diff, 0);
-					// Am linken Rand ist Schluss!
-					if(d.p.xpoints[0]<0)
-						d.p.translate(-d.p.xpoints[0], 0);
 					// Bei SHIFT wird der Startpunkt belassen
-					if(shift)
+					if(shift&& modus!=Modus.POLYGON&&modus!=Modus.POLYGON_FULL)
 						d.p.xpoints[0]=start;
 
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
+					int start = d.p.xpoints[0];
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					int diff = (alt)?+SLOW:+FAST;
-					int start = d.p.xpoints[0];
 					// um diff verschieben
 					d.p.translate(diff, 0);
 					// Bei SHIFT wird der Startpunkt belassen
-					if(shift)
+					if(shift&& modus!=Modus.POLYGON&&modus!=Modus.POLYGON_FULL)
 						d.p.xpoints[0]=start;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_UP) {
+					int start = d.p.ypoints[0];
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					int diff = (alt)?-SLOW:-FAST;
-					int start = d.p.ypoints[0];
+					if(r.y+diff<0)
+						diff=-r.y;
 					// um diff verschieben
 					d.p.translate(0,diff);
-					// Am oberen Rand ist Schluss!
-					if(d.p.ypoints[0]<0)
-						d.p.translate(0,-d.p.ypoints[0]);
-					
 					// Bei SHIFT wird der Startpunkt belassen
-					if(shift)
+					if(shift&& modus!=Modus.POLYGON&&modus!=Modus.POLYGON_FULL)
 						d.p.ypoints[0]=start;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+					int start = d.p.ypoints[0];
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					int diff = (alt)?+SLOW:+FAST;
-					int start = d.p.ypoints[0];
 					// um diff verschieben
 					d.p.translate(0,diff);
 					// Bei SHIFT wird der Startpunkt belassen
-					if(shift)
+					if(shift&& modus!=Modus.POLYGON&&modus!=Modus.POLYGON_FULL)
 						d.p.ypoints[0]=start;
 
 				}
