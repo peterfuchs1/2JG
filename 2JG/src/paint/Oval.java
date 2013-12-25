@@ -8,7 +8,7 @@ public class Oval extends Drawable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8851288438008701853L;
+	private static final long serialVersionUID = -8851288438008701854L;
 	public Oval(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}
@@ -23,8 +23,8 @@ public class Oval extends Drawable {
 		g.setColor(c);			// Farbe setzen
 		int width = p.xpoints[1]-p.xpoints[0];
 		int heigth= p.ypoints[1]-p.ypoints[0];
-		width=(endX-startX>0)?(width):0; // Breite nicht negativ
-		heigth=(endY-startY>0)?(heigth):0;// Hoehe hicht negativ
+		width=(width>0)?(width):0; // Breite nicht negativ
+		heigth=(width>0)?(heigth):0;// Hoehe hicht negativ
 		if(full)
 			g.fillOval(p.xpoints[0], p.ypoints[0], width, heigth);
 		else
@@ -35,7 +35,7 @@ public class Oval extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		Oval d=new Oval(startX, startY, endX, endY, c,full);
+		Oval d=new Oval(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c,full);
 		d.setHomePosition();
 		return d;
 	}

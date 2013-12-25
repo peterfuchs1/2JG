@@ -31,10 +31,14 @@ import javax.swing.WindowConstants;
  * View
  * 
  * @author Walter Rafeiner-Magor
- * @version 2.3
+ * @version 3.0
  */
 public class MyController extends WindowAdapter implements ActionListener,
 		KeyListener,MouseMotionListener, MouseListener {
+//	Konstanten
+	public static final int FAST=7;
+	public static final int SLOW=1;
+	
 	private MyPanel view; // MyJPanel
 	private MyFrame frame; // MyFrame
 	private int lastX; // letzte X-Koordinaten
@@ -105,6 +109,12 @@ public class MyController extends WindowAdapter implements ActionListener,
 			else if (item == frame.getItemOval())
 				// Ellipse zeichnen
 				modus = Modus.OVAL;
+			else if (item == frame.getItemPolygon())
+				// Polygon zeichnen
+				modus = Modus.POLYGON;
+			else if (item == frame.getItemPolygonFull())
+				// Polygon zeichnen
+				modus = Modus.POLYGON_FULL;
 			else if (item == frame.getItemRectangleFull())
 				// Rechteck ausmalen
 				modus = Modus.RECTANGLE_FULL;
@@ -151,7 +161,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 */
 	private void about() {
 		JOptionPane.showMessageDialog(frame,
-				"Zeichenbrett v2.3\n(c) Walter Rafeiner-Magor", "Info",
+				"Zeichenbrett v3.0\n(c) Walter Rafeiner-Magor", "Info",
 				JOptionPane.OK_OPTION);
 	}
 
@@ -167,8 +177,18 @@ public class MyController extends WindowAdapter implements ActionListener,
 			merkeKoordinaten(x, y);
 		}
 		// Punkt und Farbe speichern und zeichnen
-		if (modus == Modus.FREEHAND)
+		switch(modus){
+		case FREEHAND:
 			view.addDrawable(new Line(x, y, x, y, view.getForeground()));
+			break;
+		case POLYGON:
+			view.addDrawable(new MyPolygon(x, y, x, y, view.getForeground()));
+			break;
+		case POLYGON_FULL:
+			view.addDrawable(new MyPolygon(x, y, x, y, view.getForeground(),true));
+			break;
+		}
+			
 		merkeKoordinaten(x, y);
 	}
 
@@ -184,7 +204,10 @@ public class MyController extends WindowAdapter implements ActionListener,
 			this.gestartet();
 			merkeKoordinaten(x, y);
 		}
-		if (modus != Modus.FREEHAND && lastMouseEvent != null
+		if (modus != Modus.FREEHAND && 
+			modus !=Modus.POLYGON && 
+			modus!=Modus.POLYGON_FULL&& 
+			lastMouseEvent != null
 				&& lastMouseEvent.getID() == MouseEvent.MOUSE_DRAGGED)
 			// letzte Linie vergessen
 			view.deleteDrawable();
@@ -194,10 +217,13 @@ public class MyController extends WindowAdapter implements ActionListener,
 			break;
 		case FREEHAND:{
 			view.getDrawables()[view.getIndex()-1].addPoint(x, y);
-			//; addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
 			break;}
 		case LINES:
 			view.addDrawable(new Line(lastX, lastY, x, y, view.getForeground()));
+			break;
+		case POLYGON_FULL:
+		case POLYGON:
+			view.getDrawables()[view.getIndex()-1].addPoint(x, y);
 			break;
 		case RECTANGLE_FULL:
 		case RECTANGLE:
@@ -219,10 +245,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 					fullo));
 			break;
 		}
-//		if (modus != Modus.FREEHAND)
-			view.repaint(); // neu zeichnen
-//		else
-//			merkeKoordinaten(x, y);
+		view.repaint(); // neu zeichnen
+		// letztes MausEvent merken
 		lastMouseEvent = e;
 	}
 
@@ -231,7 +255,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 	 * einen Mousebutton loslässt.
 	 */
 	public void mouseReleased(MouseEvent e) {
-		if (modus != Modus.FREEHAND) {
+		if (modus != Modus.FREEHAND && modus !=Modus.POLYGON&& modus !=Modus.POLYGON_FULL) {
 			int x = e.getX(); // Liefert X-Koordinaten des Mausklicks!
 			int y = e.getY(); // Liefert Y-Koordinaten des Mausklicks!
 			if (!view.isGestartet()) {
@@ -311,59 +335,53 @@ public class MyController extends WindowAdapter implements ActionListener,
 				// Letztes Element geholt
 				Drawable d = view.getDrawables()[view.getIndex() - 1];
 				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
-//					int diff = d.getStartX();
-					int diff = d.p.xpoints[0];
-					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start - 1 : start - 5;
-					diff = start - diff;
-					if (shift)
-						start = (alt) ? start + 1 : start + 5;
-					start = (start < 0) ? 0 : start;
-
+					int diff = (alt)?-SLOW:-FAST;
+					// d.getStartX();
+					int start = d.p.xpoints[0];
+					// um diff verschieben
+					d.p.translate(diff, 0);
+					// Am linken Rand ist Schluss!
+					if(d.p.xpoints[0]<0)
+						d.p.translate(-d.p.xpoints[0], 0);
 					// Bei SHIFT wird der Startpunkt belassen
-					if (!shift)
-//						d.setStartX(start);
+					if(shift)
 						d.p.xpoints[0]=start;
 
-//					d.setEndX(d.getEndX() + diff);
-					d.p.xpoints[1]=d.p.xpoints[1]+diff;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
-					int diff = d.getStartX();
-					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start + 1 : start + 5;
-					diff = start - diff;
+					int diff = (alt)?+SLOW:+FAST;
+					int start = d.p.xpoints[0];
+					// um diff verschieben
+					d.p.translate(diff, 0);
 					// Bei SHIFT wird der Startpunkt belassen
-					if (!shift)
-						d.setStartX(start);
-					d.setEndX(d.getEndX() + diff);
+					if(shift)
+						d.p.xpoints[0]=start;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_UP) {
-					int diff = d.getStartY();
-					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start - 1 : start - 5;
-					diff = start - diff;
-					if (shift)
-						start = (alt) ? start + 1 : start + 5;
+					int diff = (alt)?-SLOW:-FAST;
+					int start = d.p.ypoints[0];
+					// um diff verschieben
+					d.p.translate(0,diff);
+					// Am oberen Rand ist Schluss!
+					if(d.p.ypoints[0]<0)
+						d.p.translate(0,-d.p.ypoints[0]);
+					
 					// Bei SHIFT wird der Startpunkt belassen
-					start = (start < 0) ? 0 : start;
-					if (!shift)
-						d.setStartY(start);
-					d.setEndY(d.getEndY() + diff);
+					if(shift)
+						d.p.ypoints[0]=start;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-					int diff = d.getStartY();
-					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
-					start = (alt) ? start + 1 : start + 5;
-					diff = start - diff;
+					int diff = (alt)?+SLOW:+FAST;
+					int start = d.p.ypoints[0];
+					// um diff verschieben
+					d.p.translate(0,diff);
 					// Bei SHIFT wird der Startpunkt belassen
-					if (!shift)
-						d.setStartY(start);
-					d.setEndY(d.getEndY() + diff);
+					if(shift)
+						d.p.ypoints[0]=start;
 
 				}
 				view.repaint(); // Anzeige aktualisieren

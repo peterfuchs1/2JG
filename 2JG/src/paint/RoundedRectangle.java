@@ -8,7 +8,7 @@ public class RoundedRectangle extends Drawable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6748740901241131063L;
+	private static final long serialVersionUID = -6748740901241131064L;
 	public RoundedRectangle(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}
@@ -35,7 +35,7 @@ public class RoundedRectangle extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		RoundedRectangle d=new RoundedRectangle(startX, startY, endX, endY, c,full);
+		RoundedRectangle d=new RoundedRectangle(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1],c,full);
 		d.setHomePosition();
 		return d;
 	}

@@ -27,16 +27,16 @@ public class Text extends Drawable {
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);// Farbe setzen	
-		int width = endX-startX;
-		int height= endY-startY;
-		g.clipRect(startX, endY, width, height);
+		int width = p.xpoints[1]-p.xpoints[0];
+		int heigth= p.ypoints[1]-p.ypoints[0];
+		g.clipRect(p.xpoints[0], p.ypoints[0], width, heigth);
 	}
 	/**
 	 * @see sw.Drawable#clone()
 	 */
 	@Override
 	public Drawable clone() {
-		Text d=new Text(startX, startY, endX, endY, c,f);
+		Text d=new Text(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c,f);
 		d.setHomePosition();
 		return d;
 	}

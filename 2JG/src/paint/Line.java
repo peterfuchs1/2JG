@@ -16,7 +16,7 @@ public class Line extends Drawable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 13046123995638211L;
+	private static final long serialVersionUID = 13046123995638212L;
 	/**
 	 * @param startX
 	 * @param startY
@@ -40,7 +40,7 @@ public class Line extends Drawable{
 	 */
 	@Override
 	public Drawable clone() {
-		Line d=new Line(startX, startY, endX, endY, c);
+		Line d=new Line(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c);
 		d.setHomePosition();
 		return d;
 	}

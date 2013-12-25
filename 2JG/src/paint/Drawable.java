@@ -19,14 +19,10 @@ public abstract class Drawable implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7954192751415066519L;
-	protected int startX,startY,endX,endY;
+	private static final long serialVersionUID = -7954192751415066518L;
 	protected Polygon p;
 	protected Color c;
 	protected boolean full=false;
-	public Drawable(Polygon p,Color c) {
-		this(p.xpoints[0], p.ypoints[0], p.xpoints[p.npoints-1], p.ypoints[p.npoints-1],c, false);
-	}
 	/**
 	 * Konstruktor ohne Füllung
 	 * @param startX
@@ -45,10 +41,6 @@ public abstract class Drawable implements Serializable {
 	 * @param endY
 	 */
 	public Drawable(int startX, int startY, int endX, int endY,Color c, boolean full) {
-		this.startX = startX;
-		this.startY = startY;
-		this.endX = endX;
-		this.endY = endY;
 		this.c=c;
 		p=new Polygon();
 		p.addPoint(startX, startY);
@@ -80,58 +72,8 @@ public abstract class Drawable implements Serializable {
 	 */
 	public void setHomePosition(){
 		p.translate(-p.xpoints[0], -p.ypoints[0]);
-//		endX-=startX;
-//		endY-=startY;
-//		startX=startY=0;
 	}
-	/**
-	 * @return the startX
-	 */
-	public int getStartX() {
-		return p.xpoints[0];
-	}
-	/**
-	 * @param startX the startX to set
-	 */
-	public void setStartX(int startX) {
-		p.xpoints[0] = startX;
-	}
-	/**
-	 * @return the startY
-	 */
-	public int getStartY() {
-		return p.ypoints[0];
-	}
-	/**
-	 * @param startY the startY to set
-	 */
-	public void setStartY(int startY) {
-		p.ypoints[0]= startY;
-	}
-	/**
-	 * @return the endX
-	 */
-	public int getEndX() {
-		return p.xpoints[1];
-	}
-	/**
-	 * @param endX the endX to set
-	 */
-	public void setEndX(int endX) {
-		p.xpoints[1] = endX;
-	}
-	/**
-	 * @return the endY
-	 */
-	public int getEndY() {
-		return p.ypoints[1];
-	}
-	/**
-	 * @param endY the endY to set
-	 */
-	public void setEndY(int endY) {
-		p.ypoints[1]= endY;
-	}
+
 	/**
 	 * @return the c
 	 */

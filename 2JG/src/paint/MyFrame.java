@@ -30,6 +30,8 @@ public class MyFrame extends JFrame
 	private JRadioButtonMenuItem itemRectangleFull;	// Rechteck ausmalen
 	private JRadioButtonMenuItem itemOvalFull;		// Ellipse ausmalen
 	private JRadioButtonMenuItem itemRoundedRectangleFull;	// abgerundetes Rechteck ausmalen
+	private JRadioButtonMenuItem itemPolygonFull;	// abgerundetes Rechteck ausmalen
+	private JRadioButtonMenuItem itemPolygon;	// abgerundetes Rechteck zeichnen
 	private JRadioButtonMenuItem itemText;		// Schreibt in Ausschnitt
 	
 
@@ -128,6 +130,11 @@ public class MyFrame extends JFrame
        	itemOval.addActionListener(lc);			// Listener anmelden
        	group.add(itemOval);					// zur Gruppe hinzufügen
        	menuModus.add(itemOval);				// zum Menü hinzufügen
+       	//// RadioButton-Menüeintrag für Polygone zeichnen    	
+       	itemPolygon=new JRadioButtonMenuItem("Polygone zeichnen");
+       	itemPolygon.addActionListener(lc);			// Listener anmelden
+       	group.add(itemPolygon);					// zur Gruppe hinzufügen
+       	menuModus.add(itemPolygon);				// zum Menü hinzufügen
        	/// Separator hinzufügen
     	menuModus.addSeparator();
     	//// RadioButton-Menüeintrag für Rechtecke ausmalen    	
@@ -145,8 +152,13 @@ public class MyFrame extends JFrame
        	itemOvalFull.addActionListener(lc);			// Listener anmelden
        	group.add(itemOvalFull);					// zur Gruppe hinzufügen
        	menuModus.add(itemOvalFull);				// zum Menü hinzufügen
-//      menuModus.addSeparator();
-       	//// RadioButton-Menüeintrag für Ellipsen ausmalen    	
+       	//// RadioButton-Menüeintrag für Polygone ausmalen    	
+       	itemPolygonFull=new JRadioButtonMenuItem("Polygone ausmalen");
+       	itemPolygonFull.addActionListener(lc);			// Listener anmelden
+       	group.add(itemPolygonFull);					// zur Gruppe hinzufügen
+       	menuModus.add(itemPolygonFull);				// zum Menü hinzufügen
+
+       	//// RadioButton-Menüeintrag für Ellipsen ausmalen
        	itemText=new JRadioButtonMenuItem("Text schreiben");
        	itemText.addActionListener(lc);			// Listener anmelden
        	group.add(itemText);					// zur Gruppe hinzufügen
@@ -334,6 +346,18 @@ public class MyFrame extends JFrame
 	 */
 	public JButton getItemBackground() {
 		return itemBackground;
+	}
+	/**
+	 * @return the itemPolygonFull
+	 */
+	public JRadioButtonMenuItem getItemPolygonFull() {
+		return itemPolygonFull;
+	}
+	/**
+	 * @return the itemPolygon
+	 */
+	public JRadioButtonMenuItem getItemPolygon() {
+		return itemPolygon;
 	}
 
 } 

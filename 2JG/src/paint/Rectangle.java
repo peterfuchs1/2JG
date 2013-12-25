@@ -8,7 +8,7 @@ public class Rectangle extends Drawable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5865576014296148372L;
+	private static final long serialVersionUID = 5865576014296148373L;
 	public Rectangle(int startX, int startY, int endX, int endY, Color c) {
 		super(startX, startY, endX, endY, c);
 	}
@@ -24,8 +24,8 @@ public class Rectangle extends Drawable {
 		g.setColor(c);			// Farbe setzen
 		int width = p.xpoints[1]-p.xpoints[0];
 		int heigth= p.ypoints[1]-p.ypoints[0];
-		width=(endX-startX>0)?(width):0; // Breite nicht negativ
-		heigth=(endY-startY>0)?(heigth):0;// Hoehe hicht negativ
+		width=(width>0)?(width):0; // Breite nicht negativ
+		heigth=(width>0)?(heigth):0;// Hoehe hicht negativ
 		if(full)
 			g.fillRect(p.xpoints[0], p.ypoints[0], width, heigth);
 		else
@@ -36,7 +36,7 @@ public class Rectangle extends Drawable {
 	 */
 	@Override
 	public Drawable clone() {
-		Rectangle d=new Rectangle(startX, startY, endX, endY, c,full);
+		Rectangle d=new Rectangle(p.xpoints[0], p.ypoints[0], p.xpoints[1], p.ypoints[1], c,full);
 		d.setHomePosition();
 		return d;
 	}
