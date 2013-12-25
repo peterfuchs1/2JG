@@ -22,12 +22,14 @@ public class Rectangle extends Drawable {
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);			// Farbe setzen
-		int width=(endX-startX>0)?(endX-startX):0; // Breite nicht negativ
-		int heigth=(endY-startY>0)?(endY-startY):0;// Hoehe hicht negativ
+		int width = p.xpoints[1]-p.xpoints[0];
+		int heigth= p.ypoints[1]-p.ypoints[0];
+		width=(endX-startX>0)?(width):0; // Breite nicht negativ
+		heigth=(endY-startY>0)?(heigth):0;// Hoehe hicht negativ
 		if(full)
-			g.fillRect(startX, startY, width, heigth);
+			g.fillRect(p.xpoints[0], p.ypoints[0], width, heigth);
 		else
-			g.drawRect(startX, startY, width, heigth);
+			g.drawRect(p.xpoints[0], p.ypoints[0], width, heigth);
 	}
 	/**
 	 * @see sw.Drawable#clone()

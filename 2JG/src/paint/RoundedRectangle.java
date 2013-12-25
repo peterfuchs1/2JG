@@ -23,12 +23,12 @@ public class RoundedRectangle extends Drawable {
 	 */
 	public void draw(Graphics g){
 		g.setColor(c);// Farbe setzen	
-		int width = endX-startX;
-		int height= endY-startY;
+		int width = p.xpoints[1]-p.xpoints[0];
+		int height= p.ypoints[1]-p.ypoints[0];
 		if(full)
-			g.fillRoundRect(startX, startY, width,height,(int)(0.1*width),(int)(0.1*height) );
+			g.fillRoundRect(p.xpoints[0], p.ypoints[0], width,height,(int)(0.1*width),(int)(0.1*height) );
 		else
-			g.drawRoundRect(startX, startY, width,height,(int)(0.1*width),(int)(0.1*height) );
+			g.drawRoundRect(p.xpoints[0], p.ypoints[0], width,height,(int)(0.1*width),(int)(0.1*height) );
 	}
 	/**
 	 * @see sw.Drawable#clone()

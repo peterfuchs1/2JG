@@ -311,7 +311,8 @@ public class MyController extends WindowAdapter implements ActionListener,
 				// Letztes Element geholt
 				Drawable d = view.getDrawables()[view.getIndex() - 1];
 				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
-					int diff = d.getStartX();
+//					int diff = d.getStartX();
+					int diff = d.p.xpoints[0];
 					int start = diff;
 					// Bei ALT+ 1 ansonsten 5 Pixel
 					start = (alt) ? start - 1 : start - 5;
@@ -322,9 +323,11 @@ public class MyController extends WindowAdapter implements ActionListener,
 
 					// Bei SHIFT wird der Startpunkt belassen
 					if (!shift)
-						d.setStartX(start);
+//						d.setStartX(start);
+						d.p.xpoints[0]=start;
 
-					d.setEndX(d.getEndX() + diff);
+//					d.setEndX(d.getEndX() + diff);
+					d.p.xpoints[1]=d.p.xpoints[1]+diff;
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
 					int diff = d.getStartX();
