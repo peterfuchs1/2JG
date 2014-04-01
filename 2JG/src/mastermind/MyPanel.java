@@ -20,6 +20,7 @@ public class MyPanel extends JPanel {
 //	Konstanten
 	public final static int INPUT_FIELDS=5;
 	public final static int COMMENT_ROWS=5;
+	public final static int COMMENT_COLUMS=60;
 //	Attribute
 	private JTextField[] input;
 	private JButton jbCheck,jbNew, jbSolve;
@@ -35,7 +36,6 @@ public class MyPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		// north besteht nur aus einer Zeile
 		JPanel north=new JPanel(new GridLayout(1, 5));
-		north.setOpaque(false);
 		input=new JTextField[INPUT_FIELDS];
 		for(int i=0;i< input.length;i++){
 			input[i]=new JTextField();
@@ -45,10 +45,9 @@ public class MyPanel extends JPanel {
 		// center enthält (derzeit) nur den KOmmentar
 		JPanel center=new JPanel(new GridLayout(2, 1));
 		center.setOpaque(false);
-		jtaComment=new JTextArea();
+		jtaComment=new JTextArea(COMMENT_ROWS,COMMENT_COLUMS);
 		jtaComment.setEditable(false);
 		jtaComment.setWrapStyleWord(true);
-		jtaComment.setRows(COMMENT_ROWS);
 		DefaultCaret caret = (DefaultCaret)jtaComment.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 

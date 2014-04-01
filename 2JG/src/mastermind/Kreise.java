@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class Kreise extends JPanel {
 //	Konstanten
 	public final static Color CORRECT=Color.BLACK;
-	public final static Color INCORRECT=Color.GRAY;
+	public final static Color INCORRECT=Color.LIGHT_GRAY;
 	public final static Color WRONG_POSITION=Color.WHITE;
 	public final static int MARGIN_TOP=5;
 	public final static int MARGIN_LEFT=5;
