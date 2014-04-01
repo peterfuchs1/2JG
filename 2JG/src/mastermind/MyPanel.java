@@ -24,16 +24,18 @@ public class MyPanel extends JPanel {
 	private JTextField[] input;
 	private JButton jbCheck,jbNew, jbSolve;
 	private JTextArea jtaComment;
+	private Kreise kreise;
 	
 	/**
 	 * Konstruktor mit Controller-Klasse
 	 * @param lc Controller
 	 */
 	public MyPanel(MyController lc) {
-
+		this.setBackground(Color.YELLOW);
 		this.setLayout(new BorderLayout());
 		// north besteht nur aus einer Zeile
 		JPanel north=new JPanel(new GridLayout(1, 5));
+		north.setOpaque(false);
 		input=new JTextField[INPUT_FIELDS];
 		for(int i=0;i< input.length;i++){
 			input[i]=new JTextField();
@@ -42,6 +44,7 @@ public class MyPanel extends JPanel {
 		}
 		// center enthält (derzeit) nur den KOmmentar
 		JPanel center=new JPanel(new GridLayout(2, 1));
+		center.setOpaque(false);
 		jtaComment=new JTextArea();
 		jtaComment.setEditable(false);
 		jtaComment.setWrapStyleWord(true);
@@ -52,8 +55,13 @@ public class MyPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(jtaComment);
 		center.add(scrollPane);
+		// Kreise sind in der zweite Zeile in der Größe 30
+		kreise=new Kreise(5,30);
+		kreise.setOpaque(false);
+		center.add(kreise);
 		// south enthält alle Buttons
 		JPanel south=new JPanel();
+		south.setOpaque(false);
 		jbCheck=new JButton("Überprüfen");
 		jbCheck.addActionListener(lc);
 		south.add(jbCheck);
@@ -79,6 +87,7 @@ public class MyPanel extends JPanel {
 		jtaComment.setText("");
 		for(int i=0;i<input.length;i++)
 			input[i].setText("");
+		kreise.initialize();
 	}
 	// getter und setter
 	/**
@@ -122,13 +131,20 @@ public class MyPanel extends JPanel {
 	/**
 	 * @param jtaComment the jtaComment to set
 	 */
-	public void setJtaComment(String s) {
+	public void addComment(String s) {
 		StringBuilder sb=new StringBuilder();
 		sb.append(jtaComment.getText());
 		sb.append('\n');
 		sb.append(s);
 		this.jtaComment.setText(sb.toString());
 	}
-	
+	/**
+	 * aktualisiert die Kreise
+	 * @param correct
+	 * @param wrongPosition
+	 */
+	public void refreshKreise(int correct, int wrongPosition){
+		kreise.refresh(correct, wrongPosition);
+	}
 
 }

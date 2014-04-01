@@ -109,8 +109,8 @@ public class MyController implements ActionListener
 		sb.append(" Zahlen an der richtigen Position. ");
 		sb.append(used);
 		sb.append(" richtig aber an falscher Stelle");
-		view.setJtaComment(sb.toString());
-
+		view.addComment(sb.toString());
+		view.refreshKreise(correct, used);
 	}
 
 	private void solve() {
@@ -122,7 +122,7 @@ public class MyController implements ActionListener
 				sb.append(", ");
 		}
 		sb.append("]");
-		view.setJtaComment(sb.toString());
+		view.addComment(sb.toString());
 		
 	}
 
