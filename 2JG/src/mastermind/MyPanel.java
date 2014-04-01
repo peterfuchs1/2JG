@@ -1,0 +1,134 @@
+package mastermind;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
+
+/**
+ * Ein JPanel, mit inneren anonymen Adapterklassen.
+ * 
+ * @author Walter Rafeiner-Magor
+ * @version 2.3
+ */
+public class MyPanel extends JPanel {
+//	Konstanten
+	public final static int INPUT_FIELDS=5;
+	public final static int COMMENT_ROWS=5;
+//	Attribute
+	private JTextField[] input;
+	private JButton jbCheck,jbNew, jbSolve;
+	private JTextArea jtaComment;
+	
+	/**
+	 * Konstruktor mit Controller-Klasse
+	 * @param lc Controller
+	 */
+	public MyPanel(MyController lc) {
+
+		this.setLayout(new BorderLayout());
+		// north besteht nur aus einer Zeile
+		JPanel north=new JPanel(new GridLayout(1, 5));
+		input=new JTextField[INPUT_FIELDS];
+		for(int i=0;i< input.length;i++){
+			input[i]=new JTextField();
+			input[i].addActionListener(lc);
+			north.add(input[i]);
+		}
+		// center enthält (derzeit) nur den KOmmentar
+		JPanel center=new JPanel(new GridLayout(2, 1));
+		jtaComment=new JTextArea();
+		jtaComment.setEditable(false);
+		jtaComment.setWrapStyleWord(true);
+		jtaComment.setRows(COMMENT_ROWS);
+		DefaultCaret caret = (DefaultCaret)jtaComment.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(jtaComment);
+		center.add(scrollPane);
+		// south enthält alle Buttons
+		JPanel south=new JPanel();
+		jbCheck=new JButton("Überprüfen");
+		jbCheck.addActionListener(lc);
+		south.add(jbCheck);
+		
+		jbNew=new JButton("Neuer Versuch");
+		jbNew.addActionListener(lc);
+		south.add(jbNew);
+		
+		jbSolve=new JButton("Lösung");
+		jbSolve.addActionListener(lc);
+		south.add(jbSolve);
+		
+		// JPanel zusammensetzen
+		this.add(BorderLayout.NORTH,north);
+		this.add(BorderLayout.CENTER,center);
+		this.add(BorderLayout.SOUTH, south);
+		
+	}
+	/**
+	 * Spiel initialisieren
+	 */
+	public void setEmtpy(){
+		jtaComment.setText("");
+		for(int i=0;i<input.length;i++)
+			input[i].setText("");
+	}
+	// getter und setter
+	/**
+	 * @return the input
+	 */
+	public int[] getInput() {
+		int[] ret=new int[INPUT_FIELDS];
+		for(int i=0;i<INPUT_FIELDS;i++){
+			ret[i]=0;
+			try{
+			ret[i]=Integer.parseInt(input[i].getText());
+			}
+			catch(NumberFormatException e){};
+		}
+		return ret;
+	}
+	/**
+	 * @return the jbCheck
+	 */
+	public JButton getJbCheck() {
+		return jbCheck;
+	}
+	/**
+	 * @return the jbNew
+	 */
+	public JButton getJbNew() {
+		return jbNew;
+	}
+	/**
+	 * @return the jbSolve
+	 */
+	public JButton getJbSolve() {
+		return jbSolve;
+	}
+	/**
+	 * @return the jtaComment
+	 */
+	public JTextArea getJtaComment() {
+		return jtaComment;
+	}
+	/**
+	 * @param jtaComment the jtaComment to set
+	 */
+	public void setJtaComment(String s) {
+		StringBuilder sb=new StringBuilder();
+		sb.append(jtaComment.getText());
+		sb.append('\n');
+		sb.append(s);
+		this.jtaComment.setText(sb.toString());
+	}
+	
+
+}
