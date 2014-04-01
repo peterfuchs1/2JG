@@ -36,7 +36,7 @@ public class Kreise extends JPanel {
 	public void initialize(){
 		for(int i=0;i<anzahl;i++)
 			values[i]=INCORRECT;
-
+		this.repaint();
 	}
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)

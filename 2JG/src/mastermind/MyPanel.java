@@ -83,10 +83,11 @@ public class MyPanel extends JPanel {
 	/**
 	 * Spiel initialisieren
 	 */
-	public void setEmtpy(){
+	public void initialize(){
 		jtaComment.setText("");
-		for(int i=0;i<input.length;i++)
+		for(int i=0;i<input.length;i++){
 			input[i].setText("");
+		}
 		kreise.initialize();
 	}
 	// getter und setter

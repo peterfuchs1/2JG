@@ -141,7 +141,7 @@ public class MyController implements ActionListener
 	 * Neues Mastermind erstellen
 	 */
 	private void newMasterMind() {
-		view.setEmtpy();
+		view.initialize();
 		attempts=0;
 		this.loesung=new int[MyPanel.INPUT_FIELDS];
 		for(int i=0;i<MyPanel.INPUT_FIELDS;i++){
@@ -159,7 +159,7 @@ public class MyController implements ActionListener
 					
 			}
 		}
-		
+
 	}
 
 	/**
