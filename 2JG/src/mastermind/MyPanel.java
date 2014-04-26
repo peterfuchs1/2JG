@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
 /**
- * Ein JPanel, mit inneren anonymen Adapterklassen.
+ * Ein JPanel, in BorderLayout
  * 
  * @author Walter Rafeiner-Magor
  * @version 2.3

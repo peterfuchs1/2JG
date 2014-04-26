@@ -107,8 +107,10 @@ public class MyController implements ActionListener
 		sb.append(": ");
 		sb.append(correct);
 		sb.append(" Zahlen an der richtigen Position. ");
-		sb.append(used);
-		sb.append(" richtig aber an falscher Stelle");
+		if(correct!=MyPanel.INPUT_FIELDS){
+			sb.append(used);
+			sb.append(" richtig aber an falscher Stelle");			
+		}
 		view.addComment(sb.toString());
 		view.refreshKreise(correct, used);
 	}
