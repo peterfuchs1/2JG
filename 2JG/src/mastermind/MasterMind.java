@@ -1,10 +1,10 @@
-package paint;
+package mastermind;
 /**
- * Startklasse des Zeichenbretts
+ * Startklasse des Mastermind
  * @author Walter Rafeiner-Magor
- * @version 3.0
+ * @version 1.0
  */
-public class Zeichenbrett {
+public class MasterMind {
 	public static void main(String[] args) {
 		new MyController();
 	}

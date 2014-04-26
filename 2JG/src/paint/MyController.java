@@ -336,7 +336,13 @@ public class MyController extends WindowAdapter implements ActionListener,
 			case KeyEvent.VK_DOWN:
 				// Letztes Element geholt
 				Drawable d = view.getDrawables()[view.getIndex() - 1];
-				java.awt.Rectangle r=d.p.getBounds();
+				// Begrenzung des Polygpons ermitteln
+				// Da bei Shift die Koordinaten direkt manipuliert werden,
+				// muss der Cache geflusht und neu berechnet werden!
+				d.p.invalidate();// vorhandene Werte löschen! 
+				java.awt.Rectangle r=d.p.getBounds(); // neue Grenzen berechnen
+				
+				// Die entsprechende Cursor-Taste auswerten
 				if (ke.getKeyCode() == KeyEvent.VK_LEFT) { // Taste Left
 					// d.getStartX();
 					int start = d.p.xpoints[0];
@@ -349,7 +355,6 @@ public class MyController extends WindowAdapter implements ActionListener,
 					// Bei SHIFT wird der Startpunkt belassen
 					if(shift&& modus!=Modus.POLYGON&&modus!=Modus.POLYGON_FULL)
 						d.p.xpoints[0]=start;
-
 				}
 				if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {// Taste Right
 					int start = d.p.xpoints[0];
