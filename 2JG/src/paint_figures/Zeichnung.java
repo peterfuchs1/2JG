@@ -81,7 +81,7 @@ public class Zeichnung extends JPanel {
 		x = (int) ((this.getWidth() / 2.0) - size / 2.0);
 		y = (int) ((this.getHeight() / 2.0) - size / 2.0);
 		// Für Dreieck
-		int x2=(int)((size-x)/2.0);
+		int x2=(int)(size/2.0);
 
 		
 		switch(figur){
