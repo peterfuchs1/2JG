@@ -1,10 +1,11 @@
-package bsp.mvc;
+package navi;
+
 
 import javax.swing.*;
 
-public class WuerfelFrame extends JFrame {
+public class MyFrame extends JFrame {
 	
-	public WuerfelFrame(JPanel layoutPanel, String title) {
+	public MyFrame(JPanel layoutPanel, String title) {
 
 		super(title);
 		this.add(layoutPanel);

@@ -10,7 +10,7 @@ public class WuerfelControl implements ActionListener {
 	
 	public WuerfelControl() {
 		wPanel = new WuerfelPanel(this);
-		wFrame = new WuerfelFrame(wPanel);
+		wFrame = new WuerfelFrame(wPanel,"Würfelspiel");
 		wSpiel = new WuerfelSpiel(wPanel.getSpielerzahl());
 	}
 
