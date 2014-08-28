@@ -80,8 +80,12 @@ public class Zeichnung extends JPanel {
 		// links oben		
 		x = (int) ((this.getWidth() / 2.0) - size / 2.0);
 		y = (int) ((this.getHeight() / 2.0) - size / 2.0);
-		// Für Dreieck, Baum und Haus
+		// Für Dreieck und Pfeile
+		
 		int x2=(int)(size/2.0);
+		int mitteX =x2+x;
+		int endeX=x+size;
+		int untenY=y+size;
 		int [] xpoints,ypoints;
 		Polygon p;
 		int rechteHausKanteX,rechteHausKanteY;
@@ -125,7 +129,7 @@ public class Zeichnung extends JPanel {
 			linkeHausKanteX=x+size/6;
 			wandObenY=y+size/3;
 			wandUntenY=y+size;
-			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
+			xpoints =new int[] {x, mitteX,endeX,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
 			ypoints =new int[] {wandObenY,y,wandObenY,wandObenY,wandUntenY,wandUntenY,wandObenY};
 			
 			p=new Polygon(xpoints,ypoints,xpoints.length);
@@ -143,8 +147,8 @@ public class Zeichnung extends JPanel {
 			wandObenX=wandUntenX=x+size/3;
 			
 			wandUntenY=y+size*2/3;
-			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
-			ypoints =new int[] {wandUntenY,y+size,wandUntenY,wandUntenY,y,y,wandUntenY};
+			xpoints =new int[] {x, mitteX,endeX,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
+			ypoints =new int[] {wandUntenY,untenY,wandUntenY,wandUntenY,y,y,wandUntenY};
 			
 			p=new Polygon(xpoints,ypoints,xpoints.length);
 			
@@ -162,8 +166,8 @@ public class Zeichnung extends JPanel {
 			wandUntenX=x+size*2/3;
 			wandObenY=y+size/3;
 			wandUntenY=y+size*2/3;
-			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,x+size,x2+x,x,linkeHausKanteX,linkeHausKanteX};
-			ypoints =new int[] {wandUntenY,y+size,wandUntenY,wandUntenY,wandObenY,wandObenY,y,wandObenY,wandObenY,wandUntenY};
+			xpoints =new int[] {x, mitteX,endeX,rechteHausKanteX,rechteHausKanteX,endeX,mitteX,x,linkeHausKanteX,linkeHausKanteX};
+			ypoints =new int[] {wandUntenY,untenY,wandUntenY,wandUntenY,wandObenY,wandObenY,y,wandObenY,wandObenY,wandUntenY};
 			
 			p=new Polygon(xpoints,ypoints,xpoints.length);
 			
