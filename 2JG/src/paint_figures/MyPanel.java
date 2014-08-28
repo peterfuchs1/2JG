@@ -31,9 +31,9 @@ public class MyPanel extends JPanel {
 		// Drei Figuren erstellen
 		figuren = new Zeichnung[3];
 		int i = 0;
-		figuren[i++] = new Zeichnung(Figur.QUADRAT, true);
-		figuren[i++] = new Zeichnung(Figur.KREIS, true);
-		figuren[i] = new Zeichnung(Figur.DREIECK, true);
+		figuren[i++] = new Zeichnung(Figur.PFEIL_UNTEN, true);
+		figuren[i++] = new Zeichnung(Figur.DOPPEL_PFEIL, true);
+		figuren[i] = new Zeichnung(Figur.PFEIL_OBEN, true);
 
 		this.setLayout(new BorderLayout());
 		// Header
@@ -50,7 +50,7 @@ public class MyPanel extends JPanel {
 		JPanel quadrat = new JPanel(new BorderLayout());
 		// North
 		JPanel qNorth = new JPanel();
-		JLabel qLabel = new JLabel("Quadrat");
+		JLabel qLabel = new JLabel("Pfeil nach unten");
 		qNorth.add(qLabel);
 		quadrat.add(qNorth, BorderLayout.NORTH);
 		// Center
@@ -75,7 +75,7 @@ public class MyPanel extends JPanel {
 		JPanel kreis = new JPanel(new BorderLayout());
 		// North
 		JPanel kNorth = new JPanel();
-		JLabel kLabel = new JLabel("Kreis");
+		JLabel kLabel = new JLabel("Doppelpfeil");
 		kNorth.add(kLabel);
 		kreis.add(kNorth, BorderLayout.NORTH);
 		// Center
@@ -100,7 +100,7 @@ public class MyPanel extends JPanel {
 		JPanel dreieck = new JPanel(new BorderLayout());
 		// North
 		JPanel dNorth = new JPanel();
-		JLabel dLabel = new JLabel("Dreieck");
+		JLabel dLabel = new JLabel("Pfeil nach oben");
 		dNorth.add(dLabel);
 		dreieck.add(dNorth, BorderLayout.NORTH);
 		// Center

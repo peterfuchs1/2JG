@@ -80,9 +80,14 @@ public class Zeichnung extends JPanel {
 		// links oben		
 		x = (int) ((this.getWidth() / 2.0) - size / 2.0);
 		y = (int) ((this.getHeight() / 2.0) - size / 2.0);
-		// Für Dreieck
+		// Für Dreieck, Baum und Haus
 		int x2=(int)(size/2.0);
-
+		int [] xpoints,ypoints;
+		Polygon p;
+		int rechteHausKanteX,rechteHausKanteY;
+		int linkeHausKanteX,linkeHausKanteY;
+		int wandObenX,wandObenY;
+		int wandUntenX,wandUntenY;
 		
 		switch(figur){
 		case QUADRAT:
@@ -102,10 +107,11 @@ public class Zeichnung extends JPanel {
 			g.drawOval(x, y, size, size);
 			break;
 		case DREIECK:
-			int[] xpoints = {x, x2+x,size+x};
-			int[] ypoints = {size+y,y,size+y};
+						
+			xpoints = new int[]{x, x2+x,size+x};
+			ypoints = new int[]{size+y,y,size+y};
 			
-			Polygon p=new Polygon(xpoints,ypoints,3);
+			p=new Polygon(xpoints,ypoints,xpoints.length);
 			
 			if(voll){
 				g.setColor(FIGUR_COLOR);
@@ -114,6 +120,61 @@ public class Zeichnung extends JPanel {
 			g.setColor(FRAME_COLOR);
 			g.drawPolygon(p);
 			break;
+		case PFEIL_OBEN:
+			rechteHausKanteX=x+size*5/6;
+			linkeHausKanteX=x+size/6;
+			wandObenY=y+size/3;
+			wandUntenY=y+size;
+			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
+			ypoints =new int[] {wandObenY,y,wandObenY,wandObenY,wandUntenY,wandUntenY,wandObenY};
+			
+			p=new Polygon(xpoints,ypoints,xpoints.length);
+			
+			if(voll){
+				g.setColor(FIGUR_COLOR);
+				g.fillPolygon(p);
+			}
+			g.setColor(FRAME_COLOR);
+			g.drawPolygon(p);
+			break;
+		case PFEIL_UNTEN:
+			rechteHausKanteX=x+size*5/6;
+			linkeHausKanteX=x+size/6;
+			wandObenX=wandUntenX=x+size/3;
+			
+			wandUntenY=y+size*2/3;
+			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,linkeHausKanteX,linkeHausKanteX};
+			ypoints =new int[] {wandUntenY,y+size,wandUntenY,wandUntenY,y,y,wandUntenY};
+			
+			p=new Polygon(xpoints,ypoints,xpoints.length);
+			
+			if(voll){
+				g.setColor(FIGUR_COLOR);
+				g.fillPolygon(p);
+			}
+			g.setColor(FRAME_COLOR);
+			g.drawPolygon(p);
+			break;
+		case DOPPEL_PFEIL:
+			rechteHausKanteX=x+size*5/6;
+			linkeHausKanteX=x+size/6;
+			wandObenX=x+size/3;
+			wandUntenX=x+size*2/3;
+			wandObenY=y+size/3;
+			wandUntenY=y+size*2/3;
+			xpoints =new int[] {x, x2+x,size+x,rechteHausKanteX,rechteHausKanteX,x+size,x2+x,x,linkeHausKanteX,linkeHausKanteX};
+			ypoints =new int[] {wandUntenY,y+size,wandUntenY,wandUntenY,wandObenY,wandObenY,y,wandObenY,wandObenY,wandUntenY};
+			
+			p=new Polygon(xpoints,ypoints,xpoints.length);
+			
+			if(voll){
+				g.setColor(FIGUR_COLOR);
+				g.fillPolygon(p);
+			}
+			g.setColor(FRAME_COLOR);
+			g.drawPolygon(p);
+			break;
+			
 		}
 	}
 }

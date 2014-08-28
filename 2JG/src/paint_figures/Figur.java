@@ -3,5 +3,8 @@ package paint_figures;
 public enum Figur {
 	QUADRAT,
 	KREIS,
-	DREIECK;
+	DREIECK,
+	PFEIL_OBEN,
+	PFEIL_UNTEN,
+	DOPPEL_PFEIL;
 }
