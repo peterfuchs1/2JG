@@ -1,8 +1,6 @@
 package sw;
 
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.JPanel;
 
 /**
@@ -12,6 +10,10 @@ import javax.swing.JPanel;
  * @version 1.3
  */
 public class MyDrawingPanel3 extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -496753328108580064L;
 	public final static int MAX_DRAWABLES = 10000;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;

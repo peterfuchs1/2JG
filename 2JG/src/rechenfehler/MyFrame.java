@@ -5,6 +5,11 @@ import javax.swing.*;
 
 public class MyFrame extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8523267158563035873L;
+
 	public MyFrame(JPanel layoutPanel, String title) {
 
 		super(title);

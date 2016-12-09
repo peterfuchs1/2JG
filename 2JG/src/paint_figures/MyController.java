@@ -3,18 +3,15 @@ package paint_figures;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 
 public class MyController implements ActionListener {
-	private MyFrame myFrame; // My standard JFrame
 	private MyPanel myPanel; // My JPanel
 
 	public MyController() {
 
 		myPanel = new MyPanel(this);
-		myFrame = new MyFrame(myPanel, "Figuren mit und ohne Füllung");
+		new MyFrame(myPanel, "Figuren mit und ohne Füllung");
 
 	}
 

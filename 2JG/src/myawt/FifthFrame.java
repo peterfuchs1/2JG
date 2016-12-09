@@ -12,6 +12,10 @@ import java.awt.Panel;
  * @author Walter Rafeiner-Magor
  */
 public class FifthFrame extends Frame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public FifthFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt

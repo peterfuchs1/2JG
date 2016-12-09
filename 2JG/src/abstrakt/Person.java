@@ -5,6 +5,10 @@ package abstrakt;
  * @version 1.2
  */
 public abstract class Person implements Printable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1801294918292966838L;
 	protected static long ID;
 	private long id;
 	private String nachName;

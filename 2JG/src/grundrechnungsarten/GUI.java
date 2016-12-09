@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel panel,oben,unten;
 	private int werte[];
 	private int anzahlVariable;

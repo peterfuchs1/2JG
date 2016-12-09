@@ -1,5 +1,5 @@
 package sw;
-import java.awt.*;
+
 
 import javax.swing.*;
 /**
@@ -12,6 +12,10 @@ import javax.swing.*;
 public class MyDrawingFrame2 extends JFrame
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5799269902849701217L;
+	/**
      * Der Konstruktor erzeugt ein JPanel
      * legt eine fixe Größe an.
      */

@@ -3,28 +3,10 @@
  */
 package mastermind;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
-
 import javax.swing.AbstractButton;
-import javax.swing.JColorChooser;
-import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 
 /**
  * Controller für Zeichenbrett Actionlistener: JMenuItems im Frame MouseAdapter:
@@ -182,6 +164,7 @@ public class MyController implements ActionListener
 	}
 
 	
+	@SuppressWarnings("unused")
 	private void notImplementedYet() {
 		JOptionPane.showMessageDialog(frame, "Not implemented yet!", "Info",
 				JOptionPane.OK_OPTION);

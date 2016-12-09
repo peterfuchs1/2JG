@@ -21,6 +21,10 @@ import javax.swing.border.EmptyBorder;
  *
  */
 public class MySwingManualJPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7298461516002732727L;
 	private JTextField jtfName;		// Eingabefeld für Name
 	private JLabel lbName;			// Anzeige der Eingabe
 	

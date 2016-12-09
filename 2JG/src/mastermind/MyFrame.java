@@ -11,6 +11,10 @@ import javax.swing.*;
  */
 public class MyFrame extends JFrame
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5625118420600493902L;
 	private JMenuItem itemNew;					// Neues Spiel erzeugen
 	private JMenuItem itemTest;					// Werte Testem
 	private JMenuItem itemSolve;				// Lösung darstellen

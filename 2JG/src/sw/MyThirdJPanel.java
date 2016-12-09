@@ -2,12 +2,10 @@ package sw;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -19,10 +17,14 @@ import javax.swing.JTextField;
  *
  */
 public class MyThirdJPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1960845176375171801L;
 	private JTextField jtfa,jtfb;	// Eingabefelder
 	private JButton jb;				// Button zur Berechnung
 	private JLabel jle;				// Ergebnisfeld
-	private JComboBox jcb;
+	private JComboBox<String> jcb;
 	/**
 	 * JPanel mit Button
 	 * @param t
@@ -52,7 +54,7 @@ public class MyThirdJPanel extends JPanel implements ActionListener{
 		JLabel jlg=new JLabel(" = ");
 		jle=new JLabel("");
 		// JComboBox erstellen
-		jcb=new JComboBox(new String[]{"+","-","*","/"});
+		jcb=new JComboBox<String>(new String[]{"+","-","*","/"});
 		jcb.addActionListener(this);
 		// Elemente im GridLayout verankern
 		// Erste Zeile

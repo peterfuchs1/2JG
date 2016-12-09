@@ -3,7 +3,6 @@
  */
 package myawt;
 
-import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
@@ -15,6 +14,10 @@ import javax.swing.BoxLayout;
  *
  */
 public class MySecondPanel extends Panel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3495290629082377046L;
 	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
 	private Label labels[];					// Labels zur Darstellung des Textes
 	private TextField fields[];				// Textfields zur Eingabe

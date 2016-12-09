@@ -1,7 +1,5 @@
 package sw;
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.JPanel;
 /**
  * Ein JPanel, mit paintComponent()
@@ -11,6 +9,10 @@ import javax.swing.JPanel;
  */
 public class MyDrawingTextPanel extends JPanel               
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1713419977025827369L;
 	private String text;
     /**
      * Konstruktor mit anzuzeigenden Text

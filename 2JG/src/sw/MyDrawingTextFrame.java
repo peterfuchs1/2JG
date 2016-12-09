@@ -12,6 +12,10 @@ import javax.swing.*;
 public class MyDrawingTextFrame extends JFrame
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8413764388780249600L;
+	/**
      * Der Konstruktor erzeugt ein JPanel
      * legt eine fixe Größe an.
      */

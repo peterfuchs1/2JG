@@ -5,6 +5,10 @@ package abstrakt;
  * @version 1.1
  */
 public class Lehrer extends Person {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String kurzz;
 	private String abteilung;
 	/**

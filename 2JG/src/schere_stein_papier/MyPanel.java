@@ -1,7 +1,6 @@
 package schere_stein_papier;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -16,7 +15,6 @@ import javax.swing.*;
 public class MyPanel extends JPanel {
 	public static Color[] MYCOLORS = { Color.YELLOW, Color.RED, Color.GREEN };
 	private static final long serialVersionUID = 4581784888223628483L;
-	private MyModel spielverlauf;
 	private JButton schere;
 	private JLabel pcschere;
 	private JButton stein;
@@ -35,7 +33,6 @@ public class MyPanel extends JPanel {
 	 */
 	public MyPanel(MyController c, MyModel m) {
 		this.setLayout(new GridLayout(6, 3, 10, 10));
-		spielverlauf = m;
 		ImageIcon scherepic = new ImageIcon(getClass()
 				.getResource("schere.png"));
 		schere = new JButton(scherepic);

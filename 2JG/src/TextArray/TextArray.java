@@ -24,8 +24,6 @@ Nicht getestete Methoden werden nicht gewertet.
  */
 package TextArray;
 
-import java.util.Arrays;
-
 /**
  * @author uhs374h
  *

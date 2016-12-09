@@ -18,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 public class MySwingBuilder extends JFrame {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3627128424111804498L;
 	private JPanel contentPane;
 	private JTextField jtfName;
 	private JLabel lbName;

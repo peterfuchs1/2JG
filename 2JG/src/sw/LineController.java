@@ -232,6 +232,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 				view.addDrawable(new Oval(lastX, lastY, x, y, view
 						.getForeground(), fullo));
 				break;
+			default:
 			}
 			merkeKoordinaten(x, y);
 			lastMouseEvent = e;
@@ -249,6 +250,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		lastY = y;
 	}
 
+	@SuppressWarnings("unused")
 	private void save(String filename, Drawable[] d) {
 		int length = view.getIndex();
 		ObjectOutputStream outputStream = null;
@@ -278,6 +280,7 @@ public class LineController extends MouseAdapter implements ActionListener,
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void load(String filename, Drawable[] d) {
 		int index = 0;
 		ObjectInputStream inputStream = null;

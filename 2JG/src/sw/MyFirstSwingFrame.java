@@ -11,6 +11,10 @@ import javax.swing.JPanel;
  * @version 1.0
  */
 public class MyFirstSwingFrame extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6489022419720860017L;
 	public MyFirstSwingFrame() {
 		// Einen JPanel erzeugen
 		MyFirstJPanel jp= new MyFirstJPanel();

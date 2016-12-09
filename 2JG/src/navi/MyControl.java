@@ -8,12 +8,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class MyControl implements ActionListener, ChangeListener {
-	private MyFrame frame;
 	private MyPanel panel;
 	
 	public MyControl() {
 		panel = new MyPanel(this);
-		frame = new MyFrame(panel,"Navi-Zeichnung");
+		new MyFrame(panel,"Navi-Zeichnung");
 
 	}
 	/**

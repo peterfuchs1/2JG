@@ -4,18 +4,19 @@
 package myawt;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
-
-import javax.swing.BoxLayout;
 
 /**
  * @author Walter Rafeiner-Magor
  *
  */
 public class MyThirdPanel extends Panel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6087480571024800443L;
 	private Label east, south, west, north;		// Labels zur Darstellung des Textes
 	private TextField center;				// Textfields zur Eingabe
 	/**

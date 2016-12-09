@@ -12,6 +12,10 @@ import java.awt.Panel;
  * @author Walter Rafeiner-Magor
  */
 public class ThirdFrame extends Frame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5812127065833848802L;
 	public ThirdFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt

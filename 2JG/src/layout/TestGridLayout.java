@@ -1,15 +1,17 @@
 package layout;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class TestGridLayout extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton east,west;
 	public TestGridLayout(){
 		this.setLayout(

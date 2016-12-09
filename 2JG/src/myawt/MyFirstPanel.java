@@ -13,6 +13,10 @@ import java.awt.TextField;
  *
  */
 public class MyFirstPanel extends Panel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4816276855182272255L;
 	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
 	private Label labels[];					// Labels zur Darstellung des Textes
 	private TextField fields[];				// Textfields zur Eingabe

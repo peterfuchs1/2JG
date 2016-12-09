@@ -1,17 +1,17 @@
 package sw;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 /**
  * Gui mittels Swing-Komponenten
  * @author Walter Rafeiner-Magor
  * @version 1.1
  */
 public class MySecondSwingFrame extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8481542959809384L;
 	public MySecondSwingFrame() {
 		// Einen JPanel erzeugen
 		MySecondJPanel jp= new MySecondJPanel("Bitte für A und B reele Werte eingeben");

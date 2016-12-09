@@ -12,6 +12,10 @@ import java.awt.Panel;
  * @author Walter Rafeiner-Magor
  */
 public class ForthFrame extends Frame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public ForthFrame(String name){
 		super(name);
 		// es werden 5 Panels erzeugt

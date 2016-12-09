@@ -3,20 +3,20 @@
  */
 package myawt;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
-
-import javax.swing.BoxLayout;
 
 /**
  * @author Walter Rafeiner-Magor
  *
  */
 public class MyForthPanel extends Panel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5037972530657981713L;
 	public static final int ANZAHL_ELEMENTE=8;	// Anzahl der Elemente
 	private Label labels[];					// Labels zur Darstellung des Textes
 	private TextField fields[];				// Textfields zur Eingabe

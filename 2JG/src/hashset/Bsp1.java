@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 public class Bsp1 {
 	private HashSet<Integer> abc;
 
+	@SuppressWarnings("unused")
 	public Bsp1() {
 		int zaehler = 0;
 		int z = 0;

@@ -11,6 +11,10 @@ import javax.swing.JPanel;
  */
 public class MyDrawingPanel extends JPanel               
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1029779535090013213L;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;	
     private int lastX=0,lastY=0;	// Initialisierung 

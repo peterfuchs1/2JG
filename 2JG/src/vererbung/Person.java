@@ -5,6 +5,10 @@ package vererbung;
  * @version 1.2
  */
 public class Person implements Printable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2613005702926949500L;
 	protected static long ID;
 	private long id;
 	private String nachName;

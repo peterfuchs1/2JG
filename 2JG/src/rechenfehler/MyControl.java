@@ -4,18 +4,15 @@ package rechenfehler;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class MyControl implements ActionListener {
-	private MyFrame frame;
 	private MyPanel panel;
 	private MyModel model;
 	
 	public MyControl() {
 		model=new MyModel();
 		panel = new MyPanel(this,model);
-		frame = new MyFrame(panel,"Rechnen muss gelernt werden :-)");
+		new MyFrame(panel,"Rechnen muss gelernt werden :-)");
 
 	}
 	/**

@@ -15,6 +15,10 @@ import java.awt.event.ActionListener;
  *
  */
 public class MyFifthPanel extends Panel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6834375535429853934L;
 	public static final String[] VALUES={"gelb","weiss", "rosa","cyan"};
 	public static final Color[] COLORS={Color.YELLOW,Color.WHITE, Color.PINK,Color.CYAN};
 	private Label header;					// Überschrift

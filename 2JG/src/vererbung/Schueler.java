@@ -5,6 +5,10 @@ package vererbung;
  * @version 1.1
  */
 public class Schueler extends Person {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6589399930656152636L;
 	private int katalogNr;
 	private String jahrgang;
 	/**

@@ -1,16 +1,14 @@
 package bsp.mvc;
 
 import java.awt.event.*;
-import javax.swing.*;
 
 public class WuerfelControl implements ActionListener {
-	private WuerfelFrame wFrame;
 	private WuerfelPanel wPanel;
 	private WuerfelSpiel wSpiel;
 	
 	public WuerfelControl() {
 		wPanel = new WuerfelPanel(this);
-		wFrame = new WuerfelFrame(wPanel,"Würfelspiel");
+		new WuerfelFrame(wPanel,"Würfelspiel");
 		wSpiel = new WuerfelSpiel(wPanel.getSpielerzahl());
 	}
 

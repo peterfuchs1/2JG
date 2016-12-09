@@ -6,14 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class MyController implements ActionListener {
-	private MyFrame myFrame; // My standard JFrame
 	private MyPanel myPanel; // My JPanel
 	private MyModel myModel; // My Model for this game
 
 	public MyController() {
 		myModel = new MyModel();
 		myPanel = new MyPanel(this, myModel);
-		myFrame = new MyFrame(myPanel, "Schere Stein Papier!");
+		new MyFrame(myPanel, "Schere Stein Papier!");
 
 	}
 

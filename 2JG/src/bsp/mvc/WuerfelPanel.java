@@ -5,18 +5,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WuerfelPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7842200755185789394L;
 	private JLabel[] lWuerfel;
 	private JButton[] bWuerfel;
 	private JLabel lStatus;
 	private JButton bNeu;
-	private WuerfelControl wControl;
-	
 	/**
 	 * Übernimmt den Controller und initialisiert das Layout
 	 * @param wControl der Controller für diese GUI
 	 */
 	public WuerfelPanel(WuerfelControl wControl) {
-		this.wControl = wControl;
 		this.setLayout(new BorderLayout());
 		
 		JPanel main = new JPanel(new GridLayout(2,3));

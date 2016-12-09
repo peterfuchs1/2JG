@@ -5,6 +5,10 @@ package abstrakt;
  * @version 1.1
  */
 public class Schueler extends Person {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1862397115784281977L;
 	private int katalogNr;
 	private String jahrgang;
 	/**

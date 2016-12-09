@@ -11,6 +11,10 @@ import javax.swing.*;
  */
 public class MyFrame extends JFrame
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6522197790411069630L;
 	private JMenuItem itemNew;					// Neue Datei erzeugen
 	private JMenuItem itemLoad;					// Aus Datei laden
 	private JMenuItem itemSave;					// In Datei speichern

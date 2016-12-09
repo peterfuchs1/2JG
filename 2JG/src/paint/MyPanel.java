@@ -1,8 +1,6 @@
 package paint;
 
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.JPanel;
 
 /**
@@ -12,6 +10,10 @@ import javax.swing.JPanel;
  * @version 2.3
  */
 public class MyPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4744878084641365416L;
 	public final static int MAX_DRAWABLES = 10000;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;

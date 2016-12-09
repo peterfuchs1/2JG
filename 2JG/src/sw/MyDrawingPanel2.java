@@ -12,6 +12,10 @@ import javax.swing.JPanel;
  * @version 1.1
  */
 public class MyDrawingPanel2 extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1973761341931614840L;
 	public final static int MAX_LINES = 10000;
 	// damit die erste Linie beliebig starten kann
 	private boolean gestartet;

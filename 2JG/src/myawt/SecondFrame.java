@@ -12,6 +12,10 @@ import java.awt.event.WindowListener;
  * @author Walter Rafeiner-Magor
  */
 public class SecondFrame extends Frame implements WindowListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1690195784916975402L;
 	public SecondFrame(String name){
 		super(name);
 		this.addWindowListener(this);	// Unsere Klasse kümmert sich um Window-Ereignisse!

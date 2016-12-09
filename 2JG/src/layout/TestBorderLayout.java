@@ -2,14 +2,15 @@ package layout;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.GraphicsConfiguration;
-import java.awt.HeadlessException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class TestBorderLayout extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6733112623371773944L;
 	private JLabel east,west;
 	public TestBorderLayout(){
 		east=new JLabel("east");

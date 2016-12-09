@@ -6,10 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3115758653936432443L;
 	private JButton jbUp,jbDown,jbLeft,jbRight,jbNeu; // Buttons
 	private Zeichnung zeichnung;
 	private JSlider slider;		// SLider für die Längeneinstellung
-	private MyControl wControl;
 	private int len;			// aktuelle Länge einer Kante
 	private Point lastPoint;	// letzter Punkt
 	
@@ -30,7 +33,6 @@ public class MyPanel extends JPanel {
 		jbNeu=new JButton("neu");
 		jbNeu.addActionListener(wControl);
 		
-		this.wControl = wControl;
 		// Layout für unser Panel
 		this.setLayout(new BorderLayout());
 		// Im Norden wird ein Label erstellt

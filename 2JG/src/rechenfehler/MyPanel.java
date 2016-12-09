@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2862750214979684554L;
 	private JButton jbNeu, jbPruefen; // Buttons
 	private JLabel aufgabe;
 	private JTextField loesung;
@@ -13,7 +17,9 @@ public class MyPanel extends JPanel {
 	private int indexAufgabe;
 	private MyControl control;
 	private MyModel model;
+	@SuppressWarnings("unused")
 	private int len;			// aktuelle Länge einer Kante
+	@SuppressWarnings("unused")
 	private Point lastPoint;	// letzter Punkt
 	
 	/**
@@ -22,11 +28,12 @@ public class MyPanel extends JPanel {
 	 */
 	public MyPanel(MyControl control,MyModel model) {
 		//Button erstellen
-		jbNeu=new JButton("neue Aufgabe");
-		jbNeu.addActionListener(control);
-		jbPruefen=new JButton("Lösung überprüfen");
-		jbPruefen.addActionListener(control);
 		this.control = control;
+		jbNeu=new JButton("neue Aufgabe");
+		jbNeu.addActionListener(this.control);
+		jbPruefen=new JButton("Lösung überprüfen");
+		jbPruefen.addActionListener(this.control);
+
 		this.model=model;
 		indexAufgabe=model.getIndex();
 		
@@ -40,7 +47,7 @@ public class MyPanel extends JPanel {
 		aufgabe=new JLabel();
 		center.add(aufgabe);
 		loesung=new JTextField(6);
-		loesung.addActionListener(control);
+		loesung.addActionListener(this.control);
 		center.add(loesung);
 		fehlermeldung=new JLabel();
 		fehlermeldung.setForeground(Color.RED);

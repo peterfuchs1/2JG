@@ -7,6 +7,10 @@ import java.awt.Polygon;
 import javax.swing.JPanel;
 
 public class Zeichnung extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8478405873889180276L;
 	public static final Color MYCOLOR=Color.BLUE;
 	private Color color; // Farbe der Zeichnung
 	private Polygon p;	//Alle Punkte des Polygons

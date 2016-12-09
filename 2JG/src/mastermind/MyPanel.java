@@ -1,8 +1,6 @@
 package mastermind;
 
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +15,11 @@ import javax.swing.text.DefaultCaret;
  * @version 2.3
  */
 public class MyPanel extends JPanel {
-//	Konstanten
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8005212575810267673L;
+	//	Konstanten
 	public final static int INPUT_FIELDS=5;
 	public final static int COMMENT_ROWS=5;
 	public final static int COMMENT_COLUMS=60;

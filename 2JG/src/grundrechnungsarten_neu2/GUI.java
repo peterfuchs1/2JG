@@ -19,7 +19,6 @@ public class GUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel,oben,unten;
 	private int anzahlVariable;
-	private int anzahlPossibilities;
 	private int start,stopp, inkrement;
 	private JTextField[] jtf;
 	private int ergebnis;
@@ -51,8 +50,6 @@ public class GUI extends JFrame implements ActionListener{
 	public GUI(int start, int stopp, int inkrement, String[] args) {
 		// Anzahl der Variablen
 		anzahlVariable=args.length+1;
-		// Anzahl der Möglichkeiten
-		anzahlPossibilities=stopp-start+1;
 		// Erstellt ein Array von Variablen
 		v=new ArrayList<Variable<Integer>>(anzahlVariable);
 		this.start=start;

@@ -1,17 +1,17 @@
 package sw;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 /**
  * Gui mittels Swing-Komponenten
  * @author Walter Rafeiner-Magor
  * @version 1.1
  */
 public class MyThirdSwingFrame extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7323380843443692560L;
 	public MyThirdSwingFrame() {
 		// Einen JPanel erzeugen
 		MyThirdJPanel jp= new MyThirdJPanel("Bitte für A und B reele Werte eingeben");

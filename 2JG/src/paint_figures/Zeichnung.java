@@ -68,6 +68,7 @@ public class Zeichnung extends JPanel {
 	 * @param g
 	 *            Graphics
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

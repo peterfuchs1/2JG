@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -17,12 +16,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Scanner;
-
 import javax.swing.AbstractButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -187,6 +183,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 		case POLYGON_FULL:
 			view.addDrawable(new MyPolygon(x, y, x, y, view.getForeground(),true));
 			break;
+		default:
 		}
 			
 		merkeKoordinaten(x, y);
@@ -289,6 +286,7 @@ public class MyController extends WindowAdapter implements ActionListener,
 				view.addDrawable(new Oval(lastX, lastY, x, y, view
 						.getForeground(), fullo));
 				break;
+			default:
 			}
 			merkeKoordinaten(x, y);
 		}

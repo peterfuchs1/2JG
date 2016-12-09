@@ -1,12 +1,11 @@
 package grundrechnungsarten;
 
 public class Berechnung {
-	private GUI gui;
 	Berechnung(){
 		String[] str={"+","*","-","/","+","*","-","/"}; // Operatoren
 		int start=0; // STartwerte
 		int stopp=20; // Stoppwerte
-		gui=new GUI(start,stopp,str);
+		new GUI(start,stopp,str);
 	}
 	/**
 	 * @param args

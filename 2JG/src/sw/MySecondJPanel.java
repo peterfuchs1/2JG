@@ -2,12 +2,10 @@ package sw;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +16,10 @@ import javax.swing.JTextField;
  *
  */
 public class MySecondJPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1020410610878176801L;
 	private JTextField jtfa,jtfb;	// Eingabefelder
 	private JButton jb;				// Button zur Berechnung
 	private JLabel jle;				// Ergebnisfeld

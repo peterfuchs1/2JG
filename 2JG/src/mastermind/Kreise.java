@@ -6,7 +6,11 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class Kreise extends JPanel {
-//	Konstanten
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//	Konstanten
 	public final static Color CORRECT=Color.BLACK;
 	public final static Color INCORRECT=Color.LIGHT_GRAY;
 	public final static Color WRONG_POSITION=Color.WHITE;
