@@ -14,7 +14,21 @@ public interface Printable extends Serializable{
 	 * Print-Methode für die Konsole
 	 * @param newLine soll eine neue Zeile danach ausgegeben werden?
 	 */
-	public void print(boolean newLine);
+	public default void print(boolean newLine){
+		System.out.print("Leider keine Implementierung vorhanden");
+		if(newLine) 
+			System.out.println();
+	}
+	/**
+	 * Methode testet den Parameter auf null
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isNull(String str) {
+		System.out.println("Interface Null Check");
+		return str == null ? true : "".equals(str) ? true : false;
+	}
 	/**
 	 * Gibt den Namen der Klasse zurueck
 	 * @return Name als String

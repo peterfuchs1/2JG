@@ -18,7 +18,9 @@ public class TestInterface {
 		printables[i]= new Schueler("Schmidt","Johannes",12,"5bHITI");
 		// Ausgabe aller Schueler und Lehrer
 		while(i>=0){
-			printables[i--].print(Printable.NEUE_ZEILE);
+			Printable p= printables[i--];
+			p.print(Printable.NEUE_ZEILE);
+			Printable.isNull(p.getKlassenName());
 		}	
 	}
 }
