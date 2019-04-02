@@ -46,8 +46,8 @@ public class MyPanel extends JPanel {
 		}
 	}
 	/**
-	 * Linie speichern und zeichnen
-	 * @param l
+	 * Drawable speichern und zeichnen
+	 * @param d speichert aktuelle Drawable in der history und zeichnet es anschlieﬂend
 	 */
 	public void addDrawable(Drawable d){
 		if (index < MAX_DRAWABLES){  		// Solange noch Platz im Array
@@ -87,7 +87,7 @@ public class MyPanel extends JPanel {
 	/**
 	 * Die Liste ist leer,
 	 * falls das erste Element null ist
-	 * @return
+	 * @return true, falls kein Element in der history vorhanden ist
 	 */
 	public boolean isEmtpy(){
 		return(drawables[0]==null);

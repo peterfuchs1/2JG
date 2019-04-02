@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author Walter Rafeiner-Magor
  * @version 1.0
  */
-public abstract class Drawable implements Serializable {
+public abstract class Drawable implements Element,Serializable {
 
 	/**
 	 * 
@@ -25,20 +25,23 @@ public abstract class Drawable implements Serializable {
 	protected boolean full=false;
 	/**
 	 * Konstruktor ohne Füllung
-	 * @param startX
-	 * @param startY
-	 * @param endX
-	 * @param endY
+	 * @param startX Startkoordinate x
+	 * @param startY Startkoordinate y
+	 * @param endX Endkoordinate x
+	 * @param endY Endkoordinate y
+	 * @param c Farbe
 	 */
 	public Drawable(int startX, int startY, int endX, int endY,Color c) {
 		this(startX, startY, endX, endY,c, false);
 	}
 	/**
 	 * Konstruktor mit Füllung
-	 * @param startX
-	 * @param startY
-	 * @param endX
-	 * @param endY
+	 * @param startX Startkoordinate x
+	 * @param startY Startkoordinate y
+	 * @param endX Endkoordinate x
+	 * @param endY Endkoordinate y
+	 * @param c Farbe
+	 * @param 
 	 */
 	public Drawable(int startX, int startY, int endX, int endY,Color c, boolean full) {
 		this.c=c;
@@ -49,17 +52,17 @@ public abstract class Drawable implements Serializable {
 	}
 	/**
 	 * Zeichnet eine Figur auf dem Graphics-Kontext
-	 * @param g
+	 * @param g Grafics-Kontext
 	 */
 	public abstract void draw(Graphics g);
 	/**
-	 * Erzeugt eine Kopie 
+	 * Erzeugt eine Kopie vom eigenen Objekt
 	 */
 	public abstract Drawable clone();
 	/**
 	 * Einen neuen Punkt hinzufügen
-	 * @param x
-	 * @param y
+	 * @param x x-Koordinate
+	 * @param y y-Koordinate
 	 */
 	public void addPoint(int x, int y){
 		p.addPoint(x, y);

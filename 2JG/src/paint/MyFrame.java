@@ -207,6 +207,9 @@ public class MyFrame extends JFrame
         this.disableEditMenu();
         this.setVisible(true);		// Fenster nun sichtbar
    }
+   /**
+    * versteckt die Edit-Funktionen 
+    */
    public void disableEditMenu(){
 	   itemDelete.setEnabled(false);
 	   itemRestore.setEnabled(false);
@@ -214,6 +217,9 @@ public class MyFrame extends JFrame
 	   itemHome.setEnabled(false);
 	   itemColor.setEnabled(false);
    }
+   /**
+    * aktiviert die Edit-Funktionen
+    */
    public void enableEditMenu(){
 	   itemDelete.setEnabled(true);
 	   itemRestore.setEnabled(true);
