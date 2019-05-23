@@ -7,6 +7,7 @@ public class A {
     B obj = new B();
     obj.set('a');
     A.method(obj);
+    
     System.out.println(obj.get());
   }
 }
