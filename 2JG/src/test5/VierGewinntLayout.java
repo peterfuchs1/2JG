@@ -30,7 +30,7 @@ public class VierGewinntLayout extends JPanel {
 		this.setLayout(new BorderLayout());
 		bSpalten=new JButton[spalten];
 		top=new JPanel(new GridLayout(1,spalten,30,30));
-		// Zusaätzlicher Abstand oben, links, unten und rechts
+		// Zusätzlicher Abstand oben, links, unten und rechts
 		top.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 		this.grafik=g;
 		JPanel bottom=new JPanel();
